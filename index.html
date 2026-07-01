@@ -5,12 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Love Kush Pranu — Cybersecurity Engineer</title>
   <meta name="description" content="NYU Cybersecurity MS student, Red Team Researcher, CTF Captain & OSIRIS Lab Research Coordinator. Based in Brooklyn, NY." />
+  <link rel="canonical" href="https://lutherleo.github.io/portfolio/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Love Kush Pranu — Cybersecurity Engineer" />
+  <meta property="og:description" content="NYU Cybersecurity MS student, Red Team Researcher & OSIRIS Lab Research Coordinator. Post-quantum crypto, kernel fuzzing, adversarial ML." />
+  <meta property="og:url" content="https://lutherleo.github.io/portfolio/" />
+  <meta property="og:image" content="https://lutherleo.github.io/portfolio/photo.jpeg" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Love Kush Pranu — Cybersecurity Engineer" />
+  <meta name="twitter:description" content="NYU Cybersecurity MS student, Red Team Researcher & OSIRIS Lab Research Coordinator." />
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <link rel="stylesheet" href="style.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js" defer></script>
 </head>
 <body>
 
@@ -37,6 +46,14 @@
       <li><a href="#experience">HISTORY</a></li>
       <li><a href="projects.html">PROJECTS</a></li>
       <li><a href="games.html">GAMES</a></li>
+      <li><a href="blog.html">BLOG</a></li>
+      <li class="nav-more">
+        <button class="nav-more-btn" aria-haspopup="true" aria-expanded="false">MORE</button>
+        <ul class="nav-drop">
+          <li><a href="interviews.html">INTERVIEWS</a></li>
+          <li><a href="hobbies.html">HOBBIES</a></li>
+        </ul>
+      </li>
       <li><a href="#contact">CONTACT</a></li>
     </ul>
     <button class="hamburger" id="hamburger" aria-label="Menu">
@@ -46,13 +63,16 @@
 
   <!-- Mobile Menu -->
   <div class="mob-menu" id="mobMenu">
-    <a href="#about"        class="mob-item">ABOUT</a>
-    <a href="#work"         class="mob-item">WORK</a>
-    <a href="#osiris"       class="mob-item">RESEARCH</a>
-    <a href="#experience"   class="mob-item">HISTORY</a>
-    <a href="projects.html" class="mob-item">PROJECTS</a>
-    <a href="games.html"    class="mob-item">GAMES</a>
-    <a href="#contact"      class="mob-item">CONTACT</a>
+    <a href="#about"          class="mob-item">ABOUT</a>
+    <a href="#work"           class="mob-item">WORK</a>
+    <a href="#osiris"         class="mob-item">RESEARCH</a>
+    <a href="#experience"     class="mob-item">HISTORY</a>
+    <a href="projects.html"   class="mob-item">PROJECTS</a>
+    <a href="games.html"      class="mob-item">GAMES</a>
+    <a href="blog.html"       class="mob-item">BLOG</a>
+    <a href="interviews.html" class="mob-item">INTERVIEWS</a>
+    <a href="hobbies.html"    class="mob-item">HOBBIES</a>
+    <a href="#contact"        class="mob-item">CONTACT</a>
   </div>
 
   <!-- ── HERO ─────────────────────────────────────── -->
@@ -91,6 +111,7 @@
       <span>SYSTEMS PROGRAMMING</span><span class="sep">·</span>
       <span>ADVERSARIAL ML</span><span class="sep">·</span>
       <span>OSIRIS LAB RESEARCH COORDINATOR</span><span class="sep">·</span>
+      <span>POST-QUANTUM CRYPTOGRAPHY</span><span class="sep">·</span>
       <span>KERNEL DEVELOPMENT</span><span class="sep">·</span>
       <span>PENETRATION TESTING</span><span class="sep">·</span>
       <span>RED TEAM OPS</span><span class="sep">·</span>
@@ -99,6 +120,7 @@
       <span>SYSTEMS PROGRAMMING</span><span class="sep">·</span>
       <span>ADVERSARIAL ML</span><span class="sep">·</span>
       <span>OSIRIS LAB RESEARCH COORDINATOR</span><span class="sep">·</span>
+      <span>POST-QUANTUM CRYPTOGRAPHY</span><span class="sep">·</span>
       <span>KERNEL DEVELOPMENT</span><span class="sep">·</span>
     </div>
   </div>
@@ -106,7 +128,7 @@
   <!-- ── ABOUT ──────────────────────────────────── -->
   <section class="about section" id="about">
     <div class="container">
-      <p class="sec-label">ABOUT ME</p>
+      <p class="sec-label"><span class="sec-num">01</span> ABOUT ME</p>
       <div class="about-grid">
         <div class="about-photo">
           <div class="photo-box">
@@ -140,7 +162,7 @@
             &amp; <em>adversarial defence.</em>
           </h2>
           <p class="about-p">I'm Love Kush Pranu — a cybersecurity engineer pursuing my MS at NYU Tandon School of Engineering (GPA 3.9/4.0), expected May 2026. I graduated from NIT Calicut with a B.Tech in EEE, where circuits and systems sparked a deep passion for digital security.</p>
-          <p class="about-p">I serve as <strong>Research Coordinator at OSIRIS Lab</strong> — NYU's premier security research group — managing 9 active research projects spanning kernel fuzzing, adversarial ML, CTF tooling, and IoT security. I'm also a CTF Team Member and help run world-class competitions like CSAW. I love going deep: from building a CHIP-8 emulator entirely in C to modifying the xv6 kernel with ASLR and W^X protections.</p>
+          <p class="about-p">I serve as <strong>Research Coordinator at OSIRIS Lab</strong> — NYU's premier security research group — managing 9 active research projects spanning kernel fuzzing, adversarial ML, CTF tooling, and IoT security. I'm also a CTF Team Member and help run world-class competitions like CSAW — I authored one of the CSAW CTF 2025 challenges. I love going deep: from building a post-quantum secure channel in C to modifying the xv6 kernel with ASLR and W^X protections.</p>
           <div class="about-tags">
             <span>CompTIA Security+</span>
             <span>CySA+</span>
@@ -182,7 +204,7 @@
   <!-- ── WHAT I DO ──────────────────────────────── -->
   <section class="services section" id="services">
     <div class="container">
-      <p class="sec-label">WHAT I DO</p>
+      <p class="sec-label"><span class="sec-num">02</span> WHAT I DO</p>
       <h2 class="services-title">I can help you with.</h2>
       <div class="services-list">
         <div class="service-row">
@@ -234,6 +256,7 @@
       <span>AWS</span><span>·</span><span>TensorFlow</span><span>·</span><span>TCP/IP · BGP · OSPF</span><span>·</span>
       <span>iptables</span><span>·</span><span>Ansible</span><span>·</span><span>xv6 Kernel</span><span>·</span>
       <span>SDL2</span><span>·</span><span>CleverHans</span><span>·</span><span>Go</span><span>·</span>
+      <span>liboqs</span><span>·</span><span>ML-KEM / Kyber</span><span>·</span>
       <span>Python</span><span>·</span><span>C / C++</span><span>·</span><span>Rust</span><span>·</span>
       <span>Bash</span><span>·</span><span>Kali Linux</span><span>·</span><span>Wireshark</span><span>·</span>
     </div>
@@ -242,11 +265,59 @@
   <!-- ── PROJECTS ────────────────────────────────── -->
   <section class="work section" id="work">
     <div class="container">
-      <p class="sec-label">SELECTED WORK</p>
+      <p class="sec-label"><span class="sec-num">03</span> SELECTED WORK</p>
       <h2 class="work-title">Featured <em>projects</em></h2>
     </div>
 
-    <!-- Project 1: Hot-Fuzz / Kernel Fuzzer -->
+    <!-- Project 1: pq-secure-comm -->
+    <div class="project-block">
+      <div class="proj-img">
+        <div class="proj-label-float">POST-QUANTUM CRYPTO</div>
+        <div class="proj-year-badge">2026</div>
+        <div class="neu-art neu-pq">
+          <div class="na-pq-channel">
+            <div class="na-pq-node">
+              <div class="na-term-bar"><span></span><span></span><span></span><span class="na-pq-name">ALICE</span></div>
+              <div class="na-term-body">
+                <div class="na-tl">$ ./pqchan --backend A</div>
+                <div class="na-tl accent">[*] ML-KEM-768 encaps</div>
+                <div class="na-tl">    sig: ML-DSA-65 ✓</div>
+                <div class="na-tl accent">[✓] shared secret ok</div>
+              </div>
+            </div>
+            <div class="na-pq-link">
+              <div class="na-pq-packet"></div>
+              <div class="na-pq-packet p2"></div>
+            </div>
+            <div class="na-pq-node">
+              <div class="na-term-bar"><span></span><span></span><span></span><span class="na-pq-name">BOB</span></div>
+              <div class="na-term-body">
+                <div class="na-tl">$ ./pqchan --listen</div>
+                <div class="na-tl accent">[*] decaps → K</div>
+                <div class="na-tl">    AES-256-GCM open ✓</div>
+                <div class="na-tl blink">▌</div>
+              </div>
+            </div>
+          </div>
+          <div class="na-pq-badges">
+            <span>ML-KEM-768</span><span>ML-DSA-65</span><span>HQC-192</span><span>SPHINCS+</span><span>AES-256-GCM</span>
+          </div>
+        </div>
+      </div>
+      <div class="proj-info container">
+        <div class="pi-left">
+          <h3 class="pi-title">pq-secure-comm<br/>Post-Quantum Channel</h3>
+          <p class="pi-sub">NYU CS6903 — Applied Cryptography</p>
+        </div>
+        <div class="pi-right">
+          <p class="pi-desc">A research-grade post-quantum secure channel in C, implemented twice with two different PQ families behind one pluggable backend interface — ML-KEM-768 (Kyber) + ML-DSA-65 (Dilithium) versus lattice-free HQC-192 + SLH-DSA (SPHINCS+) — both sealed with AES-256-GCM and HKDF-SHA256. Attacked and benchmarked under a unified Docker test harness at NIST PQ Category 3.</p>
+          <div class="pi-tags"><span>C</span><span>liboqs</span><span>ML-KEM / Kyber</span><span>Dilithium</span><span>SPHINCS+</span><span>AES-GCM</span><span>Docker</span></div>
+          <a href="https://github.com/lutherleo/Quantum-safe-Kyber-Crystals" target="_blank" class="link-arrow">View on GitHub ↗ <span></span></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Project 2: RaceFuzz -->
     <div class="project-block">
       <div class="proj-img">
         <div class="proj-label-float">KERNEL FUZZING</div>
@@ -255,7 +326,7 @@
           <div class="na-fuzz-terminal">
             <div class="na-term-bar"><span></span><span></span><span></span></div>
             <div class="na-term-body">
-              <div class="na-tl">$ ./hot-fuzz --target kernel</div>
+              <div class="na-tl">$ ./racefuzz --target net/</div>
               <div class="na-tl accent">[*] Fuzzing TCP/IP stack...</div>
               <div class="na-tl">    corpus: 2847 inputs</div>
               <div class="na-tl accent">[!] Race condition found!</div>
@@ -268,12 +339,12 @@
       </div>
       <div class="proj-info container">
         <div class="pi-left">
-          <h3 class="pi-title">hot-fuzz<br/>Kernel Fuzzer</h3>
+          <h3 class="pi-title">RaceFuzz<br/>Kernel Fuzzer</h3>
           <p class="pi-sub">OSIRIS Lab — Kernel Network Stack</p>
         </div>
         <div class="pi-right">
-          <p class="pi-desc">Semantic fuzzing framework targeting the Linux kernel's network stack for race conditions — part of the OSIRIS Lab research initiative. Collaborative fork of ChinmayShringi/hot-fuzz, extended with custom Go-based corpus generation and race condition detection heuristics.</p>
-          <div class="pi-tags"><span>Go</span><span>Kernel Fuzzing</span><span>Race Conditions</span><span>TCP/IP Stack</span><span>OSIRIS Lab</span></div>
+          <p class="pi-desc">Semantic fuzzing framework targeting the Linux kernel's network stack for race conditions — the OSIRIS Lab research project I lead. Coverage-guided mutation with custom Go-based corpus generation, concurrency analysis, and race condition detection heuristics.</p>
+          <div class="pi-tags"><span>Go</span><span>C</span><span>Kernel Fuzzing</span><span>Race Conditions</span><span>TCP/IP Stack</span><span>OSIRIS Lab</span></div>
           <a href="https://github.com/lutherleo" target="_blank" class="link-arrow">View on GitHub ↗ <span></span></a>
         </div>
       </div>
@@ -440,7 +511,7 @@
   <!-- ── OSIRIS LAB RESEARCH ────────────────────── -->
   <section class="osiris section" id="osiris">
     <div class="container">
-      <p class="sec-label">RESEARCH COORDINATION</p>
+      <p class="sec-label"><span class="sec-num">04</span> RESEARCH COORDINATION</p>
       <div class="osiris-header">
         <div>
           <h2 class="osiris-title">OSIRIS Lab — <em>Research Coordinator</em></h2>
@@ -576,7 +647,7 @@
   <!-- ── EXPERIENCE / HISTORY ───────────────────── -->
   <section class="experience section" id="experience">
     <div class="container">
-      <p class="sec-label">HISTORY</p>
+      <p class="sec-label"><span class="sec-num">05</span> HISTORY</p>
       <div class="exp-list">
         <div class="exp-row">
           <span class="exp-year">NOW</span>
@@ -633,10 +704,11 @@
   <!-- ── ACHIEVEMENTS ───────────────────────────── -->
   <section class="achievements section">
     <div class="container">
-      <p class="sec-label">ACHIEVEMENTS &amp; HIGHLIGHTS</p>
+      <p class="sec-label"><span class="sec-num">06</span> ACHIEVEMENTS &amp; HIGHLIGHTS</p>
       <div class="ach-list">
         <blockquote class="ach-quote">"MITRE eCTF 2025 — Successfully entered the Attack Phase; one of the most prestigious embedded security competitions in the United States."</blockquote>
-        <blockquote class="ach-quote">"Co-ran CSAW CTF 2025 Qualifiers with OSIRIS Lab at NYU — one of the world's largest student-run cybersecurity competitions, hosting thousands of players across dozens of regions globally."</blockquote>
+        <blockquote class="ach-quote">"Authored a challenge for CSAW CTF 2025 — designed, built, and deployed for thousands of players in one of the world's largest student-run cybersecurity competitions."</blockquote>
+        <blockquote class="ach-quote">"Co-ran CSAW CTF 2025 Qualifiers with OSIRIS Lab at NYU — challenge hosting, platform infrastructure, and moderation across dozens of regions globally."</blockquote>
         <blockquote class="ach-quote">"Organised Hack@NYU at Microsoft NYC — managing logistics, technical mentorship and stakeholder coordination across Pathway and Sui-based projects."</blockquote>
         <blockquote class="ach-quote">"Published research on adaptive distance relay coordination at NIT Calicut, improving power system reliability by 15%."</blockquote>
       </div>
@@ -646,7 +718,7 @@
   <!-- ── SKILLS GRID ────────────────────────────── -->
   <section class="skillgrid-sec section">
     <div class="container">
-      <p class="sec-label">TECH STACK</p>
+      <p class="sec-label"><span class="sec-num">07</span> TECH STACK</p>
       <div class="skillgrid">
         <div class="sg-col">
           <h4>Networking &amp; Security</h4>
@@ -704,48 +776,48 @@
   <!-- ── CONTACT ────────────────────────────────── -->
   <section class="contact section" id="contact">
     <div class="container">
-      <p class="sec-label">GET IN TOUCH</p>
+      <p class="sec-label"><span class="sec-num">08</span> GET IN TOUCH</p>
       <h2 class="contact-title">
         Let's secure<br/>something <em>great</em> together.
       </h2>
       <div class="contact-grid">
         <div class="contact-left">
-          <p>Whether you have a security challenge, research collaboration, CTF opportunity, or just want to talk — I'm always open to interesting conversations.</p>
-          <div class="contact-links">
-            <a href="mailto:lp2989@nyu.edu" class="c-link">
-              <span class="cl-label">Email</span>
-              <span class="cl-val">lp2989@nyu.edu <span>↗</span></span>
-            </a>
-            <a href="https://github.com/lutherleo" target="_blank" class="c-link">
-              <span class="cl-label">GitHub</span>
-              <span class="cl-val">github.com/lutherleo <span>↗</span></span>
-            </a>
-            <a href="https://www.linkedin.com/in/lovekush-pranu" target="_blank" class="c-link">
-              <span class="cl-label">LinkedIn</span>
-              <span class="cl-val">linkedin.com/in/lovekush-pranu <span>↗</span></span>
-            </a>
-            <div class="c-link">
-              <span class="cl-label">Phone</span>
-              <span class="cl-val">929-414-7472</span>
-            </div>
-            <div class="c-link">
-              <span class="cl-label">Location</span>
-              <span class="cl-val">Brooklyn, New York · Open to Remote</span>
-            </div>
+          <p>Whether you have a security challenge, research collaboration, CTF opportunity, or just want to talk — I'm always open to interesting conversations. The fastest way to reach me is email.</p>
+          <div class="contact-cta">
+            <a href="mailto:lp2989@nyu.edu" class="email-big">lp2989@nyu.edu</a>
+            <button class="btn-copy" id="copyEmail" type="button">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <span>Copy address</span>
+            </button>
+            <p class="contact-note">// usually replies within 24 hours</p>
           </div>
         </div>
-        <form class="contact-form" id="contactForm">
-          <div class="cf-row">
-            <div class="cf-group"><input type="text" name="name" placeholder="Your name" required /></div>
-            <div class="cf-group"><input type="email" name="email" placeholder="your@email.com" required /></div>
+        <div class="contact-links">
+          <a href="mailto:lp2989@nyu.edu" class="c-link">
+            <span class="cl-label">Email</span>
+            <span class="cl-val">lp2989@nyu.edu <span>↗</span></span>
+          </a>
+          <a href="https://github.com/lutherleo" target="_blank" class="c-link">
+            <span class="cl-label">GitHub</span>
+            <span class="cl-val">github.com/lutherleo <span>↗</span></span>
+          </a>
+          <a href="https://www.linkedin.com/in/lovekush-pranu" target="_blank" class="c-link">
+            <span class="cl-label">LinkedIn</span>
+            <span class="cl-val">linkedin.com/in/lovekush-pranu <span>↗</span></span>
+          </a>
+          <a href="https://medium.com/@lovekush.pranu" target="_blank" class="c-link">
+            <span class="cl-label">Medium</span>
+            <span class="cl-val">medium.com/@lovekush.pranu <span>↗</span></span>
+          </a>
+          <div class="c-link">
+            <span class="cl-label">Phone</span>
+            <span class="cl-val">929-414-7472</span>
           </div>
-          <div class="cf-group"><input type="text" name="subject" placeholder="Subject" /></div>
-          <div class="cf-group"><textarea name="message" rows="5" placeholder="Tell me about your project or opportunity..." required></textarea></div>
-          <button type="submit" class="btn-send">
-            <span>Send Message</span>
-            <span class="send-arrow">→</span>
-          </button>
-        </form>
+          <div class="c-link">
+            <span class="cl-label">Location</span>
+            <span class="cl-val">Brooklyn, New York · Open to Remote</span>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -755,15 +827,19 @@
     <div class="container">
       <div class="footer-inner">
         <span class="footer-logo">LKP.</span>
-        <span class="footer-copy">© 2025 Love Kush Pranu — Cybersecurity Engineer · NYU Tandon '26 · OSIRIS Lab</span>
+        <span class="footer-copy">© <span data-year>2026</span> Love Kush Pranu — Cybersecurity Engineer · NYU Tandon '26 · OSIRIS Lab</span>
         <div class="footer-socials">
           <a href="https://github.com/lutherleo" target="_blank">GH</a>
           <a href="https://www.linkedin.com/in/lovekush-pranu" target="_blank">LI</a>
+          <a href="blog.html">BLOG</a>
+          <a href="interviews.html">INTERVIEWS</a>
+          <a href="hobbies.html">HOBBIES</a>
         </div>
       </div>
     </div>
   </footer>
 
+  <script src="site.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

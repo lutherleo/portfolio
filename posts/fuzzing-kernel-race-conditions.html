@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hunting Race Conditions in the Kernel Network Stack — Love Kush Pranu</title>
+  <meta name="description" content="Why race conditions are the bugs fuzzers are worst at finding, and what semantic fuzzing means — notes from RaceFuzz, the OSIRIS Lab project I lead." />
+  <link rel="canonical" href="https://lutherleo.github.io/portfolio/posts/fuzzing-kernel-race-conditions.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Hunting Race Conditions in the Kernel Network Stack" />
+  <meta property="og:description" content="Coverage-guided fuzzers are great at crashes and terrible at races. Notes from RaceFuzz on making concurrency bugs reproducible." />
+  <meta property="og:url" content="https://lutherleo.github.io/portfolio/posts/fuzzing-kernel-race-conditions.html" />
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  <link rel="stylesheet" href="../style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <nav class="nav scrolled" id="nav" data-solid>
+    <a href="../index.html" class="nav-logo">Love Kush Pranu</a>
+    <ul class="nav-links">
+      <li><a href="../index.html#about">ABOUT</a></li>
+      <li><a href="../index.html#work">WORK</a></li>
+      <li><a href="../index.html#osiris">RESEARCH</a></li>
+      <li><a href="../index.html#experience">HISTORY</a></li>
+      <li><a href="../projects.html">PROJECTS</a></li>
+      <li><a href="../games.html">GAMES</a></li>
+      <li><a href="../blog.html" class="active">BLOG</a></li>
+      <li class="nav-more">
+        <button class="nav-more-btn" aria-haspopup="true" aria-expanded="false">MORE</button>
+        <ul class="nav-drop">
+          <li><a href="../interviews.html">INTERVIEWS</a></li>
+          <li><a href="../hobbies.html">HOBBIES</a></li>
+        </ul>
+      </li>
+      <li><a href="../index.html#contact">CONTACT</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="mob-menu" id="mobMenu">
+    <a href="../index.html#about"      class="mob-item">ABOUT</a>
+    <a href="../index.html#work"       class="mob-item">WORK</a>
+    <a href="../projects.html"         class="mob-item">PROJECTS</a>
+    <a href="../games.html"            class="mob-item">GAMES</a>
+    <a href="../blog.html"             class="mob-item">BLOG</a>
+    <a href="../index.html#contact"    class="mob-item">CONTACT</a>
+  </div>
+
+  <section class="section" style="background:var(--bg-2);padding-top:calc(var(--nav-h) + 4rem);">
+    <div class="article-wrap article">
+      <a href="../blog.html" class="article-back">← ALL POSTS</a>
+      <span class="article-eye">KERNEL FUZZING · OSIRIS LAB</span>
+      <h1 class="article-title">Hunting race conditions in the <em>kernel network stack.</em></h1>
+      <div class="article-meta">
+        <span>Love Kush Pranu</span> · <span>Jul 2026</span> · <span>~6 min read</span>
+      </div>
+
+      <p>Most fuzzing tutorials show you the same win: throw malformed bytes at a parser, watch it segfault, ship the crash. Coverage-guided fuzzers like AFL and syzkaller are genuinely spectacular at that. But there's an entire class of bug they're structurally bad at finding — the kind that only appears when two things happen in the wrong order. That's the problem <strong>RaceFuzz</strong>, the OSIRIS Lab project I lead, exists to attack: race conditions in the Linux kernel's network stack.</p>
+
+      <h2>Why races are different</h2>
+
+      <p>A memory-safety bug is a property of a single input. Feed the same bytes twice, get the same crash twice. That reproducibility is exactly what makes coverage-guided fuzzing work — the fuzzer can attribute new coverage to a specific input and evolve it.</p>
+
+      <p>A race condition is a property of an <em>interleaving</em>. The bug isn't in any one syscall; it's in the fact that syscall X on CPU 0 touched a structure that syscall Y on CPU 1 was halfway through modifying. Run the same two syscalls again and the scheduler might interleave them differently, and the bug vanishes. To a normal fuzzer, a race looks like noise: coverage that appears and disappears for no attributable reason.</p>
+
+      <blockquote>You can't mutate your way to a race the way you mutate your way to a crash. The input space isn't bytes — it's schedules.</blockquote>
+
+      <h2>What "semantic" fuzzing means here</h2>
+
+      <p>The network stack makes this especially hard because it's stateful and concurrent by design. A socket has a lifecycle — created, bound, connected, shut down, closed — and the interesting races live in the transitions: closing a socket while another thread is mid-send, teardown racing against an incoming packet, two threads racing on the same <code>sk_buff</code>.</p>
+
+      <p>Purely random syscall soup rarely reaches those transitions. So RaceFuzz is <em>semantic</em> in two senses:</p>
+
+      <ul>
+        <li><strong>Structured corpus generation.</strong> Instead of random syscall numbers, we generate sequences that respect the protocol state machine — programs that actually get a socket into a connected state before trying to race its teardown. This is where the Go-based corpus generator earns its keep: it understands enough of the network stack's grammar to produce sequences that reach deep states.</li>
+        <li><strong>Concurrency-aware scheduling.</strong> Two candidate sequences get pinned to separate CPUs and their execution windows deliberately overlapped, then we perturb the interleaving to widen the race window rather than hoping the scheduler cooperates.</li>
+      </ul>
+
+      <h2>The reproducibility problem</h2>
+
+      <p>Finding a race once is almost worthless. If you can't reproduce it, you can't bisect it, you can't report it, and you can't prove your fix worked. Half the actual engineering is making a race deterministic <em>after</em> you've found it — capturing the interleaving, not just the inputs, and replaying it. A race you can trigger 1-in-10,000 times is a rumor; a race you can trigger on command is a bug report.</p>
+
+      <p>Coverage still matters, but we treat it as a map of where the state machine can go, not as the fitness function itself. The fitness function has to reward reaching concurrency-relevant states and widening race windows — otherwise the fuzzer optimizes for breadth of coverage and never lingers where races actually live.</p>
+
+      <h2>Why the network stack, specifically</h2>
+
+      <ul>
+        <li>It's remotely reachable, so its bugs have the highest blast radius of any kernel subsystem.</li>
+        <li>It's deeply concurrent — softirqs, timers, and multiple user threads all touch shared socket state.</li>
+        <li>It has a rich, well-documented state machine, which is exactly what semantic corpus generation needs to exploit.</li>
+      </ul>
+
+      <p>If you're into kernel security, systems fuzzing, or just enjoy arguing about memory ordering, this is the kind of problem I find endlessly fun — it sits right at the seam between systems programming and security research. Happy to talk about it: <a href="../index.html#contact" style="color:var(--accent);">get in touch</a>.</p>
+
+      <div class="article-footer">
+        <a href="../blog.html" class="article-back" style="margin-bottom:0;">← ALL POSTS</a>
+        <a href="../index.html#contact" class="btn-resume">Get In Touch</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <span class="footer-logo">LKP.</span>
+        <span class="footer-copy">© <span data-year>2026</span> Love Kush Pranu — Cybersecurity Engineer · NYU Tandon '26 · OSIRIS Lab</span>
+        <div class="footer-socials">
+          <a href="https://github.com/lutherleo" target="_blank">GH</a>
+          <a href="https://www.linkedin.com/in/lovekush-pranu" target="_blank">LI</a>
+          <a href="../blog.html">BLOG</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../site.js"></script>
+</body>
+</html>

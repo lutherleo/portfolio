@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>What Writing a CSAW CTF Challenge Taught Me — Love Kush Pranu</title>
+  <meta name="description" content="Solving CTF challenges makes you a better attacker. Writing one makes you a better engineer. Lessons from authoring a challenge for CSAW CTF 2025." />
+  <link rel="canonical" href="https://lutherleo.github.io/portfolio/posts/writing-a-csaw-ctf-challenge.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="What Writing a CSAW CTF Challenge Taught Me About Breaking Things" />
+  <meta property="og:description" content="Difficulty curves, unintended solutions, and running infra for thousands of players — lessons from authoring a CSAW CTF challenge." />
+  <meta property="og:url" content="https://lutherleo.github.io/portfolio/posts/writing-a-csaw-ctf-challenge.html" />
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  <link rel="stylesheet" href="../style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <nav class="nav scrolled" id="nav" data-solid>
+    <a href="../index.html" class="nav-logo">Love Kush Pranu</a>
+    <ul class="nav-links">
+      <li><a href="../index.html#about">ABOUT</a></li>
+      <li><a href="../index.html#work">WORK</a></li>
+      <li><a href="../index.html#osiris">RESEARCH</a></li>
+      <li><a href="../index.html#experience">HISTORY</a></li>
+      <li><a href="../projects.html">PROJECTS</a></li>
+      <li><a href="../games.html">GAMES</a></li>
+      <li><a href="../blog.html" class="active">BLOG</a></li>
+      <li class="nav-more">
+        <button class="nav-more-btn" aria-haspopup="true" aria-expanded="false">MORE</button>
+        <ul class="nav-drop">
+          <li><a href="../interviews.html">INTERVIEWS</a></li>
+          <li><a href="../hobbies.html">HOBBIES</a></li>
+        </ul>
+      </li>
+      <li><a href="../index.html#contact">CONTACT</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="mob-menu" id="mobMenu">
+    <a href="../index.html#about"      class="mob-item">ABOUT</a>
+    <a href="../index.html#work"       class="mob-item">WORK</a>
+    <a href="../projects.html"         class="mob-item">PROJECTS</a>
+    <a href="../games.html"            class="mob-item">GAMES</a>
+    <a href="../blog.html"             class="mob-item">BLOG</a>
+    <a href="../index.html#contact"    class="mob-item">CONTACT</a>
+  </div>
+
+  <section class="section" style="background:var(--bg-2);padding-top:calc(var(--nav-h) + 4rem);">
+    <div class="article-wrap article">
+      <a href="../blog.html" class="article-back">← ALL POSTS</a>
+      <span class="article-eye">CTF · CSAW 2025</span>
+      <h1 class="article-title">What writing a CTF challenge taught me about <em>breaking things.</em></h1>
+      <div class="article-meta">
+        <span>Love Kush Pranu</span> · <span>Jul 2026</span> · <span>~5 min read</span>
+      </div>
+
+      <p>I've played a lot of CTF. Solving challenges is how I got into security, and it's still my favorite way to stay sharp. But last year, with OSIRIS Lab, I did something different: I <strong>authored</strong> a challenge for CSAW CTF 2025 — one of the largest student-run security competitions in the world, with thousands of players across dozens of regions. Being on the other side of the flag changed how I think about the whole game.</p>
+
+      <h2>Solving is narrow. Authoring is total.</h2>
+
+      <p>When you solve a challenge, you only have to find <em>one</em> path from the prompt to the flag. When you author one, you're responsible for <em>every</em> path — including the ones you didn't intend to exist. That inversion is the entire lesson. A solver asks "how do I get in?" An author has to ask "what are all the ways in, and which of them do I actually want?"</p>
+
+      <blockquote>The first draft of any challenge has three solutions. You designed one of them. The other two are the ones that will ruin your night.</blockquote>
+
+      <h2>Unintended solutions are a design failure, not bad luck</h2>
+
+      <p>The nightmare of every author is the <em>unintended solve</em> — a team flags your challenge in ten minutes using a trick that skips the entire mechanism you built. It feels like getting robbed. But it's not luck; it's a leak in your threat model. Some of the ways it happens:</p>
+
+      <ul>
+        <li>A file permission you left too loose, so the flag is just readable.</li>
+        <li>A library function that does something you forgot it could do.</li>
+        <li>A guessy step where the "intended" insight is one of five equally plausible guesses.</li>
+        <li>Infrastructure leaking — a debug endpoint, a verbose error, a stack trace with a path in it.</li>
+      </ul>
+
+      <p>Closing these means attacking your own challenge as adversarially as the best team will. You write the intended solve script, sure — but then you spend more time trying to <em>skip</em> it. That mindset, "assume the smartest possible attacker with none of my assumptions," is exactly what you want when you're defending real systems. Authoring is threat-modeling with a live-fire test at the end.</p>
+
+      <h2>Difficulty is a curve you draw on purpose</h2>
+
+      <p>A good challenge has a shape. The first 20% should teach the player what kind of problem they're in. The middle should be the actual work. The last step should be a satisfying click, not a brick wall or an anticlimax. Get the curve wrong and you either get zero solves (frustrating, wasted challenge) or a thousand solves in the first hour (no signal, no fun).</p>
+
+      <p>Calibrating that is genuinely hard because <strong>you are the worst possible judge of your own challenge's difficulty</strong> — you know the answer. This is why playtesting by someone who hasn't seen it is non-negotiable. The gap between "obvious to me" and "obvious to a fresh solver" is where every difficulty misjudgment lives.</p>
+
+      <h2>Infrastructure is the invisible half</h2>
+
+      <p>Beyond authoring, co-running the qualifiers meant the other half of the job: hosting challenges, keeping the platform up, and moderating at scale while thousands of people actively try to break everything in front of them — sometimes including your infrastructure rather than your challenges. A CTF is a distributed system under adversarial load by definition. Isolation between challenge containers, rate limiting, and watching for teams DoS-ing a service instead of solving it are all part of shipping the event.</p>
+
+      <h2>What it changed</h2>
+
+      <ul>
+        <li>I read code differently now — I look for the unintended path first, because that's the one attackers take.</li>
+        <li>I trust playtesting over my own intuition about difficulty and clarity.</li>
+        <li>I think about the infrastructure around a vulnerability, not just the vulnerability, because in the real world the infra is part of the attack surface.</li>
+      </ul>
+
+      <p>Solving CTF made me a better attacker. Authoring one made me a better engineer. If you run a lab or a competition and want someone who's been on both sides of the flag, <a href="../index.html#contact" style="color:var(--accent);">let's talk</a>.</p>
+
+      <div class="article-footer">
+        <a href="../blog.html" class="article-back" style="margin-bottom:0;">← ALL POSTS</a>
+        <a href="../index.html#contact" class="btn-resume">Get In Touch</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <span class="footer-logo">LKP.</span>
+        <span class="footer-copy">© <span data-year>2026</span> Love Kush Pranu — Cybersecurity Engineer · NYU Tandon '26 · OSIRIS Lab</span>
+        <div class="footer-socials">
+          <a href="https://github.com/lutherleo" target="_blank">GH</a>
+          <a href="https://www.linkedin.com/in/lovekush-pranu" target="_blank">LI</a>
+          <a href="../blog.html">BLOG</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../site.js"></script>
+</body>
+</html>

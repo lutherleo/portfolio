@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Building the Same Secure Channel Twice — Love Kush Pranu</title>
+  <meta name="description" content="Why I implemented one encrypted channel with two different post-quantum families — Kyber + Dilithium vs HQC + SPHINCS+ — and what attacking my own protocol taught me." />
+  <link rel="canonical" href="https://lutherleo.github.io/portfolio/posts/building-the-same-secure-channel-twice.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Building the Same Secure Channel Twice: Notes from a Post-Quantum Project" />
+  <meta property="og:description" content="Kyber + Dilithium vs HQC + SPHINCS+ behind one interface — lessons in crypto-agility from attacking my own protocol." />
+  <meta property="og:url" content="https://lutherleo.github.io/portfolio/posts/building-the-same-secure-channel-twice.html" />
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  <link rel="stylesheet" href="../style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <nav class="nav scrolled" id="nav" data-solid>
+    <a href="../index.html" class="nav-logo">Love Kush Pranu</a>
+    <ul class="nav-links">
+      <li><a href="../index.html#about">ABOUT</a></li>
+      <li><a href="../index.html#work">WORK</a></li>
+      <li><a href="../index.html#osiris">RESEARCH</a></li>
+      <li><a href="../index.html#experience">HISTORY</a></li>
+      <li><a href="../projects.html">PROJECTS</a></li>
+      <li><a href="../games.html">GAMES</a></li>
+      <li><a href="../blog.html" class="active">BLOG</a></li>
+      <li class="nav-more">
+        <button class="nav-more-btn" aria-haspopup="true" aria-expanded="false">MORE</button>
+        <ul class="nav-drop">
+          <li><a href="../interviews.html">INTERVIEWS</a></li>
+          <li><a href="../hobbies.html">HOBBIES</a></li>
+        </ul>
+      </li>
+      <li><a href="../index.html#contact">CONTACT</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="mob-menu" id="mobMenu">
+    <a href="../index.html#about"      class="mob-item">ABOUT</a>
+    <a href="../index.html#work"       class="mob-item">WORK</a>
+    <a href="../projects.html"         class="mob-item">PROJECTS</a>
+    <a href="../games.html"            class="mob-item">GAMES</a>
+    <a href="../blog.html"             class="mob-item">BLOG</a>
+    <a href="../index.html#contact"    class="mob-item">CONTACT</a>
+  </div>
+
+  <section class="section" style="background:var(--bg-2);padding-top:calc(var(--nav-h) + 4rem);">
+    <div class="article-wrap article">
+      <a href="../blog.html" class="article-back">← ALL POSTS</a>
+      <span class="article-eye">POST-QUANTUM CRYPTOGRAPHY</span>
+      <h1 class="article-title">Building the same secure channel <em>twice.</em></h1>
+      <div class="article-meta">
+        <span>Love Kush Pranu</span> · <span>Jul 2026</span> · <span>~7 min read</span> ·
+        <a href="https://github.com/lutherleo/Quantum-safe-Kyber-Crystals" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none;">source on GitHub ↗</a>
+      </div>
+
+      <p>For an applied cryptography project at NYU (CS6903), I built an end-to-end encrypted channel between two endpoints — the classic Alice ↔ Bob setup — with one twist: I implemented it <strong>twice</strong>, with two completely different families of post-quantum primitives, and then attacked and benchmarked both under the same test harness.</p>
+
+      <p>The premise sounds academic until you remember what post-quantum migration actually looks like in the real world. NIST has standardized ML-KEM (Kyber) and ML-DSA (Dilithium), and almost everyone is deploying exactly those. Which means almost everyone now shares a single point of cryptanalytic failure: <strong>structured lattices</strong>. If lattices fall, they all fall together. The interesting engineering question isn't "can I integrate Kyber?" — it's "how expensive is it to <em>not</em> bet everything on one mathematical assumption?"</p>
+
+      <h2>The two backends</h2>
+
+      <p>Both channels target NIST post-quantum security Category 3 and share the same symmetric layer. Only the asymmetric primitives differ:</p>
+
+      <ul>
+        <li><strong>Scheme A (lattice):</strong> ML-KEM-768 (Kyber) for key encapsulation, ML-DSA-65 (Dilithium) for signatures.</li>
+        <li><strong>Scheme B (lattice-free):</strong> HQC-192 — a code-based KEM — plus SLH-DSA-SHA2-192s (SPHINCS+), a hash-based signature scheme.</li>
+        <li><strong>Shared:</strong> AES-256-GCM for authenticated encryption, HKDF-SHA256 for key derivation, liboqs underneath.</li>
+      </ul>
+
+      <p>Everything hides behind one <code>pq_backend_t</code> interface in C, selected at runtime with <code>--backend A</code> or <code>--backend B</code>. That interface is the actual deliverable, in my opinion. Getting it right forced every protocol decision — transcript hashing, key schedules, message framing — to be primitive-agnostic. That's what crypto-agility means in practice: not "we can swap libraries," but "nothing above the KEM knows or cares which KEM it is."</p>
+
+      <h2>What the benchmarks actually said</h2>
+
+      <p>Running both backends through the same Docker harness makes the trade-offs concrete rather than theoretical:</p>
+
+      <ul>
+        <li><strong>Kyber/Dilithium is fast and small.</strong> Handshakes complete in what feels like classical-crypto time. This is why it won: the performance cost of the lattice bet is nearly zero.</li>
+        <li><strong>SPHINCS+ signatures are enormous</strong> — on the order of 16KB at Category 3 — and slow to generate. You feel every signature in the handshake transcript.</li>
+        <li><strong>HQC sits in between</strong>: bigger ciphertexts than Kyber, but nothing like the SPHINCS+ penalty.</li>
+      </ul>
+
+      <p>The takeaway isn't "Scheme B is bad." It's that the diversified channel costs you a constant factor on the handshake and almost nothing after it, because the symmetric layer dominates steady-state traffic. For a long-lived session, mathematical diversity is close to free. For handshake-heavy workloads, it's a real bill.</p>
+
+      <h2>Attacking my own protocol</h2>
+
+      <p>The project required attack demos, and this is where most of my actual learning happened. Three classes of attacks, run as automated tests (<code>make test</code> fails the build if any attack <em>succeeds</em>):</p>
+
+      <ol>
+        <li><strong>Replay:</strong> capture a legitimate handshake message and replay it later. Defeated by nonces bound into the transcript hash — but my first draft bound them in the wrong order, and the test caught a real (if narrow) reflection issue.</li>
+        <li><strong>Downgrade:</strong> a MITM strips the stronger backend from negotiation. Defeated by signing the full negotiation transcript, not just the chosen suite. This is the exact bug class behind TLS's historical downgrade attacks, and it's shockingly easy to reintroduce.</li>
+        <li><strong>Tampering:</strong> bit-flips in AES-GCM ciphertexts. GCM's tag catches these — but only if you actually check it before touching the plaintext, and only if your nonce handling never repeats. Nonce discipline in C is a hygiene problem, not a math problem.</li>
+      </ol>
+
+      <blockquote>The primitives were never the weak point. Every bug I found lived in the protocol glue — ordering, framing, negotiation — the parts no NIST competition evaluates.</blockquote>
+
+      <h2>What I'd tell someone starting a PQ migration</h2>
+
+      <ul>
+        <li>Design the abstraction first. If your KEM interface leaks Kyber-specific assumptions (key sizes, failure modes), you haven't migrated — you've hard-coded a different algorithm.</li>
+        <li>Budget for signature size, not just speed. Hash-based signatures change your message framing, your MTU story, and your handshake latency.</li>
+        <li>Write the attacks as CI tests. A protocol property you don't continuously test is a property you don't have.</li>
+        <li>Hybrid/diversified deployments are cheaper than they look — the symmetric layer amortizes almost everything.</li>
+      </ul>
+
+      <p>The full implementation, attack suite, and benchmark harness are on GitHub — it runs anywhere Docker does: <a href="https://github.com/lutherleo/Quantum-safe-Kyber-Crystals" target="_blank" rel="noopener" style="color:var(--accent);">lutherleo/Quantum-safe-Kyber-Crystals</a>.</p>
+
+      <div class="article-footer">
+        <a href="../blog.html" class="article-back" style="margin-bottom:0;">← ALL POSTS</a>
+        <a href="../index.html#contact" class="btn-resume">Get In Touch</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <span class="footer-logo">LKP.</span>
+        <span class="footer-copy">© <span data-year>2026</span> Love Kush Pranu — Cybersecurity Engineer · NYU Tandon '26 · OSIRIS Lab</span>
+        <div class="footer-socials">
+          <a href="https://github.com/lutherleo" target="_blank">GH</a>
+          <a href="https://www.linkedin.com/in/lovekush-pranu" target="_blank">LI</a>
+          <a href="../blog.html">BLOG</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../site.js"></script>
+</body>
+</html>

@@ -4,19 +4,26 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Games — Love Kush Pranu</title>
-  <meta name="description" content="Browser games by Love Kush Pranu — Packet Snake and Hex Breach." />
+  <meta name="description" content="Browser games by Love Kush Pranu — Packet Snake, Hex Breach, Firewall Breakout, Port Invaders, Logic Bomb Sweeper and Memory Leak." />
+  <link rel="canonical" href="https://lutherleo.github.io/portfolio/games.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Games — Love Kush Pranu" />
+  <meta property="og:description" content="Six browser games built with pure HTML5 Canvas — everything is green and vaguely threatening." />
+  <meta property="og:url" content="https://lutherleo.github.io/portfolio/games.html" />
+  <meta property="og:image" content="https://lutherleo.github.io/portfolio/photo.jpeg" />
+  <meta name="twitter:card" content="summary" />
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <link rel="stylesheet" href="style.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
 </head>
 <body>
 
   <div class="cursor" id="cursor"></div>
   <div class="cursor-ring" id="cursorRing"></div>
 
-  <nav class="nav scrolled" id="nav">
+  <nav class="nav scrolled" id="nav" data-solid>
     <a href="index.html" class="nav-logo">Love Kush Pranu</a>
     <ul class="nav-links">
       <li><a href="index.html#about">ABOUT</a></li>
@@ -24,7 +31,15 @@
       <li><a href="index.html#osiris">RESEARCH</a></li>
       <li><a href="index.html#experience">HISTORY</a></li>
       <li><a href="projects.html">PROJECTS</a></li>
-      <li><a href="games.html" style="color:var(--accent)">GAMES</a></li>
+      <li><a href="games.html" class="active">GAMES</a></li>
+      <li><a href="blog.html">BLOG</a></li>
+      <li class="nav-more">
+        <button class="nav-more-btn" aria-haspopup="true" aria-expanded="false">MORE</button>
+        <ul class="nav-drop">
+          <li><a href="interviews.html">INTERVIEWS</a></li>
+          <li><a href="hobbies.html">HOBBIES</a></li>
+        </ul>
+      </li>
       <li><a href="index.html#contact">CONTACT</a></li>
     </ul>
     <button class="hamburger" id="hamburger" aria-label="Menu">
@@ -33,25 +48,28 @@
   </nav>
 
   <div class="mob-menu" id="mobMenu">
-    <a href="index.html#about"    class="mob-item">ABOUT</a>
-    <a href="index.html#work"     class="mob-item">WORK</a>
-    <a href="index.html#osiris"   class="mob-item">RESEARCH</a>
+    <a href="index.html#about"      class="mob-item">ABOUT</a>
+    <a href="index.html#work"       class="mob-item">WORK</a>
+    <a href="index.html#osiris"     class="mob-item">RESEARCH</a>
     <a href="index.html#experience" class="mob-item">HISTORY</a>
-    <a href="projects.html"       class="mob-item">PROJECTS</a>
-    <a href="games.html"          class="mob-item">GAMES</a>
-    <a href="index.html#contact"  class="mob-item">CONTACT</a>
+    <a href="projects.html"         class="mob-item">PROJECTS</a>
+    <a href="games.html"            class="mob-item">GAMES</a>
+    <a href="blog.html"             class="mob-item">BLOG</a>
+    <a href="interviews.html"       class="mob-item">INTERVIEWS</a>
+    <a href="hobbies.html"          class="mob-item">HOBBIES</a>
+    <a href="index.html#contact"    class="mob-item">CONTACT</a>
   </div>
 
   <div class="page-hero" style="background:var(--bg);">
     <div class="page-hero-inner">
       <span class="page-hero-eye">ARCADE</span>
       <h1 class="page-hero-title">Play a <em>game.</em></h1>
-      <p class="page-hero-sub">Built with pure HTML5 Canvas. No frameworks. Just like the good old days — except everything is green and vaguely threatening.</p>
+      <p class="page-hero-sub">Six games built with pure HTML5 Canvas. No frameworks. Just like the good old days — except everything is green and vaguely threatening.</p>
     </div>
   </div>
 
   <section class="section" style="background:var(--bg);">
-    <div class="container">
+    <div class="container games-container">
       <div class="games-grid">
 
         <!-- ── GAME 1: PACKET SNAKE ─────────────────── -->
@@ -110,6 +128,80 @@
           </div>
         </div>
 
+        <!-- ── GAME 3: FIREWALL BREAKOUT ────────────── -->
+        <div class="game-card neu-card">
+          <div class="game-card-header">
+            <span class="game-card-title">FIREWALL_BREAKOUT</span>
+            <span class="game-card-badge">MOUSE / ← →</span>
+          </div>
+          <p class="game-desc">Your packet has to punch through five layers of firewall rules. Deflect it with the paddle — drop it three times and the connection is dead.</p>
+          <div class="game-canvas-wrap">
+            <canvas id="breakCanvas" width="400" height="300"></canvas>
+          </div>
+          <div class="game-ui">
+            <span>SCORE: <span class="game-score" id="breakScore">0</span></span>
+            <span>HI: <span class="game-score" id="breakHi">0</span></span>
+            <button class="game-btn" id="breakBtn">START</button>
+          </div>
+        </div>
+
+        <!-- ── GAME 4: PORT INVADERS ────────────────── -->
+        <div class="game-card neu-card">
+          <div class="game-card-header">
+            <span class="game-card-title">PORT_INVADERS</span>
+            <span class="game-card-badge">← → · SPACE</span>
+          </div>
+          <p class="game-desc">Waves of malware processes are descending on your open ports. Shoot them down before they reach the perimeter — and dodge their payloads.</p>
+          <div class="game-canvas-wrap">
+            <canvas id="invCanvas" width="400" height="340"></canvas>
+          </div>
+          <div class="game-ui">
+            <span>SCORE: <span class="game-score" id="invScore">0</span></span>
+            <span>HI: <span class="game-score" id="invHi">0</span></span>
+            <button class="game-btn" id="invBtn">START</button>
+          </div>
+          <!-- Touch controls -->
+          <div style="display:flex;gap:0.5rem;justify-content:center;">
+            <div class="dpad-btn" id="invLeft" style="width:56px;">←</div>
+            <div class="dpad-btn" id="invFire" style="width:80px;font-size:0.6rem;letter-spacing:0.08em;">FIRE</div>
+            <div class="dpad-btn" id="invRight" style="width:56px;">→</div>
+          </div>
+        </div>
+
+        <!-- ── GAME 5: LOGIC BOMB SWEEPER ───────────── -->
+        <div class="game-card neu-card">
+          <div class="game-card-header">
+            <span class="game-card-title">LOGIC_BOMB_SWEEPER</span>
+            <span class="game-card-badge">RIGHT-CLICK / HOLD = FLAG</span>
+          </div>
+          <p class="game-desc">14 logic bombs are hidden in the memory grid. Clear every safe address — the numbers tell you how many bombs sit in adjacent cells. Flag what you can't touch.</p>
+          <div class="game-canvas-wrap">
+            <canvas id="sweepCanvas" width="400" height="400"></canvas>
+          </div>
+          <div class="game-ui">
+            <span>BOMBS: <span class="game-score" id="sweepBombs">14</span></span>
+            <span>BEST: <span class="game-score" id="sweepBest">—</span></span>
+            <button class="game-btn" id="sweepBtn">START</button>
+          </div>
+        </div>
+
+        <!-- ── GAME 6: MEMORY LEAK ──────────────────── -->
+        <div class="game-card neu-card">
+          <div class="game-card-header">
+            <span class="game-card-title">MEMORY_LEAK</span>
+            <span class="game-card-badge">REPEAT THE SEQUENCE</span>
+          </div>
+          <p class="game-desc">The heap is leaking addresses in a pattern. Watch the sequence, then repeat it exactly. One wrong read and it's a segfault. How deep can you go?</p>
+          <div class="game-canvas-wrap">
+            <canvas id="memCanvas" width="400" height="300"></canvas>
+          </div>
+          <div class="game-ui">
+            <span>ROUND: <span class="game-score" id="memRound">0</span></span>
+            <span>BEST: <span class="game-score" id="memBest">—</span></span>
+            <button class="game-btn" id="memBtn">START</button>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
@@ -118,10 +210,11 @@
     <div class="container">
       <div class="footer-inner">
         <span class="footer-logo">LKP.</span>
-        <span class="footer-copy">© 2025 Love Kush Pranu — Cybersecurity Engineer · NYU Tandon '26 · OSIRIS Lab</span>
+        <span class="footer-copy">© <span data-year>2026</span> Love Kush Pranu — Cybersecurity Engineer · NYU Tandon '26 · OSIRIS Lab</span>
         <div class="footer-socials">
           <a href="https://github.com/lutherleo" target="_blank">GH</a>
           <a href="https://www.linkedin.com/in/lovekush-pranu" target="_blank">LI</a>
+          <a href="blog.html">BLOG</a>
           <a href="interviews.html">INTERVIEWS</a>
           <a href="hobbies.html">HOBBIES</a>
         </div>
@@ -129,370 +222,7 @@
     </div>
   </footer>
 
-<script>
-/* ── SHARED CURSOR ───────────────────────────────── */
-const cursor = document.getElementById('cursor');
-const cursorRing = document.getElementById('cursorRing');
-let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx+'px';cursor.style.top=my+'px';});
-(function lr(){rx+=(mx-rx)*0.1;ry+=(my-ry)*0.1;cursorRing.style.left=rx+'px';cursorRing.style.top=ry+'px';requestAnimationFrame(lr);})();
-document.querySelectorAll('a,button,input').forEach(el=>{el.addEventListener('mouseenter',()=>{cursor.classList.add('big');cursorRing.classList.add('big');});el.addEventListener('mouseleave',()=>{cursor.classList.remove('big');cursorRing.classList.remove('big');});});
-document.body.classList.add('loaded');
-
-/* ── HAMBURGER ───────────────────────────────────── */
-const hamburger = document.getElementById('hamburger');
-const mobMenu = document.getElementById('mobMenu');
-hamburger.addEventListener('click',()=>{hamburger.classList.toggle('open');mobMenu.classList.toggle('open');document.body.style.overflow=mobMenu.classList.contains('open')?'hidden':'';});
-document.querySelectorAll('.mob-item').forEach(a=>a.addEventListener('click',()=>{hamburger.classList.remove('open');mobMenu.classList.remove('open');document.body.style.overflow='';}));
-
-/* ════════════════════════════════════════════════════
-   GAME 1 — PACKET SNAKE
-════════════════════════════════════════════════════ */
-(function() {
-  const canvas = document.getElementById('snakeCanvas');
-  const ctx    = canvas.getContext('2d');
-  const COLS=20, ROWS=20, CELL=20;
-  const scoreEl   = document.getElementById('snakeScore');
-  const hiEl      = document.getElementById('snakeHi');
-  const btn       = document.getElementById('snakeBtn');
-  const pauseBtn  = document.getElementById('snakePauseBtn');
-
-  const FOODS = ['0xDE','0xAD','0xBE','0xEF','0xFF','0x00','SYN','ACK','RST','PKT','UDP','TCP','DNS','ARP','HEX','OVF'];
-  const GREEN = '#22c55e', DIM = '#0d130d', GRID_C = 'rgba(34,197,94,0.05)';
-
-  let snake, dir, nextDir, food, foodLabel, score, hi, speed, loop, state, paused;
-
-  function init() {
-    snake   = [{x:10,y:10},{x:9,y:10},{x:8,y:10}];
-    dir     = {x:1,y:0};
-    nextDir = {x:1,y:0};
-    score   = 0;
-    speed   = 140;
-    paused  = false;
-    hi      = parseInt(localStorage.getItem('snakeHS')||0);
-    hiEl.textContent = hi;
-    state   = 'playing';
-    pauseBtn.disabled = false;
-    pauseBtn.textContent = '⏸';
-    spawnFood();
-    clearInterval(loop);
-    loop = setInterval(tick, speed);
-  }
-
-  function spawnFood() {
-    let pos;
-    do { pos={x:Math.floor(Math.random()*COLS),y:Math.floor(Math.random()*ROWS)}; }
-    while (snake.some(s=>s.x===pos.x&&s.y===pos.y));
-    food = pos;
-    foodLabel = FOODS[Math.floor(Math.random()*FOODS.length)];
-  }
-
-  function tick() {
-    dir = nextDir;
-    const head = {x:snake[0].x+dir.x, y:snake[0].y+dir.y};
-    if (head.x<0||head.x>=COLS||head.y<0||head.y>=ROWS||snake.some(s=>s.x===head.x&&s.y===head.y)) {
-      return gameOver();
-    }
-    snake.unshift(head);
-    if (head.x===food.x&&head.y===food.y) {
-      score++;
-      scoreEl.textContent = score;
-      if (score > hi) { hi = score; hiEl.textContent = hi; localStorage.setItem('snakeHS',hi); }
-      spawnFood();
-      if (score % 5 === 0) { clearInterval(loop); speed = Math.max(60, speed-10); loop = setInterval(tick, speed); }
-    } else {
-      snake.pop();
-    }
-    draw();
-  }
-
-  function draw() {
-    ctx.fillStyle = DIM;
-    ctx.fillRect(0,0,canvas.width,canvas.height);
-    // grid
-    ctx.strokeStyle = GRID_C;
-    ctx.lineWidth = 0.5;
-    for(let c=0;c<COLS;c++){ctx.beginPath();ctx.moveTo(c*CELL,0);ctx.lineTo(c*CELL,canvas.height);ctx.stroke();}
-    for(let r=0;r<ROWS;r++){ctx.beginPath();ctx.moveTo(0,r*CELL);ctx.lineTo(canvas.width,r*CELL);ctx.stroke();}
-    // snake
-    snake.forEach((s,i)=>{
-      const alpha = 1 - i/snake.length*0.6;
-      ctx.fillStyle = i===0 ? GREEN : `rgba(34,197,94,${alpha})`;
-      ctx.shadowBlur = i===0 ? 12 : 0;
-      ctx.shadowColor = GREEN;
-      ctx.fillRect(s.x*CELL+1,s.y*CELL+1,CELL-2,CELL-2);
-      ctx.shadowBlur = 0;
-    });
-    // food
-    ctx.fillStyle = '#0a0f0a';
-    ctx.strokeStyle = GREEN;
-    ctx.lineWidth = 1.5;
-    ctx.shadowBlur = 16; ctx.shadowColor = GREEN;
-    ctx.fillRect(food.x*CELL+2,food.y*CELL+2,CELL-4,CELL-4);
-    ctx.strokeRect(food.x*CELL+2,food.y*CELL+2,CELL-4,CELL-4);
-    ctx.shadowBlur = 0;
-    ctx.fillStyle = GREEN;
-    ctx.font = '5px "JetBrains Mono"';
-    ctx.textAlign = 'center';
-    ctx.fillText(foodLabel, food.x*CELL+CELL/2, food.y*CELL+CELL/2+2);
-  }
-
-  function drawIdle(msg) {
-    ctx.fillStyle = DIM;
-    ctx.fillRect(0,0,canvas.width,canvas.height);
-    ctx.fillStyle = GREEN;
-    ctx.shadowBlur = 20; ctx.shadowColor = GREEN;
-    ctx.font = 'bold 18px "JetBrains Mono"';
-    ctx.textAlign = 'center';
-    ctx.fillText(msg, canvas.width/2, canvas.height/2 - 10);
-    ctx.shadowBlur = 0;
-    ctx.fillStyle = 'rgba(34,197,94,0.5)';
-    ctx.font = '11px "JetBrains Mono"';
-    ctx.fillText('PRESS START', canvas.width/2, canvas.height/2+16);
-    if (score > 0) {
-      ctx.fillStyle='rgba(34,197,94,0.35)';
-      ctx.font='10px "JetBrains Mono"';
-      ctx.fillText(`SCORE: ${score}`, canvas.width/2, canvas.height/2+36);
-    }
-  }
-
-  function togglePause() {
-    if (state !== 'playing' && state !== 'paused') return;
-    paused = !paused;
-    if (paused) {
-      clearInterval(loop);
-      state = 'paused';
-      pauseBtn.textContent = '▶';
-      // draw pause overlay
-      ctx.fillStyle = 'rgba(10,15,10,0.75)';
-      ctx.fillRect(0,0,canvas.width,canvas.height);
-      ctx.fillStyle = GREEN;
-      ctx.shadowBlur = 20; ctx.shadowColor = GREEN;
-      ctx.font = 'bold 18px "JetBrains Mono"';
-      ctx.textAlign = 'center';
-      ctx.fillText('PAUSED', canvas.width/2, canvas.height/2);
-      ctx.shadowBlur = 0;
-      ctx.fillStyle = 'rgba(34,197,94,0.4)';
-      ctx.font = '11px "JetBrains Mono"';
-      ctx.fillText('PRESS ⏸ OR P TO RESUME', canvas.width/2, canvas.height/2+22);
-    } else {
-      state = 'playing';
-      pauseBtn.textContent = '⏸';
-      loop = setInterval(tick, speed);
-    }
-  }
-
-  function gameOver() {
-    clearInterval(loop);
-    state = 'dead';
-    paused = false;
-    pauseBtn.disabled = true;
-    pauseBtn.textContent = '⏸';
-    btn.textContent = 'RESTART';
-    drawIdle('GAME OVER');
-  }
-
-  // Key controls — skip preventDefault when hex input is focused
-  document.addEventListener('keydown', e => {
-    const hexFocused = document.activeElement === document.getElementById('hexInput');
-    if (!hexFocused && ['ArrowUp','ArrowDown','ArrowLeft','ArrowRight','w','a','s','d'].includes(e.key)) e.preventDefault();
-    if (hexFocused) return; // don't steal keys from hex breach input
-    if (e.key === 'p' || e.key === 'P') { togglePause(); return; }
-    if (state !== 'playing') return;
-    const map = {ArrowUp:{x:0,y:-1},ArrowDown:{x:0,y:1},ArrowLeft:{x:-1,y:0},ArrowRight:{x:1,y:0},
-                  w:{x:0,y:-1},s:{x:0,y:1},a:{x:-1,y:0},d:{x:1,y:0}};
-    const nd = map[e.key];
-    if (nd && !(nd.x===-dir.x && nd.y===-dir.y)) nextDir = nd;
-  });
-
-  pauseBtn.addEventListener('click', togglePause);
-
-  // D-pad
-  function dDir(nd) { if(state==='playing'&&!(nd.x===-dir.x&&nd.y===-dir.y)) nextDir=nd; }
-  document.getElementById('dUp').addEventListener('click',    ()=>dDir({x:0,y:-1}));
-  document.getElementById('dDown').addEventListener('click',  ()=>dDir({x:0,y:1}));
-  document.getElementById('dLeft').addEventListener('click',  ()=>dDir({x:-1,y:0}));
-  document.getElementById('dRight').addEventListener('click', ()=>dDir({x:1,y:0}));
-  document.getElementById('dCenter').addEventListener('click',()=>{ if(state!=='playing') btn.click(); });
-
-  // Touch swipe
-  let touchX=0,touchY=0;
-  canvas.addEventListener('touchstart',e=>{touchX=e.touches[0].clientX;touchY=e.touches[0].clientY;e.preventDefault();},{passive:false});
-  canvas.addEventListener('touchend',e=>{
-    const dx=e.changedTouches[0].clientX-touchX, dy=e.changedTouches[0].clientY-touchY;
-    if(Math.abs(dx)>Math.abs(dy)) dDir(dx>0?{x:1,y:0}:{x:-1,y:0});
-    else dDir(dy>0?{x:0,y:1}:{x:0,y:-1});
-    e.preventDefault();
-  },{passive:false});
-
-  btn.addEventListener('click', ()=>{ btn.textContent='RESTART'; init(); });
-  drawIdle('PACKET_SNAKE');
-})();
-
-/* ════════════════════════════════════════════════════
-   GAME 2 — HEX BREACH
-════════════════════════════════════════════════════ */
-(function() {
-  const canvas = document.getElementById('hexCanvas');
-  const ctx    = canvas.getContext('2d');
-  const scoreEl= document.getElementById('hexScore');
-  const livesEls= [document.getElementById('life1'),document.getElementById('life2'),document.getElementById('life3')];
-  const btn    = document.getElementById('hexBtn');
-  const input  = document.getElementById('hexInput');
-
-  const W = canvas.width, H = canvas.height;
-  const WORDS = [
-    '0xDEAD','0xBEEF','0xFF00','0x1337','KERNEL','EXPLOIT','SYSCALL',
-    'MALLOC','BUFFER','OVERFLOW','SHELLCODE','PAYLOAD','ROP_CHAIN','NOP_SLED',
-    'HEAP','STACK','EBP','ESP','EIP','RAX','RBX','RDX','XOR','AND','OR',
-    'SIGTERM','SIGKILL','FORK','EXEC','MMAP','PTRACE','SECCOMP','ASLR'
-  ];
-  const GREEN='#22c55e', RED='#f87171', DIM='#0a0f0a';
-
-  let falling, lives, score, speed, spawnRate, loop, spawnLoop, state, flash;
-
-  function init() {
-    falling   = [];
-    lives     = 3;
-    score     = 0;
-    speed     = 0.5;
-    spawnRate = 2200;
-    state     = 'playing';
-    flash     = null;
-    scoreEl.textContent = 0;
-    livesEls.forEach(l=>l.classList.remove('dead'));
-    clearInterval(loop);
-    clearInterval(spawnLoop);
-    loop      = setInterval(()=>{tick();draw();}, 40);
-    spawnLoop = setInterval(spawnWord, spawnRate);
-    input.value = '';
-    input.focus();
-    spawnWord();
-  }
-
-  function spawnWord() {
-    if(state!=='playing') return;
-    const w = WORDS[Math.floor(Math.random()*WORDS.length)];
-    const x = 20 + Math.random()*(W-160);
-    falling.push({word:w, x, y:-20, speed: speed + Math.random()*0.3, hit:false, flashTime:0});
-  }
-
-  function tick() {
-    falling.forEach(f=>{
-      if(!f.hit) f.y += f.speed;
-    });
-    // check missed
-    falling.filter(f=>!f.hit&&f.y>H+20).forEach(()=>{
-      lives--;
-      if(lives<0)lives=0;
-      livesEls[lives] && livesEls[lives].classList.add('dead');
-      if(lives===0) gameOver();
-    });
-    falling = falling.filter(f=>!(f.y>H+20&&!f.hit)&&!(f.hit&&f.flashTime<=0));
-    falling.forEach(f=>{ if(f.hit) f.flashTime-=40; });
-  }
-
-  function draw() {
-    ctx.fillStyle = DIM;
-    ctx.fillRect(0,0,W,H);
-
-    // scanlines
-    for(let y=0;y<H;y+=4){
-      ctx.fillStyle='rgba(0,0,0,0.15)';
-      ctx.fillRect(0,y,W,2);
-    }
-
-    // bottom "kernel" zone
-    ctx.fillStyle='rgba(248,113,113,0.06)';
-    ctx.fillRect(0,H-24,W,24);
-    ctx.strokeStyle='rgba(248,113,113,0.3)';
-    ctx.lineWidth=1;
-    ctx.beginPath();ctx.moveTo(0,H-24);ctx.lineTo(W,H-24);ctx.stroke();
-    ctx.fillStyle='rgba(248,113,113,0.4)';
-    ctx.font='8px "JetBrains Mono"';
-    ctx.textAlign='left';
-    ctx.fillText('KERNEL SPACE — DO NOT LET PAYLOADS REACH HERE',8,H-8);
-
-    // falling words
-    falling.forEach(f=>{
-      const t = f.hit ? f.flashTime/300 : 1;
-      if(f.hit){
-        ctx.fillStyle=`rgba(34,197,94,${t*0.9})`;
-        ctx.shadowBlur=20*t; ctx.shadowColor=GREEN;
-      } else {
-        const danger = Math.min(1,(f.y/(H-24)));
-        const r=Math.floor(34+(248-34)*danger), g=Math.floor(197+(113-197)*danger), b=Math.floor(94*(1-danger));
-        ctx.fillStyle=`rgb(${r},${g},${b})`;
-        ctx.shadowBlur=8; ctx.shadowColor=`rgb(${r},${g},${b})`;
-      }
-      ctx.font=`bold 13px "JetBrains Mono"`;
-      ctx.textAlign='left';
-      ctx.fillText(f.word, f.x, f.y);
-      ctx.shadowBlur=0;
-    });
-
-    // current typed text hint
-    const typed = input.value.toUpperCase();
-    if(typed && state==='playing'){
-      ctx.fillStyle='rgba(34,197,94,0.25)';
-      ctx.font='13px "JetBrains Mono"';
-      ctx.textAlign='center';
-      ctx.fillText('> '+typed, W/2, H-36);
-    }
-  }
-
-  function checkInput() {
-    if(state!=='playing') return;
-    const typed = input.value.trim().toUpperCase();
-    const hit = falling.find(f=>!f.hit && f.word.toUpperCase()===typed);
-    if(hit){
-      hit.hit=true; hit.flashTime=300;
-      score++;
-      scoreEl.textContent=score;
-      input.value='';
-      // ramp difficulty
-      if(score%5===0){
-        speed=Math.min(2.5,speed+0.15);
-        spawnRate=Math.max(800,spawnRate-150);
-        clearInterval(spawnLoop);
-        spawnLoop=setInterval(spawnWord,spawnRate);
-      }
-    }
-  }
-
-  function gameOver() {
-    state='dead';
-    clearInterval(loop);
-    clearInterval(spawnLoop);
-    btn.textContent='RESTART';
-    ctx.fillStyle=DIM; ctx.fillRect(0,0,W,H);
-    ctx.fillStyle=RED; ctx.shadowBlur=20; ctx.shadowColor=RED;
-    ctx.font='bold 20px "JetBrains Mono"';
-    ctx.textAlign='center';
-    ctx.fillText('KERNEL BREACHED',W/2,H/2-20);
-    ctx.shadowBlur=0;
-    ctx.fillStyle='rgba(248,113,113,0.5)';
-    ctx.font='12px "JetBrains Mono"';
-    ctx.fillText(`PAYLOADS NEUTRALIZED: ${score}`, W/2, H/2+10);
-    ctx.fillStyle='rgba(34,197,94,0.4)';
-    ctx.fillText('PRESS RESTART',W/2,H/2+35);
-  }
-
-  function drawIdle(msg) {
-    ctx.fillStyle=DIM; ctx.fillRect(0,0,W,H);
-    ctx.fillStyle=GREEN; ctx.shadowBlur=20; ctx.shadowColor=GREEN;
-    ctx.font='bold 18px "JetBrains Mono"'; ctx.textAlign='center';
-    ctx.fillText(msg,W/2,H/2-10);
-    ctx.shadowBlur=0;
-    ctx.fillStyle='rgba(34,197,94,0.5)';
-    ctx.font='11px "JetBrains Mono"';
-    ctx.fillText('PRESS START · TYPE CODES TO NEUTRALIZE',W/2,H/2+16);
-  }
-
-  input.addEventListener('input', checkInput);
-  btn.addEventListener('click',()=>{ btn.textContent='RESTART'; init(); });
-  drawIdle('HEX_BREACH');
-})();
-</script>
+  <script src="site.js"></script>
+  <script src="games.js"></script>
 </body>
 </html>

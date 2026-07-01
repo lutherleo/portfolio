@@ -4,12 +4,19 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Projects — Love Kush Pranu</title>
-  <meta name="description" content="All projects by Love Kush Pranu — kernel fuzzing, systems security, adversarial ML, emulation and more." />
+  <meta name="description" content="All projects by Love Kush Pranu — post-quantum cryptography, kernel fuzzing, systems security, adversarial ML, emulation and more." />
+  <link rel="canonical" href="https://lutherleo.github.io/portfolio/projects.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Projects — Love Kush Pranu" />
+  <meta property="og:description" content="Post-quantum cryptography, kernel fuzzing, systems security, adversarial ML, emulation and more." />
+  <meta property="og:url" content="https://lutherleo.github.io/portfolio/projects.html" />
+  <meta property="og:image" content="https://lutherleo.github.io/portfolio/photo.jpeg" />
+  <meta name="twitter:card" content="summary" />
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <link rel="stylesheet" href="style.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
 </head>
 <body>
 
@@ -18,15 +25,23 @@
   <div class="cursor-ring" id="cursorRing"></div>
 
   <!-- Navigation -->
-  <nav class="nav scrolled" id="nav">
+  <nav class="nav scrolled" id="nav" data-solid>
     <a href="index.html" class="nav-logo">Love Kush Pranu</a>
     <ul class="nav-links">
       <li><a href="index.html#about">ABOUT</a></li>
       <li><a href="index.html#work">WORK</a></li>
       <li><a href="index.html#osiris">RESEARCH</a></li>
       <li><a href="index.html#experience">HISTORY</a></li>
-      <li><a href="projects.html" style="color:var(--accent)">PROJECTS</a></li>
+      <li><a href="projects.html" class="active">PROJECTS</a></li>
       <li><a href="games.html">GAMES</a></li>
+      <li><a href="blog.html">BLOG</a></li>
+      <li class="nav-more">
+        <button class="nav-more-btn" aria-haspopup="true" aria-expanded="false">MORE</button>
+        <ul class="nav-drop">
+          <li><a href="interviews.html">INTERVIEWS</a></li>
+          <li><a href="hobbies.html">HOBBIES</a></li>
+        </ul>
+      </li>
       <li><a href="index.html#contact">CONTACT</a></li>
     </ul>
     <button class="hamburger" id="hamburger" aria-label="Menu">
@@ -36,13 +51,16 @@
 
   <!-- Mobile Menu -->
   <div class="mob-menu" id="mobMenu">
-    <a href="index.html#about"    class="mob-item">ABOUT</a>
-    <a href="index.html#work"     class="mob-item">WORK</a>
-    <a href="index.html#osiris"   class="mob-item">RESEARCH</a>
+    <a href="index.html#about"      class="mob-item">ABOUT</a>
+    <a href="index.html#work"       class="mob-item">WORK</a>
+    <a href="index.html#osiris"     class="mob-item">RESEARCH</a>
     <a href="index.html#experience" class="mob-item">HISTORY</a>
-    <a href="projects.html"       class="mob-item">PROJECTS</a>
-    <a href="games.html"          class="mob-item">GAMES</a>
-    <a href="index.html#contact"  class="mob-item">CONTACT</a>
+    <a href="projects.html"         class="mob-item">PROJECTS</a>
+    <a href="games.html"            class="mob-item">GAMES</a>
+    <a href="blog.html"             class="mob-item">BLOG</a>
+    <a href="interviews.html"       class="mob-item">INTERVIEWS</a>
+    <a href="hobbies.html"          class="mob-item">HOBBIES</a>
+    <a href="index.html#contact"    class="mob-item">CONTACT</a>
   </div>
 
   <!-- Page Hero -->
@@ -57,67 +75,85 @@
   <!-- ── FEATURED PROJECTS ────────────────────────── -->
   <section class="section" style="background:var(--bg-2);">
     <div class="container">
-      <p class="sec-label">FEATURED</p>
+      <p class="sec-label"><span class="sec-num">01</span> FEATURED</p>
       <div class="proj-grid">
 
-        <div class="proj-card neu-card">
-          <span class="proj-card-cat">Kernel Fuzzing · 2026</span>
-          <h3 class="proj-card-title">hot-fuzz — Kernel Fuzzer</h3>
-          <p class="proj-card-desc">Semantic fuzzing framework targeting the Linux kernel's network stack for race conditions — part of the OSIRIS Lab research initiative. Custom Go-based corpus generation and race condition detection heuristics.</p>
+        <div class="proj-card neu-card" data-proj="pq">
+          <span class="proj-card-cat">Post-Quantum Crypto · 2026</span>
+          <h3 class="proj-card-title">pq-secure-comm — Post-Quantum Channel</h3>
+          <p class="proj-card-desc">Research-grade PQ secure channel in C, implemented twice with two different post-quantum families behind one pluggable backend — ML-KEM-768 + Dilithium vs HQC-192 + SPHINCS+ — then attacked and benchmarked under a unified Docker harness. NIST PQ Category 3.</p>
           <div class="proj-card-tags">
-            <span>Go</span><span>Kernel</span><span>Fuzzing</span><span>TCP/IP</span><span>OSIRIS Lab</span>
+            <span>C</span><span>liboqs</span><span>Kyber</span><span>Dilithium</span><span>SPHINCS+</span><span>AES-GCM</span>
           </div>
-          <a href="https://github.com/lutherleo" target="_blank" class="proj-card-link">View on GitHub →</a>
+          <div class="proj-card-footer">
+            <button class="proj-card-details">View details ↗</button>
+            <a href="https://github.com/lutherleo/Quantum-safe-Kyber-Crystals" target="_blank" class="proj-card-link" onclick="event.stopPropagation()">GitHub →</a>
+          </div>
         </div>
 
-        <div class="proj-card neu-card">
+        <div class="proj-card neu-card" data-proj="racefuzz">
+          <span class="proj-card-cat">Kernel Fuzzing · 2026</span>
+          <h3 class="proj-card-title">RaceFuzz — Kernel Fuzzer</h3>
+          <p class="proj-card-desc">Semantic fuzzing framework targeting the Linux kernel's network stack for race conditions — the OSIRIS Lab research project I lead. Coverage-guided mutation, Go-based corpus generation, and concurrency-aware race detection heuristics.</p>
+          <div class="proj-card-tags">
+            <span>Go</span><span>C</span><span>Kernel</span><span>Fuzzing</span><span>OSIRIS Lab</span>
+          </div>
+          <div class="proj-card-footer">
+            <button class="proj-card-details">View details ↗</button>
+            <a href="https://github.com/lutherleo" target="_blank" class="proj-card-link" onclick="event.stopPropagation()">GitHub →</a>
+          </div>
+        </div>
+
+        <div class="proj-card neu-card" data-proj="xv6">
           <span class="proj-card-cat">Kernel Security · 2024–2025</span>
           <h3 class="proj-card-title">xv6 OS Security Enhancements</h3>
           <p class="proj-card-desc">Kernel-level security enhancements to the xv6 OS — ASLR, W^X memory policies, stack canaries, process isolation, and custom system calls for security auditing. Built on the Lind sandbox research at NYU.</p>
           <div class="proj-card-tags">
             <span>C</span><span>xv6</span><span>ASLR</span><span>W^X</span><span>Stack Canaries</span>
           </div>
-          <a href="https://github.com/lutherleo/xv6-OS" target="_blank" class="proj-card-link">View on GitHub →</a>
+          <div class="proj-card-footer">
+            <button class="proj-card-details">View details ↗</button>
+            <a href="https://github.com/lutherleo/xv6-OS" target="_blank" class="proj-card-link" onclick="event.stopPropagation()">GitHub →</a>
+          </div>
         </div>
 
-        <div class="proj-card neu-card">
+        <div class="proj-card neu-card" data-proj="advml">
           <span class="proj-card-cat">Adversarial ML · 2025</span>
           <h3 class="proj-card-title">Adversarial Robustness in DNNs</h3>
           <p class="proj-card-desc">PGD adversarial training on MNIST, validating Madry et al. (2018) — achieving ~90% accuracy against PGD/FGSM attacks. Identified weaknesses under C&W attacks. Re-engineered TensorFlow 1.x → 2.x for CleverHans and ART.</p>
           <div class="proj-card-tags">
             <span>Python</span><span>TensorFlow</span><span>CleverHans</span><span>ART</span><span>PGD</span>
           </div>
-          <a href="https://github.com/lutherleo/MLClass" target="_blank" class="proj-card-link">View on GitHub →</a>
+          <div class="proj-card-footer">
+            <button class="proj-card-details">View details ↗</button>
+            <a href="https://github.com/lutherleo/MLClass" target="_blank" class="proj-card-link" onclick="event.stopPropagation()">GitHub →</a>
+          </div>
         </div>
 
-        <div class="proj-card neu-card">
+        <div class="proj-card neu-card" data-proj="chip8">
           <span class="proj-card-cat">Emulation · 2024</span>
           <h3 class="proj-card-title">CHIP-8 Emulator</h3>
           <p class="proj-card-desc">A fully functional CHIP-8 emulator from scratch — all 35 opcodes, 64×32 pixel XOR-based sprite rendering, SDL2 graphics and input, proper timing with delay/sound timers, and 16-key hexadecimal keypad.</p>
           <div class="proj-card-tags">
             <span>C</span><span>SDL2</span><span>CPU Emulation</span><span>Memory Management</span>
           </div>
-          <a href="https://github.com/lutherleo/CHIP-8_emulator" target="_blank" class="proj-card-link">View on GitHub →</a>
+          <div class="proj-card-footer">
+            <button class="proj-card-details">View details ↗</button>
+            <a href="https://github.com/lutherleo/CHIP-8_emulator" target="_blank" class="proj-card-link" onclick="event.stopPropagation()">GitHub →</a>
+          </div>
         </div>
 
-        <div class="proj-card neu-card">
+        <div class="proj-card neu-card" data-proj="vulnscan">
           <span class="proj-card-cat">Security Tool · 2026</span>
           <h3 class="proj-card-title">Vulnerability Scanner</h3>
           <p class="proj-card-desc">A CLI tool to quickly scan binaries and applications for common vulnerability classes — weak permissions, outdated libraries, CVE matches, and ROP gadget detection. Designed for CTF and real-world assessments.</p>
           <div class="proj-card-tags">
             <span>Security Analysis</span><span>Binary Exploitation</span><span>CVE Detection</span><span>CLI</span>
           </div>
-          <a href="https://github.com/lutherleo/vulnerability-scanner" target="_blank" class="proj-card-link">View on GitHub →</a>
-        </div>
-
-        <div class="proj-card neu-card">
-          <span class="proj-card-cat">OS Security · 2025</span>
-          <h3 class="proj-card-title">Lind Sandbox — Rust Research</h3>
-          <p class="proj-card-desc">OS-level security research using Rust, contributing to the Lind sandbox project — a restricted POSIX environment to safely execute untrusted code via WebAssembly. Part of NYU Tandon systems security research.</p>
-          <div class="proj-card-tags">
-            <span>Rust</span><span>POSIX</span><span>WebAssembly</span><span>Sandbox</span>
+          <div class="proj-card-footer">
+            <button class="proj-card-details">View details ↗</button>
+            <a href="https://github.com/lutherleo/vulnerability-scanner" target="_blank" class="proj-card-link" onclick="event.stopPropagation()">GitHub →</a>
           </div>
-          <a href="https://github.com/lutherleo" target="_blank" class="proj-card-link">View on GitHub →</a>
         </div>
 
       </div>
@@ -127,64 +163,74 @@
   <!-- ── MORE PROJECTS ─────────────────────────────── -->
   <section class="section" style="background:var(--bg);">
     <div class="container">
-      <p class="sec-label">MORE WORK</p>
+      <p class="sec-label"><span class="sec-num">02</span> MORE WORK</p>
       <h2 style="font-family:'Space Grotesk',sans-serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:var(--white);letter-spacing:-0.04em;margin-bottom:3rem;">
         Other <em style="font-family:'Playfair Display',serif;font-style:italic;color:var(--accent);">projects</em>
       </h2>
       <div class="proj-grid">
 
-        <!-- ── Add your non-featured projects below ── -->
-
-        <div class="proj-card neu-card">
-          <span class="proj-card-cat">CTF Infrastructure · 2025</span>
-          <h3 class="proj-card-title">CSAW CTF 2025 Infrastructure</h3>
-          <p class="proj-card-desc">Co-ran one of the world's largest student-run cybersecurity competitions — challenge hosting, platform maintenance, moderation at scale across dozens of global regions.</p>
+        <div class="proj-card neu-card" data-proj="chronos">
+          <span class="proj-card-cat">Productivity · 2026</span>
+          <h3 class="proj-card-title">Chronos</h3>
+          <p class="proj-card-desc">A scheduling and time-coordination app I built for OSIRIS Lab dev meetings — find the slot that works across everyone's availability, without the spreadsheet chaos. TypeScript, end to end.</p>
           <div class="proj-card-tags">
-            <span>CTF</span><span>Infrastructure</span><span>OSIRIS Lab</span>
+            <span>TypeScript</span><span>Scheduling</span><span>OSIRIS Lab</span>
           </div>
-          <a href="https://github.com/lutherleo" target="_blank" class="proj-card-link">View Profile →</a>
+          <div class="proj-card-footer">
+            <button class="proj-card-details">View details ↗</button>
+            <a href="https://github.com/lutherleo/timefull" target="_blank" class="proj-card-link" onclick="event.stopPropagation()">GitHub →</a>
+          </div>
         </div>
 
-        <div class="proj-card neu-card">
-          <span class="proj-card-cat">OSINT · 2024</span>
+        <div class="proj-card neu-card" data-proj="animus">
+          <span class="proj-card-cat">Project Management · 2026</span>
+          <h3 class="proj-card-title">Animus</h3>
+          <p class="proj-card-desc">A project management solution I built for OSIRIS Lab — coordinating 9 concurrent research projects, their leads, milestones, and student teams from a single control plane.</p>
+          <div class="proj-card-tags">
+            <span>Project Management</span><span>OSIRIS Lab</span><span>Research Ops</span>
+          </div>
+          <div class="proj-card-footer">
+            <button class="proj-card-details">View details ↗</button>
+            <a href="https://osiris.cyber.nyu.edu/" target="_blank" class="proj-card-link" onclick="event.stopPropagation()">OSIRIS →</a>
+          </div>
+        </div>
+
+        <div class="proj-card neu-card" data-proj="lind">
+          <span class="proj-card-cat">OS Security · 2025</span>
+          <h3 class="proj-card-title">Lind Sandbox — Rust Research</h3>
+          <p class="proj-card-desc">OS-level security research using Rust, contributing to the Lind sandbox project — a restricted POSIX environment to safely execute untrusted code via WebAssembly. Part of NYU Tandon systems security research.</p>
+          <div class="proj-card-tags">
+            <span>Rust</span><span>POSIX</span><span>WebAssembly</span><span>Sandbox</span>
+          </div>
+          <div class="proj-card-footer">
+            <button class="proj-card-details">View details ↗</button>
+            <a href="https://github.com/lutherleo/lind-wasm" target="_blank" class="proj-card-link" onclick="event.stopPropagation()">GitHub →</a>
+          </div>
+        </div>
+
+        <div class="proj-card neu-card" data-proj="csaw">
+          <span class="proj-card-cat">CTF Infrastructure · 2025</span>
+          <h3 class="proj-card-title">CSAW CTF 2025 — Author & Infra</h3>
+          <p class="proj-card-desc">Authored a challenge for CSAW CTF 2025 and co-ran the qualifiers — challenge hosting, platform maintenance, and moderation at scale across dozens of global regions for one of the world's largest student-run security competitions.</p>
+          <div class="proj-card-tags">
+            <span>CTF</span><span>Challenge Design</span><span>Infrastructure</span><span>OSIRIS Lab</span>
+          </div>
+          <div class="proj-card-footer">
+            <button class="proj-card-details">View details ↗</button>
+            <a href="posts/writing-a-csaw-ctf-challenge.html" class="proj-card-link" onclick="event.stopPropagation()">Read post →</a>
+          </div>
+        </div>
+
+        <div class="proj-card neu-card" data-proj="otw">
+          <span class="proj-card-cat">Wargames · 2024</span>
           <h3 class="proj-card-title">OverTheWire Write-ups</h3>
           <p class="proj-card-desc">Documented solutions and methodology for OverTheWire Bandit and Natas wargame challenges — covering Linux privilege escalation, web exploitation, and crypto fundamentals.</p>
           <div class="proj-card-tags">
             <span>CTF</span><span>Bash</span><span>Web</span><span>Write-up</span>
           </div>
-          <a href="https://github.com/lutherleo/Bandit" target="_blank" class="proj-card-link">View on GitHub →</a>
-        </div>
-
-        <!-- Placeholder slots — add more projects here -->
-        <div class="proj-card neu-card proj-add-card">
-          <div class="pac-inner">
-            <div class="pac-icon">＋</div>
-            <h4>Add a project</h4>
-            <p>Edit projects.html to add your next build here</p>
-          </div>
-        </div>
-
-        <div class="proj-card neu-card proj-add-card">
-          <div class="pac-inner">
-            <div class="pac-icon">＋</div>
-            <h4>Add a project</h4>
-            <p>Edit projects.html to add your next build here</p>
-          </div>
-        </div>
-
-        <div class="proj-card neu-card proj-add-card">
-          <div class="pac-inner">
-            <div class="pac-icon">＋</div>
-            <h4>Add a project</h4>
-            <p>Edit projects.html to add your next build here</p>
-          </div>
-        </div>
-
-        <div class="proj-card neu-card proj-add-card">
-          <div class="pac-inner">
-            <div class="pac-icon">＋</div>
-            <h4>Add a project</h4>
-            <p>Edit projects.html to add your next build here</p>
+          <div class="proj-card-footer">
+            <button class="proj-card-details">View details ↗</button>
+            <a href="https://github.com/lutherleo/Bandit" target="_blank" class="proj-card-link" onclick="event.stopPropagation()">GitHub →</a>
           </div>
         </div>
 
@@ -192,15 +238,29 @@
     </div>
   </section>
 
+  <!-- Project detail modal -->
+  <div class="proj-modal" id="projModal" role="dialog" aria-modal="true" aria-labelledby="pmTitle">
+    <div class="pm-backdrop" data-close></div>
+    <div class="pm-panel">
+      <button class="pm-close" data-close aria-label="Close">✕</button>
+      <span class="pm-cat" id="pmCat"></span>
+      <h2 class="pm-title" id="pmTitle"></h2>
+      <div class="pm-body" id="pmBody"></div>
+      <div class="pm-tags" id="pmTags"></div>
+      <div class="pm-actions" id="pmActions"></div>
+    </div>
+  </div>
+
   <!-- Footer -->
   <footer class="footer">
     <div class="container">
       <div class="footer-inner">
         <span class="footer-logo">LKP.</span>
-        <span class="footer-copy">© 2025 Love Kush Pranu — Cybersecurity Engineer · NYU Tandon '26 · OSIRIS Lab</span>
+        <span class="footer-copy">© <span data-year>2026</span> Love Kush Pranu — Cybersecurity Engineer · NYU Tandon '26 · OSIRIS Lab</span>
         <div class="footer-socials">
           <a href="https://github.com/lutherleo" target="_blank">GH</a>
           <a href="https://www.linkedin.com/in/lovekush-pranu" target="_blank">LI</a>
+          <a href="blog.html">BLOG</a>
           <a href="interviews.html">INTERVIEWS</a>
           <a href="hobbies.html">HOBBIES</a>
         </div>
@@ -208,25 +268,7 @@
     </div>
   </footer>
 
-  <script>
-    /* cursor */
-    const cursor = document.getElementById('cursor');
-    const cursorRing = document.getElementById('cursorRing');
-    let mx=0,my=0,rx=0,ry=0;
-    document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx+'px';cursor.style.top=my+'px';});
-    (function lr(){rx+=(mx-rx)*0.1;ry+=(my-ry)*0.1;cursorRing.style.left=rx+'px';cursorRing.style.top=ry+'px';requestAnimationFrame(lr);})();
-    document.querySelectorAll('a,button').forEach(el=>{el.addEventListener('mouseenter',()=>{cursor.classList.add('big');cursorRing.classList.add('big');});el.addEventListener('mouseleave',()=>{cursor.classList.remove('big');cursorRing.classList.remove('big');});});
-
-    /* hamburger */
-    const hamburger = document.getElementById('hamburger');
-    const mobMenu = document.getElementById('mobMenu');
-    hamburger.addEventListener('click',()=>{hamburger.classList.toggle('open');mobMenu.classList.toggle('open');document.body.style.overflow=mobMenu.classList.contains('open')?'hidden':'';});
-    document.querySelectorAll('.mob-item').forEach(a=>a.addEventListener('click',()=>{hamburger.classList.remove('open');mobMenu.classList.remove('open');document.body.style.overflow='';}));
-
-    /* reveal */
-    document.body.classList.add('loaded');
-    const obs = new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:0.08});
-    document.querySelectorAll('.proj-card,.sec-label,.page-hero-inner').forEach((el,i)=>{el.classList.add('reveal');el.style.setProperty('--d',(i%4)*60+'ms');obs.observe(el);});
-  </script>
+  <script src="site.js"></script>
+  <script src="projects.js"></script>
 </body>
 </html>
