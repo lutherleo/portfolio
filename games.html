@@ -112,7 +112,7 @@
           </div>
           <p class="game-desc">Malicious hex payloads are raining down. Type them exactly to neutralize each one before it reaches the kernel. You have 3 lives.</p>
           <div class="game-canvas-wrap">
-            <canvas id="hexCanvas" width="400" height="340"></canvas>
+            <canvas id="hexCanvas" width="400" height="400"></canvas>
           </div>
           <div class="game-ui">
             <div class="game-lives" id="hexLives">
@@ -121,7 +121,10 @@
               <div class="game-life" id="life3"></div>
             </div>
             <span>SCORE: <span class="game-score" id="hexScore">0</span></span>
-            <button class="game-btn" id="hexBtn">START</button>
+            <div style="display:flex;gap:0.5rem;">
+              <button class="game-btn game-pause-btn" id="hexPauseBtn" disabled>⏸</button>
+              <button class="game-btn" id="hexBtn">START</button>
+            </div>
           </div>
           <div class="game-input-row">
             <input type="text" id="hexInput" placeholder="Type the falling code..." autocomplete="off" spellcheck="false" />
@@ -136,12 +139,15 @@
           </div>
           <p class="game-desc">Your packet has to punch through five layers of firewall rules. Deflect it with the paddle — drop it three times and the connection is dead.</p>
           <div class="game-canvas-wrap">
-            <canvas id="breakCanvas" width="400" height="300"></canvas>
+            <canvas id="breakCanvas" width="400" height="400"></canvas>
           </div>
           <div class="game-ui">
             <span>SCORE: <span class="game-score" id="breakScore">0</span></span>
             <span>HI: <span class="game-score" id="breakHi">0</span></span>
-            <button class="game-btn" id="breakBtn">START</button>
+            <div style="display:flex;gap:0.5rem;">
+              <button class="game-btn game-pause-btn" id="breakPauseBtn" disabled>⏸</button>
+              <button class="game-btn" id="breakBtn">START</button>
+            </div>
           </div>
         </div>
 
@@ -153,12 +159,15 @@
           </div>
           <p class="game-desc">Waves of malware processes are descending on your open ports. Shoot them down before they reach the perimeter — and dodge their payloads.</p>
           <div class="game-canvas-wrap">
-            <canvas id="invCanvas" width="400" height="340"></canvas>
+            <canvas id="invCanvas" width="400" height="400"></canvas>
           </div>
           <div class="game-ui">
             <span>SCORE: <span class="game-score" id="invScore">0</span></span>
             <span>HI: <span class="game-score" id="invHi">0</span></span>
-            <button class="game-btn" id="invBtn">START</button>
+            <div style="display:flex;gap:0.5rem;">
+              <button class="game-btn game-pause-btn" id="invPauseBtn" disabled>⏸</button>
+              <button class="game-btn" id="invBtn">START</button>
+            </div>
           </div>
           <!-- Touch controls -->
           <div style="display:flex;gap:0.5rem;justify-content:center;">
@@ -181,7 +190,10 @@
           <div class="game-ui">
             <span>BOMBS: <span class="game-score" id="sweepBombs">14</span></span>
             <span>BEST: <span class="game-score" id="sweepBest">—</span></span>
-            <button class="game-btn" id="sweepBtn">START</button>
+            <div style="display:flex;gap:0.5rem;">
+              <button class="game-btn game-pause-btn" id="sweepPauseBtn" disabled>⏸</button>
+              <button class="game-btn" id="sweepBtn">START</button>
+            </div>
           </div>
         </div>
 
@@ -193,12 +205,36 @@
           </div>
           <p class="game-desc">The heap is leaking addresses in a pattern. Watch the sequence, then repeat it exactly. One wrong read and it's a segfault. How deep can you go?</p>
           <div class="game-canvas-wrap">
-            <canvas id="memCanvas" width="400" height="300"></canvas>
+            <canvas id="memCanvas" width="400" height="400"></canvas>
           </div>
           <div class="game-ui">
             <span>ROUND: <span class="game-score" id="memRound">0</span></span>
             <span>BEST: <span class="game-score" id="memBest">—</span></span>
-            <button class="game-btn" id="memBtn">START</button>
+            <div style="display:flex;gap:0.5rem;">
+              <button class="game-btn game-pause-btn" id="memPauseBtn" disabled>⏸</button>
+              <button class="game-btn" id="memBtn">START</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── GAME 7: DOOM ─────────────────────────── -->
+        <div class="game-card neu-card">
+          <div class="game-card-header">
+            <span class="game-card-title" style="color:#f87171;">DOOM</span>
+            <span class="game-card-badge">1993 · SHAREWARE</span>
+          </div>
+          <p class="game-desc">The real thing — id Software's 1993 shareware episode, running in your browser via js-dos. Rip and tear. Loads ~3MB on start.</p>
+          <div class="game-canvas-wrap">
+            <div class="doom-mount" id="doomMount">
+              <div class="doom-idle" id="doomIdle">
+                <span class="doom-idle-title">DOOM.EXE</span>
+                <span class="doom-idle-sub">KNEE-DEEP IN THE DEAD<br/>E1M1 — HANGAR</span>
+              </div>
+            </div>
+          </div>
+          <div class="game-ui">
+            <span id="doomStatus">READY</span>
+            <button class="game-btn" id="doomBtn" style="background:#f87171;">BOOT DOOM</button>
           </div>
         </div>
 

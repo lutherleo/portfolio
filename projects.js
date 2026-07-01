@@ -7,7 +7,7 @@
   const DETAILS = {
     pq: {
       cat: 'Post-Quantum Cryptography · NYU CS6903 · 2026',
-      title: 'pq-secure-comm — Post-Quantum Secure Channel',
+      title: 'Kyber Crystals — Post-Quantum Secure Channel',
       body: [
         'A research-grade C implementation of a post-quantum-secure channel between two endpoints (Alice ↔ Bob), implemented twice with two different families of post-quantum primitives, then attacked and benchmarked under a unified test harness.',
         'Scheme A is the mainstream lattice stack: ML-KEM-768 (Kyber) for key encapsulation and ML-DSA-65 (Dilithium) for signatures. Scheme B deliberately avoids lattices entirely: HQC-192, a code-based KEM, paired with SLH-DSA-SHA2-192s (SPHINCS+), a hash-based signature scheme. Both run at NIST PQ security Category 3 and share the same symmetric layer — AES-256-GCM with HKDF-SHA256 key derivation.',

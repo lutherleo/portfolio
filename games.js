@@ -29,6 +29,20 @@ function idleScreen(ctx, W, H, title, hint) {
   ctx.fillText(hint, W / 2, H / 2 + 16);
 }
 
+function pauseOverlay(ctx, W, H) {
+  ctx.fillStyle = 'rgba(10,15,10,0.78)';
+  ctx.fillRect(0, 0, W, H);
+  ctx.fillStyle = GREEN;
+  ctx.shadowBlur = 20; ctx.shadowColor = GREEN;
+  ctx.font = 'bold 18px "JetBrains Mono"';
+  ctx.textAlign = 'center';
+  ctx.fillText('PAUSED', W / 2, H / 2);
+  ctx.shadowBlur = 0;
+  ctx.fillStyle = 'rgba(34,197,94,0.4)';
+  ctx.font = '11px "JetBrains Mono"';
+  ctx.fillText('PRESS ⏸ OR P TO RESUME', W / 2, H / 2 + 22);
+}
+
 /* ════════════════════════════════════════════════════
    GAME 1 — PACKET SNAKE
 ════════════════════════════════════════════════════ */
@@ -204,6 +218,7 @@ function idleScreen(ctx, W, H, title, hint) {
   const scoreEl= document.getElementById('hexScore');
   const livesEls= [document.getElementById('life1'),document.getElementById('life2'),document.getElementById('life3')];
   const btn    = document.getElementById('hexBtn');
+  const pauseBtn = document.getElementById('hexPauseBtn');
   const input  = document.getElementById('hexInput');
 
   const W = canvas.width, H = canvas.height;
@@ -225,6 +240,8 @@ function idleScreen(ctx, W, H, title, hint) {
     state     = 'playing';
     scoreEl.textContent = 0;
     livesEls.forEach(l=>l.classList.remove('dead'));
+    pauseBtn.disabled = false;
+    pauseBtn.textContent = '⏸';
     clearInterval(loop);
     clearInterval(spawnLoop);
     loop      = setInterval(()=>{tick();draw();}, 40);
@@ -233,6 +250,27 @@ function idleScreen(ctx, W, H, title, hint) {
     input.focus();
     spawnWord();
   }
+
+  function togglePause() {
+    if (state === 'playing') {
+      state = 'paused';
+      clearInterval(loop);
+      clearInterval(spawnLoop);
+      pauseBtn.textContent = '▶';
+      pauseOverlay(ctx, W, H);
+    } else if (state === 'paused') {
+      state = 'playing';
+      pauseBtn.textContent = '⏸';
+      loop      = setInterval(()=>{tick();draw();}, 40);
+      spawnLoop = setInterval(spawnWord, spawnRate);
+      input.focus();
+    }
+  }
+  pauseBtn.addEventListener('click', togglePause);
+  document.addEventListener('keydown', e => {
+    if (typingInField()) return;
+    if ((e.key === 'p' || e.key === 'P') && state !== 'dead' && state !== undefined) togglePause();
+  });
 
   function spawnWord() {
     if(state!=='playing') return;
@@ -319,6 +357,8 @@ function idleScreen(ctx, W, H, title, hint) {
     clearInterval(loop);
     clearInterval(spawnLoop);
     btn.textContent='RESTART';
+    pauseBtn.disabled = true;
+    pauseBtn.textContent = '⏸';
     ctx.fillStyle=DARK; ctx.fillRect(0,0,W,H);
     ctx.fillStyle=RED; ctx.shadowBlur=20; ctx.shadowColor=RED;
     ctx.font='bold 20px "JetBrains Mono"';
@@ -348,6 +388,7 @@ function idleScreen(ctx, W, H, title, hint) {
   const scoreEl = document.getElementById('breakScore');
   const hiEl    = document.getElementById('breakHi');
   const btn     = document.getElementById('breakBtn');
+  const pauseBtn = document.getElementById('breakPauseBtn');
 
   const COLS = 8, ROWS = 5, B_W = (W - 36) / COLS, B_H = 14, TOP = 34;
   const ROW_LABELS = ['DROP', 'DENY', 'RST', 'FILTER', 'ALLOW'];
@@ -379,12 +420,32 @@ function idleScreen(ctx, W, H, title, hint) {
     paddle = { w: 70, h: 8, x: W / 2 - 35 };
     score = 0; lives = 3; level = 1;
     scoreEl.textContent = 0;
+    pauseBtn.disabled = false;
+    pauseBtn.textContent = '⏸';
     buildBricks();
     resetBall();
     state = 'playing';
     cancelAnimationFrame(raf);
     loop();
   }
+
+  function togglePause() {
+    if (state === 'playing') {
+      state = 'paused';
+      cancelAnimationFrame(raf);
+      pauseBtn.textContent = '▶';
+      pauseOverlay(ctx, W, H);
+    } else if (state === 'paused') {
+      state = 'playing';
+      pauseBtn.textContent = '⏸';
+      loop();
+    }
+  }
+  pauseBtn.addEventListener('click', togglePause);
+  document.addEventListener('keydown', e => {
+    if (typingInField()) return;
+    if (e.key === 'p' || e.key === 'P') togglePause();
+  });
 
   function movePaddleTo(clientX) {
     const rect = canvas.getBoundingClientRect();
@@ -485,6 +546,8 @@ function idleScreen(ctx, W, H, title, hint) {
     state = 'dead';
     cancelAnimationFrame(raf);
     btn.textContent = 'RESTART';
+    pauseBtn.disabled = true;
+    pauseBtn.textContent = '⏸';
     idleScreen(ctx, W, H, 'FIREWALL DOWN', 'PRESS START');
     ctx.fillStyle = 'rgba(34,197,94,0.35)';
     ctx.font = '10px "JetBrains Mono"';
@@ -506,6 +569,7 @@ function idleScreen(ctx, W, H, title, hint) {
   const scoreEl = document.getElementById('invScore');
   const hiEl    = document.getElementById('invHi');
   const btn     = document.getElementById('invBtn');
+  const pauseBtn = document.getElementById('invPauseBtn');
 
   const NAMES = ['BOT', 'C2', 'RCE', 'XSS', 'SQL', 'WORM'];
   const COLS = 6, ROWS = 3;
@@ -545,11 +609,31 @@ function idleScreen(ctx, W, H, title, hint) {
     shots = []; bombs = [];
     score = 0; lives = 3; wave = 1; lastShot = 0;
     scoreEl.textContent = 0;
+    pauseBtn.disabled = false;
+    pauseBtn.textContent = '⏸';
     buildWave();
     state = 'playing';
     cancelAnimationFrame(raf);
     loop();
   }
+
+  function togglePause() {
+    if (state === 'playing') {
+      state = 'paused';
+      cancelAnimationFrame(raf);
+      pauseBtn.textContent = '▶';
+      pauseOverlay(ctx, W, H);
+    } else if (state === 'paused') {
+      state = 'playing';
+      pauseBtn.textContent = '⏸';
+      loop();
+    }
+  }
+  pauseBtn.addEventListener('click', togglePause);
+  document.addEventListener('keydown', e => {
+    if (typingInField()) return;
+    if (e.key === 'p' || e.key === 'P') togglePause();
+  });
 
   function fire() {
     const now = Date.now();
@@ -663,6 +747,8 @@ function idleScreen(ctx, W, H, title, hint) {
     state = 'dead';
     cancelAnimationFrame(raf);
     btn.textContent = 'RESTART';
+    pauseBtn.disabled = true;
+    pauseBtn.textContent = '⏸';
     ctx.fillStyle = DARK; ctx.fillRect(0, 0, W, H);
     ctx.fillStyle = RED; ctx.shadowBlur = 20; ctx.shadowColor = RED;
     ctx.font = 'bold 20px "JetBrains Mono"';
@@ -691,6 +777,7 @@ function idleScreen(ctx, W, H, title, hint) {
   const bombsEl = document.getElementById('sweepBombs');
   const bestEl  = document.getElementById('sweepBest');
   const btn     = document.getElementById('sweepBtn');
+  const pauseBtn = document.getElementById('sweepPauseBtn');
 
   const N = 10, CELL = W / N, BOMBS = 14;
   const NUM_COLORS = ['', GREEN2, AMBER, ORANGE, RED, RED, RED, RED, RED];
@@ -822,10 +909,32 @@ function idleScreen(ctx, W, H, title, hint) {
     }
   }
 
+  let pausedAt = 0;
+  function togglePause() {
+    if (state === 'playing') {
+      state = 'paused';
+      pauseBtn.textContent = '▶';
+      if (!firstClick) { pausedAt = Date.now(); clearInterval(timer); }
+      pauseOverlay(ctx, W, H);
+    } else if (state === 'paused') {
+      state = 'playing';
+      pauseBtn.textContent = '⏸';
+      if (!firstClick) { startT += Date.now() - pausedAt; timer = setInterval(draw, 1000); }
+      draw();
+    }
+  }
+  pauseBtn.addEventListener('click', togglePause);
+  document.addEventListener('keydown', e => {
+    if (typingInField()) return;
+    if (e.key === 'p' || e.key === 'P') togglePause();
+  });
+
   function gameOver(won) {
     state = 'dead';
     clearInterval(timer);
     btn.textContent = 'RESTART';
+    pauseBtn.disabled = true;
+    pauseBtn.textContent = '⏸';
     // reveal all bombs
     grid.flat().forEach(cell => { if (cell.bomb) cell.rev = true; });
     draw();
@@ -853,6 +962,8 @@ function idleScreen(ctx, W, H, title, hint) {
     clearInterval(timer);
     newGrid();
     state = 'playing';
+    pauseBtn.disabled = false;
+    pauseBtn.textContent = '⏸';
     draw();
   });
 
@@ -872,6 +983,7 @@ function idleScreen(ctx, W, H, title, hint) {
   const roundEl = document.getElementById('memRound');
   const bestEl  = document.getElementById('memBest');
   const btn     = document.getElementById('memBtn');
+  const pauseBtn = document.getElementById('memPauseBtn');
 
   const PADS = [
     { label: '0x00', freq: 220 },
@@ -983,9 +1095,28 @@ function idleScreen(ctx, W, H, title, hint) {
     }
   });
 
+  function togglePause() {
+    if (state === 'input') {
+      state = 'paused';
+      pauseBtn.textContent = '▶';
+      pauseOverlay(ctx, W, H);
+    } else if (state === 'paused') {
+      state = 'input';
+      pauseBtn.textContent = '⏸';
+      draw();
+    }
+  }
+  pauseBtn.addEventListener('click', togglePause);
+  document.addEventListener('keydown', e => {
+    if (typingInField()) return;
+    if (e.key === 'p' || e.key === 'P') togglePause();
+  });
+
   function gameOver() {
     state = 'dead';
     btn.textContent = 'RESTART';
+    pauseBtn.disabled = true;
+    pauseBtn.textContent = '⏸';
     beep(110, 500);
     ctx.fillStyle = 'rgba(10,15,10,0.82)';
     ctx.fillRect(0, 0, W, H);
@@ -1006,10 +1137,64 @@ function idleScreen(ctx, W, H, title, hint) {
     btn.textContent = 'RESTART';
     seq = []; idx = 0; lit = -1;
     roundEl.textContent = 0;
+    pauseBtn.disabled = false;
+    pauseBtn.textContent = '⏸';
     nextRound();
   });
 
   lit = -1;
   state = 'idle';
   idleScreen(ctx, W, H, 'MEMORY_LEAK', 'PRESS START · REPEAT THE PATTERN');
+})();
+
+/* ════════════════════════════════════════════════════
+   GAME 7 — DOOM (js-dos, 1993 shareware episode)
+════════════════════════════════════════════════════ */
+(function() {
+  const mount = document.getElementById('doomMount');
+  if (!mount) return;
+  const idle   = document.getElementById('doomIdle');
+  const btn    = document.getElementById('doomBtn');
+  const status = document.getElementById('doomStatus');
+
+  const JSDOS_JS  = 'https://v8.js-dos.com/latest/js-dos.js';
+  const JSDOS_CSS = 'https://v8.js-dos.com/latest/js-dos.css';
+  // self-hosted shareware bundle (cdn.dos.zone blocks cross-origin fetches)
+  const BUNDLE    = 'doom.jsdos';
+
+  let booted = false;
+
+  function loadAsset(tag, attrs) {
+    return new Promise((res, rej) => {
+      const el = document.createElement(tag);
+      Object.assign(el, attrs);
+      el.onload = res;
+      el.onerror = rej;
+      document.head.appendChild(el);
+    });
+  }
+
+  btn.addEventListener('click', async () => {
+    if (booted) return;
+    booted = true;
+    btn.disabled = true;
+    btn.textContent = 'LOADING…';
+    status.textContent = 'FETCHING WAD…';
+    try {
+      await Promise.all([
+        loadAsset('script', { src: JSDOS_JS }),
+        loadAsset('link', { rel: 'stylesheet', href: JSDOS_CSS })
+      ]);
+      if (typeof Dos !== 'function') throw new Error('js-dos failed to load');
+      idle.remove();
+      Dos(mount, { url: BUNDLE });
+      status.textContent = 'RIP AND TEAR';
+      btn.textContent = 'RUNNING';
+    } catch (err) {
+      booted = false;
+      btn.disabled = false;
+      btn.textContent = 'RETRY';
+      status.textContent = 'LOAD FAILED — CHECK CONNECTION';
+    }
+  });
 })();
