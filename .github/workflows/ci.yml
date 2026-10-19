@@ -1,0 +1,43 @@
+# Quality gates for the static site. Mirrors `npm run check` locally.
+# GitHub Pages still deploys straight from main; nothing here builds the site.
+name: CI
+
+on:
+  push:
+    branches: [main, redesign, 'feature/**']
+  pull_request:
+    branches: [main, redesign]
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '24', cache: 'npm' }
+      - run: npm ci
+      - run: node scripts/gate.mjs --only=html,css,chrome,links
+
+  a11y:
+    needs: quality
+    runs-on: ubuntu-latest
+    env:
+      CHROME_PATH: /usr/bin/google-chrome
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '24', cache: 'npm' }
+      - run: npm ci
+      - run: node scripts/gate.mjs --only=a11y
+
+  lighthouse:
+    needs: a11y
+    runs-on: ubuntu-latest
+    env:
+      CHROME_PATH: /usr/bin/google-chrome
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '24', cache: 'npm' }
+      - run: npm ci
+      - run: node scripts/gate.mjs --only=lighthouse

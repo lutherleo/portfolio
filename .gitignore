@@ -1,2 +1,11 @@
 # Claude Code internal files (worktrees, settings)
 .claude/
+
+# Dev-only quality tooling (see package.json)
+node_modules/
+.quality/last-run.json
+
+# Local planning and research — kept out of the published site
+research/
+plan/
+.claude-protocol/
