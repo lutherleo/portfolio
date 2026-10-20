@@ -13,12 +13,12 @@
       document.documentElement.dataset.theme = theme;
     })();
   </script>
-  <title>Games — Love Kush Pranu</title>
-  <meta name="description" content="Browser games by Love Kush Pranu — Packet Snake, Hex Breach, Firewall Breakout, Port Invaders, Logic Bomb Sweeper and Memory Leak." />
+  <title>Arcade — Love Kush Pranu</title>
+  <meta name="description" content="Browser games by Love Kush Pranu: Packet Snake, Hex Breach, Firewall Breakout, Port Invaders, Logic Bomb Sweeper, Memory Leak and DOOM." />
   <link rel="canonical" href="https://lutherleo.github.io/portfolio/games.html" />
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Games — Love Kush Pranu" />
-  <meta property="og:description" content="Six browser games built with pure HTML5 Canvas — everything is green and vaguely threatening." />
+  <meta property="og:title" content="Arcade — Love Kush Pranu" />
+  <meta property="og:description" content="Seven browser games: six built with plain HTML5 Canvas, plus 1993 DOOM via js-dos." />
   <meta property="og:url" content="https://lutherleo.github.io/portfolio/games.html" />
   <meta property="og:image" content="https://lutherleo.github.io/portfolio/photo.jpeg" />
   <meta name="twitter:card" content="summary" />
@@ -68,189 +68,177 @@
   <!-- chrome:menu:end -->
 
   <main id="main" tabindex="-1">
+    <header class="page-head">
+      <div class="container">
+        <p class="eyebrow">~/arcade</p>
+        <h1 class="page-title">Arcade</h1>
+        <p class="page-lead">Seven browser games: six built with plain HTML5 Canvas, plus id Software’s 1993 DOOM via js-dos. No frameworks, just like the good old days, except everything is green and vaguely threatening.</p>
+      </div>
+    </header>
 
-  <div class="page-hero" style="background:var(--bg);">
-    <div class="page-hero-inner">
-      <span class="page-hero-eye">ARCADE</span>
-      <h1 class="page-hero-title">Play a <em>game.</em></h1>
-      <p class="page-hero-sub">Six games built with pure HTML5 Canvas. No frameworks. Just like the good old days — except everything is green and vaguely threatening.</p>
-    </div>
-  </div>
-
-  <section class="section" style="background:var(--bg);">
-    <div class="container games-container">
-      <div class="games-grid">
-
-        <!-- ── GAME 1: PACKET SNAKE ─────────────────── -->
-        <div class="game-card neu-card">
-          <div class="game-card-header">
-            <span class="game-card-title">PACKET_SNAKE</span>
-            <span class="game-card-badge">ARROW KEYS / WASD</span>
-          </div>
-          <p class="game-desc">Eat the network packets before they timeout. Each packet consumed increases your length and score. Don't run into the walls or yourself.</p>
-          <div class="game-canvas-wrap">
-            <canvas id="snakeCanvas" width="400" height="400"></canvas>
-          </div>
-          <div class="game-ui">
-            <span>SCORE: <span class="game-score" id="snakeScore">0</span></span>
-            <span>HI: <span class="game-score" id="snakeHi">0</span></span>
-            <div style="display:flex;gap:0.5rem;">
-              <button class="game-btn" id="snakePauseBtn" style="background:var(--surface);color:var(--accent);border:1px solid var(--border);" disabled>⏸</button>
-              <button class="game-btn" id="snakeBtn">START</button>
+    <section class="section" aria-label="Games">
+      <div class="container">
+        <ul class="games-grid">
+        <li>
+          <article class="game-card" aria-labelledby="snake-title">
+            <header class="game-head">
+              <h2 class="game-title" id="snake-title">PACKET_SNAKE</h2>
+              <p class="game-keys"><span class="visually-hidden">Controls: </span>Arrow keys / WASD</p>
+            </header>
+            <p class="game-desc">Eat the network packets before they time out. Each packet consumed increases your length and score. Don’t run into the walls or yourself.</p>
+            <div class="game-canvas-wrap">
+              <canvas id="snakeCanvas" width="400" height="400"></canvas>
             </div>
-          </div>
-          <!-- Mobile D-pad -->
-          <div class="dpad" id="dpad" style="justify-self:center;">
-            <div></div>
-            <div class="dpad-btn" id="dUp">↑</div>
-            <div></div>
-            <div class="dpad-btn" id="dLeft">←</div>
-            <div class="dpad-btn dpad-center" id="dCenter" style="font-size:var(--step--2);letter-spacing:0.08em;">OK</div>
-            <div class="dpad-btn" id="dRight">→</div>
-            <div></div>
-            <div class="dpad-btn" id="dDown">↓</div>
-            <div></div>
-          </div>
-        </div>
-
-        <!-- ── GAME 2: HEX BREACH ─────────────────── -->
-        <div class="game-card neu-card">
-          <div class="game-card-header">
-            <span class="game-card-title">HEX_BREACH</span>
-            <span class="game-card-badge">TYPE TO NEUTRALIZE</span>
-          </div>
-          <p class="game-desc">Malicious hex payloads are raining down. Type them exactly to neutralize each one before it reaches the kernel. You have 3 lives.</p>
-          <div class="game-canvas-wrap">
-            <canvas id="hexCanvas" width="400" height="400"></canvas>
-          </div>
-          <div class="game-ui">
-            <div class="game-lives" id="hexLives">
-              <div class="game-life" id="life1"></div>
-              <div class="game-life" id="life2"></div>
-              <div class="game-life" id="life3"></div>
-            </div>
-            <span>SCORE: <span class="game-score" id="hexScore">0</span></span>
-            <div style="display:flex;gap:0.5rem;">
-              <button class="game-btn game-pause-btn" id="hexPauseBtn" disabled>⏸</button>
-              <button class="game-btn" id="hexBtn">START</button>
-            </div>
-          </div>
-          <div class="game-input-row">
-            <input type="text" id="hexInput" placeholder="Type the falling code..." autocomplete="off" spellcheck="false" />
-          </div>
-        </div>
-
-        <!-- ── GAME 3: FIREWALL BREAKOUT ────────────── -->
-        <div class="game-card neu-card">
-          <div class="game-card-header">
-            <span class="game-card-title">FIREWALL_BREAKOUT</span>
-            <span class="game-card-badge">MOUSE / ← →</span>
-          </div>
-          <p class="game-desc">Your packet has to punch through five layers of firewall rules. Deflect it with the paddle — drop it three times and the connection is dead.</p>
-          <div class="game-canvas-wrap">
-            <canvas id="breakCanvas" width="400" height="400"></canvas>
-          </div>
-          <div class="game-ui">
-            <span>SCORE: <span class="game-score" id="breakScore">0</span></span>
-            <span>HI: <span class="game-score" id="breakHi">0</span></span>
-            <div style="display:flex;gap:0.5rem;">
-              <button class="game-btn game-pause-btn" id="breakPauseBtn" disabled>⏸</button>
-              <button class="game-btn" id="breakBtn">START</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- ── GAME 4: PORT INVADERS ────────────────── -->
-        <div class="game-card neu-card">
-          <div class="game-card-header">
-            <span class="game-card-title">PORT_INVADERS</span>
-            <span class="game-card-badge">← → · SPACE</span>
-          </div>
-          <p class="game-desc">Waves of malware processes are descending on your open ports. Shoot them down before they reach the perimeter — and dodge their payloads.</p>
-          <div class="game-canvas-wrap">
-            <canvas id="invCanvas" width="400" height="400"></canvas>
-          </div>
-          <div class="game-ui">
-            <span>SCORE: <span class="game-score" id="invScore">0</span></span>
-            <span>HI: <span class="game-score" id="invHi">0</span></span>
-            <div style="display:flex;gap:0.5rem;">
-              <button class="game-btn game-pause-btn" id="invPauseBtn" disabled>⏸</button>
-              <button class="game-btn" id="invBtn">START</button>
-            </div>
-          </div>
-          <!-- Touch controls -->
-          <div style="display:flex;gap:0.5rem;justify-content:center;">
-            <div class="dpad-btn" id="invLeft" style="width:56px;">←</div>
-            <div class="dpad-btn" id="invFire" style="width:80px;font-size:var(--step--2);letter-spacing:0.08em;">FIRE</div>
-            <div class="dpad-btn" id="invRight" style="width:56px;">→</div>
-          </div>
-        </div>
-
-        <!-- ── GAME 5: LOGIC BOMB SWEEPER ───────────── -->
-        <div class="game-card neu-card">
-          <div class="game-card-header">
-            <span class="game-card-title">LOGIC_BOMB_SWEEPER</span>
-            <span class="game-card-badge">RIGHT-CLICK / HOLD = FLAG</span>
-          </div>
-          <p class="game-desc">14 logic bombs are hidden in the memory grid. Clear every safe address — the numbers tell you how many bombs sit in adjacent cells. Flag what you can't touch.</p>
-          <div class="game-canvas-wrap">
-            <canvas id="sweepCanvas" width="400" height="400"></canvas>
-          </div>
-          <div class="game-ui">
-            <span>BOMBS: <span class="game-score" id="sweepBombs">14</span></span>
-            <span>BEST: <span class="game-score" id="sweepBest">—</span></span>
-            <div style="display:flex;gap:0.5rem;">
-              <button class="game-btn game-pause-btn" id="sweepPauseBtn" disabled>⏸</button>
-              <button class="game-btn" id="sweepBtn">START</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- ── GAME 6: MEMORY LEAK ──────────────────── -->
-        <div class="game-card neu-card">
-          <div class="game-card-header">
-            <span class="game-card-title">MEMORY_LEAK</span>
-            <span class="game-card-badge">REPEAT THE SEQUENCE</span>
-          </div>
-          <p class="game-desc">The heap is leaking addresses in a pattern. Watch the sequence, then repeat it exactly. One wrong read and it's a segfault. How deep can you go?</p>
-          <div class="game-canvas-wrap">
-            <canvas id="memCanvas" width="400" height="400"></canvas>
-          </div>
-          <div class="game-ui">
-            <span>ROUND: <span class="game-score" id="memRound">0</span></span>
-            <span>BEST: <span class="game-score" id="memBest">—</span></span>
-            <div style="display:flex;gap:0.5rem;">
-              <button class="game-btn game-pause-btn" id="memPauseBtn" disabled>⏸</button>
-              <button class="game-btn" id="memBtn">START</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- ── GAME 7: DOOM ─────────────────────────── -->
-        <div class="game-card neu-card">
-          <div class="game-card-header">
-            <span class="game-card-title game-card-title--danger">DOOM</span>
-            <span class="game-card-badge">1993 · SHAREWARE</span>
-          </div>
-          <p class="game-desc">The real thing — id Software's 1993 shareware episode, running in your browser via js-dos. Rip and tear. Loads ~3MB on start.</p>
-          <div class="game-canvas-wrap">
-            <div class="doom-mount" id="doomMount">
-              <div class="doom-idle" id="doomIdle">
-                <span class="doom-idle-title">DOOM.EXE</span>
-                <span class="doom-idle-sub">KNEE-DEEP IN THE DEAD<br/>E1M1 — HANGAR</span>
+            <div class="game-ui">
+              <p class="game-stats"><span>Score <span class="game-score" id="snakeScore">0</span></span><span>High <span class="game-score" id="snakeHi">0</span></span></p>
+              <div class="game-actions">
+              <button class="game-btn game-btn-icon" id="snakePauseBtn" type="button" aria-label="Pause or resume" disabled>⏸</button>
+                <button class="game-btn" id="snakeBtn" type="button">START</button>
               </div>
             </div>
-          </div>
-          <div class="game-ui">
-            <span id="doomStatus">READY</span>
-            <button class="game-btn game-btn--danger" id="doomBtn">BOOT DOOM</button>
-          </div>
-        </div>
-
+            <div class="dpad" id="dpad">
+              <span></span>
+              <div class="dpad-btn" id="dUp">↑</div>
+              <span></span>
+              <div class="dpad-btn" id="dLeft">←</div>
+              <div class="dpad-btn dpad-center" id="dCenter">OK</div>
+              <div class="dpad-btn" id="dRight">→</div>
+              <span></span>
+              <div class="dpad-btn" id="dDown">↓</div>
+              <span></span>
+            </div>
+          </article>
+        </li>
+        <li>
+          <article class="game-card" aria-labelledby="hex-title">
+            <header class="game-head">
+              <h2 class="game-title" id="hex-title">HEX_BREACH</h2>
+              <p class="game-keys"><span class="visually-hidden">Controls: </span>Type to neutralise</p>
+            </header>
+            <p class="game-desc">Malicious hex payloads are raining down. Type them exactly to neutralise each one before it reaches the kernel. You have 3 lives.</p>
+            <div class="game-canvas-wrap">
+              <canvas id="hexCanvas" width="400" height="400"></canvas>
+            </div>
+            <div class="game-ui">
+              <p class="game-stats"><span class="visually-hidden">Lives</span><span class="game-lives" id="hexLives" aria-hidden="true"><span class="game-life" id="life1"></span><span class="game-life" id="life2"></span><span class="game-life" id="life3"></span></span><span>Score <span class="game-score" id="hexScore">0</span></span></p>
+              <div class="game-actions">
+              <button class="game-btn game-btn-icon" id="hexPauseBtn" type="button" aria-label="Pause or resume" disabled>⏸</button>
+                <button class="game-btn" id="hexBtn" type="button">START</button>
+              </div>
+            </div>
+            <div class="game-input-row">
+              <label class="visually-hidden" for="hexInput">Type the falling code</label>
+              <input type="text" id="hexInput" placeholder="Type the falling code…" autocomplete="off" spellcheck="false" />
+            </div>
+          </article>
+        </li>
+        <li>
+          <article class="game-card" aria-labelledby="break-title">
+            <header class="game-head">
+              <h2 class="game-title" id="break-title">FIREWALL_BREAKOUT</h2>
+              <p class="game-keys"><span class="visually-hidden">Controls: </span>Mouse / ← →</p>
+            </header>
+            <p class="game-desc">Your packet has to punch through five layers of firewall rules. Deflect it with the paddle; drop it three times and the connection is dead.</p>
+            <div class="game-canvas-wrap">
+              <canvas id="breakCanvas" width="400" height="400"></canvas>
+            </div>
+            <div class="game-ui">
+              <p class="game-stats"><span>Score <span class="game-score" id="breakScore">0</span></span><span>High <span class="game-score" id="breakHi">0</span></span></p>
+              <div class="game-actions">
+              <button class="game-btn game-btn-icon" id="breakPauseBtn" type="button" aria-label="Pause or resume" disabled>⏸</button>
+                <button class="game-btn" id="breakBtn" type="button">START</button>
+              </div>
+            </div>
+          </article>
+        </li>
+        <li>
+          <article class="game-card" aria-labelledby="inv-title">
+            <header class="game-head">
+              <h2 class="game-title" id="inv-title">PORT_INVADERS</h2>
+              <p class="game-keys"><span class="visually-hidden">Controls: </span>← → · Space</p>
+            </header>
+            <p class="game-desc">Waves of malware processes are descending on your open ports. Shoot them down before they reach the perimeter, and dodge their payloads.</p>
+            <div class="game-canvas-wrap">
+              <canvas id="invCanvas" width="400" height="400"></canvas>
+            </div>
+            <div class="game-ui">
+              <p class="game-stats"><span>Score <span class="game-score" id="invScore">0</span></span><span>High <span class="game-score" id="invHi">0</span></span></p>
+              <div class="game-actions">
+              <button class="game-btn game-btn-icon" id="invPauseBtn" type="button" aria-label="Pause or resume" disabled>⏸</button>
+                <button class="game-btn" id="invBtn" type="button">START</button>
+              </div>
+            </div>
+            <div class="touch-row">
+              <div class="dpad-btn touch-btn" id="invLeft">←</div>
+              <div class="dpad-btn touch-btn touch-btn-wide" id="invFire">FIRE</div>
+              <div class="dpad-btn touch-btn" id="invRight">→</div>
+            </div>
+          </article>
+        </li>
+        <li>
+          <article class="game-card" aria-labelledby="sweep-title">
+            <header class="game-head">
+              <h2 class="game-title" id="sweep-title">LOGIC_BOMB_SWEEPER</h2>
+              <p class="game-keys"><span class="visually-hidden">Controls: </span>Right-click or hold to flag</p>
+            </header>
+            <p class="game-desc">14 logic bombs are hidden in the memory grid. Clear every safe address; the numbers tell you how many bombs sit in adjacent cells. Flag what you can’t touch.</p>
+            <div class="game-canvas-wrap">
+              <canvas id="sweepCanvas" width="400" height="400"></canvas>
+            </div>
+            <div class="game-ui">
+              <p class="game-stats"><span>Bombs <span class="game-score" id="sweepBombs">14</span></span><span>Best <span class="game-score" id="sweepBest">—</span></span></p>
+              <div class="game-actions">
+              <button class="game-btn game-btn-icon" id="sweepPauseBtn" type="button" aria-label="Pause or resume" disabled>⏸</button>
+                <button class="game-btn" id="sweepBtn" type="button">START</button>
+              </div>
+            </div>
+          </article>
+        </li>
+        <li>
+          <article class="game-card" aria-labelledby="mem-title">
+            <header class="game-head">
+              <h2 class="game-title" id="mem-title">MEMORY_LEAK</h2>
+              <p class="game-keys"><span class="visually-hidden">Controls: </span>Repeat the sequence</p>
+            </header>
+            <p class="game-desc">The heap is leaking addresses in a pattern. Watch the sequence, then repeat it exactly. One wrong read and it’s a segfault. How deep can you go?</p>
+            <div class="game-canvas-wrap">
+              <canvas id="memCanvas" width="400" height="400"></canvas>
+            </div>
+            <div class="game-ui">
+              <p class="game-stats"><span>Round <span class="game-score" id="memRound">0</span></span><span>Best <span class="game-score" id="memBest">—</span></span></p>
+              <div class="game-actions">
+              <button class="game-btn game-btn-icon" id="memPauseBtn" type="button" aria-label="Pause or resume" disabled>⏸</button>
+                <button class="game-btn" id="memBtn" type="button">START</button>
+              </div>
+            </div>
+          </article>
+        </li>
+        <li>
+          <article class="game-card" aria-labelledby="doom-title">
+            <header class="game-head">
+              <h2 class="game-title" id="doom-title">DOOM</h2>
+              <p class="game-keys"><span class="visually-hidden">Controls: </span>Keyboard · 1993 shareware</p>
+            </header>
+            <p class="game-desc">The real thing: id Software’s 1993 shareware episode, running in your browser via js-dos. The 5.3 MB game file downloads only when you press Boot.</p>
+            <div class="game-canvas-wrap game-canvas-wrap--doom">
+              <div class="doom-mount" id="doomMount">
+                <div class="doom-idle" id="doomIdle">
+                  <span class="doom-idle-title">DOOM.EXE</span>
+                  <span class="doom-idle-sub">KNEE-DEEP IN THE DEAD<br />E1M1 — HANGAR</span>
+                </div>
+              </div>
+            </div>
+            <div class="game-ui">
+              <p class="game-stats"><span id="doomStatus">READY</span></p>
+              <div class="game-actions">
+                <button class="game-btn game-btn--danger" id="doomBtn" type="button">BOOT DOOM</button>
+              </div>
+            </div>
+          </article>
+        </li>
+        </ul>
       </div>
-    </div>
-  </section>
-
+    </section>
   </main>
 
   <!-- chrome:footer:start -->

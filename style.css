@@ -446,49 +446,11 @@ main:focus { outline: none; }
 
 .section { padding: var(--section-y) 0; }
 main > .section + .section { border-top: 1px solid var(--border); }
-.sec-label {
-  font-family:var(--font-mono);
-  font-size: var(--step--2); letter-spacing: 0.22em; color: var(--text-dim);
-  font-weight: 500; margin-bottom: 3rem; display:flex; align-items:center; gap:1rem;
-}
 
-.sec-label::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background: var(--border-dim);
-  max-width: 60px;
-}
 
-.sec-num {
-  color: var(--accent);
-  font-weight: 700;
-  margin-right: 0.15rem;
-}
 
-.sec-num::after {
-  content: ' /';
-  color: var(--text-muted);
-  font-weight: 400;
-}
 
-.link-arrow {
-  font-size: 0.82rem;
-  letter-spacing: 0.04em;
-  color: var(--text);
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  border-bottom: 1px solid var(--border-dim);
-  padding-bottom: 2px;
-  transition: color 0.3s, border-color 0.3s;
-}
 
-.link-arrow:hover {
-  color: var(--accent);
-  border-color: var(--accent);
-}
 
 /* ─── PAGE TRANSITIONS ──────────────────────────────
    Cross-document View Transitions: a soft crossfade between pages, and the
@@ -632,6 +594,269 @@ main > .section + .section { border-top: 1px solid var(--border); }
     grid-column: 1;
     text-align: left;
   }
+}
+
+/* ─── ARCADE ─────────────────────────────────────── */
+.games-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 22rem), 1fr));
+  gap: var(--space-5);
+  list-style: none;
+}
+
+.games-grid > li { display: flex; }
+
+.game-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  width: 100%;
+  padding: var(--space-5);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+}
+
+.game-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2) var(--space-4);
+}
+
+.game-title {
+  font-family: var(--font-mono);
+  font-size: var(--step-0);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--text);
+}
+
+[aria-labelledby="doom-title"] .game-title { color: var(--danger); }
+
+.game-keys {
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  color: var(--text-3);
+}
+
+.game-desc {
+  min-height: 4.8em;
+  font-size: var(--step--1);
+  color: var(--text-2);
+}
+
+/* Canvases keep their 400x400 drawing size and scale with the card. */
+.game-canvas-wrap {
+  position: relative;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--bg);
+}
+
+.game-canvas-wrap--doom { aspect-ratio: 4 / 3; }
+
+.game-canvas-wrap canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.doom-mount {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.doom-mount .jsdos-rso {
+  width: 100%;
+  height: 100%;
+}
+
+.doom-idle {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  text-align: center;
+}
+
+.doom-idle-title {
+  font-family: var(--font-mono);
+  font-size: var(--step-1);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--danger);
+}
+
+.doom-idle-sub {
+  max-width: 280px;
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  line-height: 1.6;
+  letter-spacing: 0.08em;
+  color: var(--text-2);
+}
+
+.game-ui {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  color: var(--text-2);
+}
+
+.game-stats {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.game-score {
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--accent);
+}
+
+.game-actions {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.game-btn {
+  min-height: 36px;
+  padding: 0 var(--space-4);
+  border: 1px solid var(--accent);
+  border-radius: var(--radius-md);
+  background: var(--accent);
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--on-accent);
+  cursor: pointer;
+  transition: background-color var(--dur-2) var(--ease-standard), border-color var(--dur-2) var(--ease-standard), transform var(--dur-1) var(--ease-standard);
+}
+
+.game-btn:hover:not(:disabled) {
+  border-color: var(--accent-hover);
+  background: var(--accent-hover);
+}
+
+.game-btn:active:not(:disabled) { transform: translateY(1px); }
+
+.game-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.game-btn-icon {
+  min-width: 36px;
+  padding: 0;
+  border-color: var(--border-strong);
+  background: transparent;
+  color: var(--accent);
+}
+
+.game-btn-icon:hover:not(:disabled) {
+  border-color: var(--accent);
+  background: var(--accent-dim);
+}
+
+.game-btn--danger {
+  border-color: var(--danger);
+  background: var(--danger);
+}
+
+.game-btn--danger:hover:not(:disabled) {
+  border-color: var(--danger);
+  background: color-mix(in srgb, var(--danger) 85%, var(--text));
+}
+
+.game-input-row input {
+  width: 100%;
+  min-height: 44px;
+  padding: 0 var(--space-4);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  background: var(--bg);
+  font-family: var(--font-mono);
+  font-size: var(--step-0);
+  color: var(--accent);
+}
+
+.game-lives {
+  display: inline-flex;
+  gap: 4px;
+}
+
+.game-life {
+  width: 10px;
+  height: 10px;
+  border-radius: var(--radius-full);
+  background: var(--accent);
+}
+
+.game-life.dead { background: color-mix(in srgb, var(--accent) 15%, transparent); }
+
+/* Touch controls only where there's no fine pointer */
+.dpad {
+  display: grid;
+  grid-template-columns: repeat(3, 44px);
+  grid-template-rows: repeat(3, 44px);
+  gap: 4px;
+  justify-content: center;
+}
+
+.touch-row {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-2);
+}
+
+.dpad-btn {
+  display: grid;
+  place-items: center;
+  min-width: 44px;
+  min-height: 44px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  background: var(--surface-2);
+  font-size: 1rem;
+  color: var(--text-2);
+  cursor: pointer;
+  user-select: none;
+  touch-action: manipulation;
+}
+
+.dpad-btn:active, .dpad-btn.pressed {
+  border-color: var(--accent);
+  background: var(--accent-dim);
+  color: var(--accent);
+}
+
+.dpad-center, .touch-btn-wide {
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  letter-spacing: 0.08em;
+}
+
+.touch-btn { width: 56px; }
+.touch-btn-wide { width: 88px; }
+
+@media (hover: hover) and (pointer: fine) {
+  .dpad, .touch-row { display: none; }
 }
 
 /* ─── WRITING: LIST, FILTER, FEED ────────────────── */
@@ -807,6 +1032,15 @@ main > .section + .section { border-top: 1px solid var(--border); }
 }
 
 /* ─── SHARED SECTION PARTS ───────────────────────── */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
 .eyebrow {
   font-family: var(--font-mono);
   font-size: var(--step--1);
@@ -1471,7 +1705,7 @@ main > .section + .section { border-top: 1px solid var(--border); }
 }
 
 /* subtle grid texture on hero + sub-page heroes */
-.hero::before, .page-hero::before {
+.hero::before {
   content: '';
   position: absolute;
   inset: 0;
@@ -1688,20 +1922,6 @@ main > .section + .section { border-top: 1px solid var(--border); }
 
 .btn-ghost:hover { color: var(--accent); }
 
-/* ─── NEUMORPHIC CARD ────────────────────────────── */
-.neu-card {
-  background: var(--surface);
-  border: 1px solid var(--border-dim);
-  border-radius: 12px;
-  box-shadow: var(--neu-shadow);
-  transition: box-shadow 0.4s var(--ease), border-color 0.4s, transform 0.35s var(--ease);
-}
-.neu-card:hover {
-  box-shadow: var(--shadow-lift), -4px -4px 14px color-mix(in srgb, var(--accent) 7%, transparent), 0 0 0 1px color-mix(in srgb, var(--accent) 15%, transparent);
-  border-color: color-mix(in srgb, var(--accent) 20%, transparent);
-  transform: translateY(-3px);
-}
-
 /* ─── FOOTER ─────────────────────────────────────── */
 .footer {
   padding: var(--space-8) 0 var(--space-7);
@@ -1916,71 +2136,6 @@ html.reveal-on .reveal.visible { animation: reveal-in var(--dur-4) var(--ease-ou
   color: var(--text-2);
 }
 
-/* ─── RESUME BUTTON ─────────────────────────────── */
-.btn-resume {
-  display:inline-flex; align-items:center; gap:0.45rem;
-  font-family:var(--font-mono); font-size:var(--step--2);
-  letter-spacing:0.08em; font-weight:600;
-  color:var(--on-accent); background:var(--accent);
-  padding:0.45rem 1rem; border-radius:6px; text-decoration:none;
-  border:1px solid var(--accent);
-  transition:background 0.3s, transform 0.2s var(--ease), box-shadow 0.3s;
-  white-space:nowrap;
-}
-
-.btn-resume:hover {
-  background: var(--accent-2);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px color-mix(in srgb, var(--accent) 30%, transparent);
-}
-
-.btn-resume svg { flex-shrink:0; }
-
-/* ─── PAGE HERO (sub-pages) ──────────────────────── */
-.page-hero {
-  min-height:38vh; display:flex; align-items:flex-end;
-  padding: calc(var(--nav-h) + 4rem) 3rem 4rem;
-  position:relative; overflow:hidden;
-  border-bottom:1px solid var(--border-dim);
-}
-
-.page-hero-inner {
-  max-width: 1200px;
-  margin: 0 auto;
-  width: 100%;
-}
-
-.page-hero-eye {
-  font-family: var(--font-mono);
-  font-size: var(--step--2);
-  letter-spacing: 0.22em;
-  color: var(--text-dim);
-  margin-bottom: 1rem;
-  display: block;
-}
-
-.page-hero-title {
-  font-family: var(--font-sans);
-  font-size: clamp(3rem,8vw,6rem);
-  font-weight: 700;
-  color: var(--white);
-  letter-spacing: -0.04em;
-  line-height: 0.92;
-}
-
-.page-hero-title em {
-  font-style: normal;
-  color: var(--accent);
-}
-
-.page-hero-sub {
-  font-size: 0.88rem;
-  color: var(--text-dim);
-  line-height: 1.8;
-  max-width: 560px;
-  margin-top: 1.5rem;
-}
-
 /* ─── SUB-PAGE HEADER ─────────────────────────────── */
 .page-head {
   padding: calc(var(--nav-h) + var(--space-8)) 0 var(--space-7);
@@ -2085,214 +2240,6 @@ html.reveal-on .reveal.visible { animation: reveal-in var(--dur-4) var(--ease-ou
   font-weight: 500;
   color: var(--accent);
 }
-
-/* ─── GAMES PAGE ─────────────────────────────────── */
-/* wide container so 3–4 games fit per row on big screens */
-.games-container { max-width: 1760px; }
-
-.games-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-  grid-auto-rows: 1fr;
-  gap: 2rem;
-}
-
-.game-card {
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  height: 100%;
-}
-
-.game-card-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.game-card-title {
-  font-family: var(--font-mono);
-  font-size: 1rem;
-  font-weight: 700;
-  color: var(--white);
-  letter-spacing: 0.04em;
-}
-
-.game-card-badge {
-  font-family: var(--font-mono);
-  font-size: var(--step--2);
-  letter-spacing: 0.12em;
-  padding: 3px 8px;
-  border-radius: 50px;
-  background: var(--accent-dim);
-  color: var(--accent);
-  border: 1px solid var(--border-accent);
-}
-
-.game-desc { min-height:3.6em; }
-
-.game-canvas-wrap {
-  position: relative;
-  background: var(--bg);
-  border-radius: 8px;
-  overflow: hidden;
-  border: 1px solid var(--border-dim);
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.game-canvas-wrap canvas {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
-.game-pause-btn {
-  background: var(--surface);
-  color: var(--accent);
-  border: 1px solid var(--border-accent);
-}
-
-/* DOOM via js-dos */
-.doom-mount {
-  width: 100%;
-  aspect-ratio: 4/3;
-  position: relative;
-}
-
-.doom-mount .jsdos-rso {
-  width: 100%;
-  height: 100%;
-}
-.doom-idle {
-  position:absolute; inset:0; display:flex; flex-direction:column;
-  align-items:center; justify-content:center; gap:0.75rem; text-align:center;
-}
-
-.doom-idle-title {
-  font-family: var(--font-mono);
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: var(--danger);
-  letter-spacing: 0.1em;
-  text-shadow: 0 0 20px color-mix(in srgb, var(--danger) 50%, transparent);
-}
-
-.doom-idle-sub {
-  font-family: var(--font-mono);
-  font-size: var(--step--2);
-  color: var(--text-dim);
-  letter-spacing: 0.08em;
-  max-width: 280px;
-  line-height: 1.6;
-}
-
-.game-ui {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-family: var(--font-mono);
-  font-size: var(--step--2);
-  color: var(--text-dim);
-}
-
-.game-score {
-  color: var(--accent);
-  font-weight: 700;
-}
-.game-btn {
-  font-family:var(--font-mono); font-size:var(--step--2); letter-spacing:0.1em;
-  background:var(--accent); color:var(--on-accent); border:none;
-  padding:0.5rem 1.2rem; border-radius:5px; cursor:pointer; font-weight:700;
-  transition:background 0.2s, transform 0.15s;
-}
-
-.game-btn:hover {
-  background: var(--accent-2);
-  transform: translateY(-1px);
-}
-
-.game-btn--danger { background: var(--danger); }
-.game-btn--danger:hover { background: color-mix(in srgb, var(--danger) 85%, var(--text)); }
-.game-card-title--danger { color: var(--danger); }
-
-.game-input-row {
-  display: flex;
-  gap: 0.75rem;
-  align-items: center;
-}
-.game-input-row input {
-  flex:1; background:color-mix(in srgb, var(--accent) 4%, transparent); border:1px solid var(--border-dim);
-  border-radius:5px; padding:0.6rem 1rem; color:var(--accent);
-  font-family:var(--font-mono); font-size:0.88rem;
-  transition:border-color 0.3s;
-}
-
-.game-input-row input:focus { border-color:var(--accent); }
-
-.game-lives {
-  display: flex;
-  gap: 4px;
-}
-
-.game-life {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: var(--accent);
-  box-shadow: 0 0 6px color-mix(in srgb, var(--accent) 50%, transparent);
-  transition: background 0.3s;
-}
-
-.game-life.dead {
-  background: color-mix(in srgb, var(--accent) 12%, transparent);
-  box-shadow: none;
-}
-
-.game-desc {
-  font-size: 0.8rem;
-  color: var(--text-dim);
-  line-height: 1.7;
-}
-
-.dpad {
-  display: grid;
-  grid-template-columns: repeat(3,40px);
-  grid-template-rows: repeat(3,40px);
-  gap: 4px;
-  margin-top: 0.5rem;
-}
-
-.dpad-btn {
-  width: 40px;
-  height: 40px;
-  background: var(--surface);
-  border: 1px solid var(--border-dim);
-  border-radius: 6px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--text-dim);
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background 0.15s, color 0.15s;
-  user-select: none;
-}
-
-.dpad-btn:active, .dpad-btn.pressed {
-  background: var(--accent-dim);
-  color: var(--accent);
-  border-color: var(--accent);
-}
-
-.dpad-center {
-  grid-column: 2;
-  grid-row: 2;
-}
-@media(max-width:860px){ .games-grid { grid-template-columns:1fr; } }
 
 /* ─── REDUCED MOTION ─────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {

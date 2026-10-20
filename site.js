@@ -113,7 +113,7 @@
     window.addEventListener('resize', queueReveal, { passive: true });
   }
   window.LKP = { reveal };
-  reveal('.page-hero-inner, .sec-label, .neu-card, .footer-inner');
+  reveal('.section-head, .card-grid > li, .media-grid > li, .hobby-grid > li, .games-grid > li, .post-list > li, .footer-inner');
 
   /* ── PAGE TRANSITIONS ──────────────────────────── */
   // When a project card or work row opens a case study, name its title so the
