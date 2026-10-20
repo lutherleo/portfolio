@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-19T23:44:40.497Z",
+  "updatedAt": "2026-10-20T00:31:37.865Z",
   "html": {
     "blog.html": 20,
     "games.html": 49,
@@ -39,20 +39,20 @@
   },
   "lighthouse": {
     "blog.html": {
-      "performance": 95,
+      "performance": 94,
       "accessibility": 90,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 2793,
-      "cls": 0.002,
+      "lcpMs": 2510,
+      "cls": 0.004,
       "tbtMs": 0
     },
     "games.html": {
-      "performance": 95,
+      "performance": 91,
       "accessibility": 98,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 2803,
+      "lcpMs": 2813,
       "cls": 0.002,
       "tbtMs": 0
     },
@@ -61,35 +61,35 @@
       "accessibility": 95,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 2823,
+      "lcpMs": 2797,
       "cls": 0.021,
       "tbtMs": 0
     },
     "index.html": {
-      "performance": 79,
+      "performance": 88,
       "accessibility": 96,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 4279,
-      "cls": 0,
-      "tbtMs": 41
+      "lcpMs": 3389,
+      "cls": 0.002,
+      "tbtMs": 53
     },
     "interviews.html": {
-      "performance": 92,
+      "performance": 95,
       "accessibility": 95,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 2801,
-      "cls": 0,
+      "lcpMs": 2354,
+      "cls": 0.004,
       "tbtMs": 0
     },
     "posts/building-the-same-secure-channel-twice.html": {
-      "performance": 99,
+      "performance": 94,
       "accessibility": 93,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1428,
-      "cls": 0.066,
+      "lcpMs": 2504,
+      "cls": 0,
       "tbtMs": 0
     },
     "posts/fuzzing-kernel-race-conditions.html": {
@@ -102,20 +102,20 @@
       "tbtMs": 0
     },
     "posts/writing-a-csaw-ctf-challenge.html": {
-      "performance": 100,
+      "performance": 95,
       "accessibility": 93,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1430,
-      "cls": 0.024,
+      "lcpMs": 2367,
+      "cls": 0,
       "tbtMs": 0
     },
     "projects.html": {
-      "performance": 96,
+      "performance": 92,
       "accessibility": 88,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 2491,
+      "lcpMs": 2659,
       "cls": 0.004,
       "tbtMs": 0
     }
