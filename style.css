@@ -1821,29 +1821,51 @@ main > .section + .section { border-top: 1px solid var(--border); }
   transform: translateZ(18px);
 }
 
-/* ─── HERO ───────────────────────────────────────── */
+/* ─── HERO ───────────────────────────────────────────
+   Full-bleed: the name at display size over a dithered crystal lattice that
+   sits right of centre and runs off the edge. The field fades towards the
+   text column so copy stays clean. The poster (a 1-bit PNG used as a mask,
+   filled with the accent) shows until hero3d.js or hero2d.js take over. */
 .hero {
-  min-height: min(100svh, 52rem);
+  position: relative;
   display: flex;
   align-items: center;
-  padding: calc(var(--nav-h) + var(--space-6)) var(--gutter) var(--space-8);
-  position: relative;
-  overflow: hidden;
+  min-height: min(100svh, 60rem);
+  padding: calc(var(--nav-h) + var(--space-7)) var(--gutter) var(--space-9);
+  overflow: clip;
 }
 
-/* subtle grid texture on hero + sub-page heroes */
-.hero::before {
-  content: '';
+.hero-field {
+  position: absolute;
+  inset: var(--nav-h) -12% 0 44%;
+  z-index: 0;
+  mask-image: linear-gradient(90deg, transparent 0, #000 42%);
+}
+
+.hero-poster,
+.hero-canvas {
   position: absolute;
   inset: 0;
-  pointer-events: none;
-  z-index: 0;
-  background-image:
-    linear-gradient(color-mix(in srgb, var(--accent) 4%, transparent) 1px, transparent 1px),
-    linear-gradient(90deg, color-mix(in srgb, var(--accent) 4%, transparent) 1px, transparent 1px);
-  background-size: 44px 44px;
-  mask-image: radial-gradient(ellipse at 50% 38%, black 25%, transparent 78%);
+  width: 100%;
+  height: 100%;
 }
+
+.hero-poster {
+  background: var(--accent);
+  mask: url("assets/hero-poster.png") center / auto 100% no-repeat;
+  image-rendering: pixelated;
+  opacity: 0.9;
+  transition: opacity var(--dur-4) var(--ease-out);
+}
+
+.hero-canvas {
+  display: block;
+  opacity: 0;
+  transition: opacity var(--dur-4) var(--ease-out);
+}
+
+.hero.is-live .hero-canvas { opacity: 1; }
+.hero.is-live .hero-poster { opacity: 0; }
 
 .hero-inner {
   position: relative;
@@ -1851,35 +1873,42 @@ main > .section + .section { border-top: 1px solid var(--border); }
   width: 100%;
   max-width: var(--container);
   margin: 0 auto;
-  display: grid;
-  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
-  align-items: center;
-  gap: var(--space-7);
 }
 
-.hero-left { min-width: 0; }
-
 .hero-eyebrow {
-  font-family: var(--font-mono);
+  font-family: var(--font-pixel);
   font-size: var(--step--1);
+  letter-spacing: var(--tracking-pixel);
   color: var(--accent);
-  margin-bottom: var(--space-4);
+  margin-bottom: var(--space-5);
 }
 
 .hero-title {
-  font-size: var(--step-5);
-  font-weight: 600;
-  line-height: var(--lh-tight);
-  letter-spacing: -0.035em;
+  font-size: var(--display-hero);
+  font-weight: var(--weight-display);
+  line-height: var(--lh-display);
+  letter-spacing: var(--tracking-hero);
+  text-transform: uppercase;
   color: var(--text);
-  text-wrap: balance;
 }
+
+.hero-line {
+  display: block;
+  white-space: nowrap;
+}
+
+.decrypt-cell {
+  display: inline-block;
+  text-align: center;
+}
+
+.decrypt-cell.is-cipher { color: var(--accent); }
 
 .hero-role {
   font-family: var(--font-mono);
   font-size: var(--step--1);
   color: var(--text-2);
-  margin-top: var(--space-4);
+  margin-top: var(--space-6);
 }
 
 .hero-lead {
@@ -1887,7 +1916,7 @@ main > .section + .section { border-top: 1px solid var(--border); }
   line-height: 1.5;
   color: var(--text-2);
   max-width: 40ch;
-  margin-top: var(--space-5);
+  margin-top: var(--space-4);
   text-wrap: pretty;
 }
 
@@ -1922,43 +1951,11 @@ main > .section + .section { border-top: 1px solid var(--border); }
   box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 18%, transparent);
 }
 
-.hero-right {
-  position: relative;
-  width: 100%;
-  max-width: 520px;
-  aspect-ratio: 1;
-  justify-self: end;
-}
-
-.hero-poster-vector { stroke: var(--text); }
-.hero-poster-mark { fill: var(--text); }
-
-.hero-poster,
-.hero-canvas {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-}
-
-.hero-poster {
-  color: var(--accent);
-  transition: opacity var(--dur-4) var(--ease-out);
-}
-
-.hero-canvas {
-  display: block;
-  opacity: 0;
-  transition: opacity var(--dur-4) var(--ease-out);
-}
-
-.hero-right.is-live .hero-canvas { opacity: 1; }
-.hero-right.is-live .hero-poster { opacity: 0; }
-
 .hero-pause {
   position: absolute;
-  right: 0;
-  bottom: 0;
+  right: var(--gutter);
+  bottom: var(--space-6);
+  z-index: 2;
   display: inline-grid;
   place-items: center;
   width: 36px;
@@ -1971,6 +1968,8 @@ main > .section + .section { border-top: 1px solid var(--border); }
   transition: color var(--dur-2) var(--ease-standard), border-color var(--dur-2) var(--ease-standard);
 }
 
+.hero-pause[hidden] { display: none; }
+
 .hero-pause:hover {
   border-color: var(--border-strong);
   color: var(--accent);
@@ -1981,9 +1980,29 @@ main > .section + .section { border-top: 1px solid var(--border); }
 .scene-pause[aria-pressed="false"] .icon-play,
 .scene-pause[aria-pressed="true"] .icon-pause { display: none; }
 
+/* Narrow screens: the lattice becomes a band above the copy (never behind
+   small text), wider than the screen and fading out at its lower edge. */
 @media (width <= 900px) {
-  .hero-inner { grid-template-columns: 1fr; }
-  .hero-right { display: none; }
+  .hero {
+    flex-direction: column;
+    align-items: stretch;
+    min-height: 0;
+    padding-top: var(--nav-h);
+  }
+
+  .hero-field {
+    position: relative;
+    inset: auto;
+    order: -1;
+    height: clamp(15rem, 44svh, 24rem);
+    margin-inline: -25%;
+    mask-image: linear-gradient(180deg, #000 70%, transparent 100%);
+  }
+
+  .hero-pause {
+    top: calc(var(--nav-h) + var(--space-4));
+    bottom: auto;
+  }
 }
 
 @media (width <= 600px) {
