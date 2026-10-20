@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-20T12:19:27.646Z",
+  "updatedAt": "2026-10-20T12:36:07.602Z",
   "html": {
     "404.html": 0,
     "blog.html": 0,
@@ -108,7 +108,7 @@
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1803,
+      "lcpMs": 1954,
       "cls": 0,
       "tbtMs": 0
     },
@@ -117,21 +117,21 @@
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 2106,
+      "lcpMs": 2253,
       "cls": 0,
       "tbtMs": 0
     },
     "hobbies.html": {
-      "performance": 99,
+      "performance": 100,
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1804,
+      "lcpMs": 1505,
       "cls": 0,
       "tbtMs": 0
     },
     "index.html": {
-      "performance": 96,
+      "performance": 97,
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
@@ -140,11 +140,11 @@
       "tbtMs": 0
     },
     "interviews.html": {
-      "performance": 99,
+      "performance": 98,
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 2036,
+      "lcpMs": 2225,
       "cls": 0,
       "tbtMs": 0
     },
@@ -153,34 +153,34 @@
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1809,
+      "lcpMs": 1955,
       "cls": 0,
       "tbtMs": 0
     },
     "posts/fuzzing-kernel-race-conditions.html": {
-      "performance": 99,
-      "accessibility": 100,
-      "best-practices": 100,
-      "seo": 100,
-      "lcpMs": 1805,
-      "cls": 0,
-      "tbtMs": 0
-    },
-    "posts/writing-a-csaw-ctf-challenge.html": {
       "performance": 100,
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1503,
+      "lcpMs": 1653,
       "cls": 0,
       "tbtMs": 0
     },
-    "projects.html": {
+    "posts/writing-a-csaw-ctf-challenge.html": {
       "performance": 99,
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1952,
+      "lcpMs": 1666,
+      "cls": 0,
+      "tbtMs": 0
+    },
+    "projects.html": {
+      "performance": 98,
+      "accessibility": 100,
+      "best-practices": 100,
+      "seo": 100,
+      "lcpMs": 2103,
       "cls": 0,
       "tbtMs": 0
     },
@@ -189,7 +189,7 @@
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1804,
+      "lcpMs": 1953,
       "cls": 0,
       "tbtMs": 0
     },
@@ -198,7 +198,7 @@
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1803,
+      "lcpMs": 1954,
       "cls": 0,
       "tbtMs": 0
     },
@@ -207,16 +207,16 @@
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1803,
+      "lcpMs": 1804,
       "cls": 0,
       "tbtMs": 0
     },
     "projects/chronos.html": {
-      "performance": 100,
+      "performance": 99,
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1655,
+      "lcpMs": 1955,
       "cls": 0,
       "tbtMs": 0
     },
@@ -225,7 +225,7 @@
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1804,
+      "lcpMs": 1952,
       "cls": 0,
       "tbtMs": 0
     },
@@ -234,16 +234,16 @@
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1804,
+      "lcpMs": 1955,
       "cls": 0,
       "tbtMs": 0
     },
     "projects/lind-sandbox.html": {
-      "performance": 100,
+      "performance": 99,
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1660,
+      "lcpMs": 1963,
       "cls": 0,
       "tbtMs": 0
     },
@@ -252,7 +252,7 @@
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1802,
+      "lcpMs": 1803,
       "cls": 0,
       "tbtMs": 0
     },
@@ -261,7 +261,7 @@
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1803,
+      "lcpMs": 1953,
       "cls": 0,
       "tbtMs": 0
     },
@@ -270,7 +270,7 @@
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1667,
+      "lcpMs": 1807,
       "cls": 0,
       "tbtMs": 0
     },
@@ -279,7 +279,7 @@
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1803,
+      "lcpMs": 1954,
       "cls": 0,
       "tbtMs": 0
     }

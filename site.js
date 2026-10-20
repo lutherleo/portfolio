@@ -123,6 +123,17 @@
   window.LKP = { reveal };
   reveal('.section-head, .card-grid > li, .media-grid > li, .hobby-grid > li, .games-grid > li, .post-list > li, .footer-inner');
 
+  /* ── DITHERED PORTRAIT ─────────────────────────── */
+  // The About photo shows as a dithered print; the toggle (and hover, on
+  // fine pointers) shows the original.
+  document.querySelectorAll('.photo-toggle').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const on = btn.getAttribute('aria-pressed') !== 'true';
+      btn.setAttribute('aria-pressed', String(on));
+      btn.closest('.about-photo')?.classList.toggle('is-original', on);
+    });
+  });
+
   /* ── 3D TILT CARDS ─────────────────────────────── */
   // Cards lean towards the pointer, with title and tags at different depths
   // (see .tilt in style.css). Mouse/trackpad only, never with reduced motion.

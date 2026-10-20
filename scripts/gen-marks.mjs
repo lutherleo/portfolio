@@ -3,11 +3,12 @@
 //   assets/marks/monogram-mark.svg the same letters without the grid, for small sizes
 //   favicon.svg                    a bold "K" from the same lattice on a dark tile
 //   assets/marks/<slug>.svg        one lattice glyph per project case page
+// and refreshes the inline glyph copies in projects.html and the case pages.
 // Everything is drawn in currentColor (the favicon excepted), so inline
 // copies follow the page theme. Re-running produces byte-identical files.
 //
 //   node scripts/gen-marks.mjs
-import { mkdir, readdir, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, readdir, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { ROOT } from './lib/site.mjs';
 import { BASIS, lattice, project, seeded } from '../lattice.js';
@@ -125,3 +126,23 @@ await writeFile(join(ROOT, 'favicon.svg'), faviconSvg());
 const slugs = (await readdir(join(ROOT, 'projects'))).filter(f => f.endsWith('.html')).map(f => f.slice(0, -5)).sort();
 for (const slug of slugs) await writeFile(join(OUT, `${slug}.svg`), glyphSvg(slug));
 console.log(`wrote monogram.svg, favicon.svg and ${slugs.length} project glyphs`);
+
+/* ── Inline copies ──────────────────────────────────
+   Pages embed glyphs inline (so they take the theme's colour) between
+   <!-- glyph:SLUG:start --> … <!-- glyph:SLUG:end --> markers; refresh them so
+   they always match the files above. */
+const inlineGlyph = slug => glyphSvg(slug).trim()
+  .replace('<svg xmlns="http://www.w3.org/2000/svg" ', '<svg class="glyph-svg" focusable="false" ');
+const pages = ['projects.html', ...slugs.map(s => `projects/${s}.html`)];
+let synced = 0;
+for (const page of pages) {
+  const path = join(ROOT, page);
+  const html = await readFile(path, 'utf8');
+  const next = html.replace(/(<!-- glyph:([a-z0-9-]+):start -->)[\s\S]*?(<!-- glyph:\2:end -->)/g, (_, open, slug, close) => {
+    if (!slugs.includes(slug)) throw new Error(`${page}: no glyph for "${slug}"`);
+    synced++;
+    return `${open}${inlineGlyph(slug)}${close}`;
+  });
+  if (next !== html) await writeFile(path, next);
+}
+console.log(`synced ${synced} inline glyphs`);

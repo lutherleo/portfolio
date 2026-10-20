@@ -424,12 +424,18 @@
       </header>
       <div class="about-grid">
         <figure class="about-photo">
-          <picture>
-            <source type="image/avif" srcset="assets/photo-480.avif 480w, assets/photo-768.avif 768w" sizes="(width <= 860px) 320px, 340px" />
-            <source type="image/webp" srcset="assets/photo-480.webp 480w, assets/photo-768.webp 768w" sizes="(width <= 860px) 320px, 340px" />
-            <img src="photo.jpeg" srcset="assets/photo-480.jpg 480w, photo.jpeg 768w" sizes="(width <= 860px) 320px, 340px" alt="Love Kush Pranu" width="768" height="1024" loading="lazy" decoding="async" />
-          </picture>
-          <figcaption>GPA 3.9/4.0 · NYU Tandon MS ’26</figcaption>
+          <div class="about-photo-frame">
+            <picture>
+              <source type="image/avif" srcset="assets/photo-480.avif 480w, assets/photo-768.avif 768w" sizes="(width <= 860px) 320px, 340px" />
+              <source type="image/webp" srcset="assets/photo-480.webp 480w, assets/photo-768.webp 768w" sizes="(width <= 860px) 320px, 340px" />
+              <img src="photo.jpeg" srcset="assets/photo-480.jpg 480w, photo.jpeg 768w" sizes="(width <= 860px) 320px, 340px" alt="Love Kush Pranu" width="768" height="1024" loading="lazy" decoding="async" />
+            </picture>
+          <div class="photo-dither" aria-hidden="true"></div>
+          </div>
+          <figcaption>
+            <span>GPA 3.9/4.0 · NYU Tandon MS ’26</span>
+            <button class="photo-toggle" type="button" aria-pressed="false">Original photo</button>
+          </figcaption>
         </figure>
         <div class="about-body">
           <p class="about-lead">I’m a cybersecurity engineer pursuing my MS at NYU Tandon School of Engineering (GPA 3.9/4.0), expected May 2026. I graduated from NIT Calicut with a B.Tech in EEE, where circuits and systems sparked a deep passion for digital security.</p>
