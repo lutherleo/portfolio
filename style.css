@@ -1871,6 +1871,15 @@ main > .section + .section { border-top: 1px solid var(--border); }
   }
 
   .term.is-live .term-scene canvas { opacity: 1; }
+
+  /* CRT scanlines over the scene only, never over text. */
+  .term-scene::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(0deg, rgb(0 0 0 / 22%) 0 1px, transparent 1px 3px);
+    pointer-events: none;
+  }
 }
 
 /* ─── 3D TILT CARDS ──────────────────────────────────
@@ -1902,6 +1911,38 @@ main > .section + .section { border-top: 1px solid var(--border); }
 }
 
 .tilt.is-tilting::before { opacity: 1; }
+
+/* A border that lights up under the pointer (and, centred, when something
+   inside the card has keyboard focus). --gx/--gy are registered so they ease
+   back to the centre when the pointer leaves. */
+@property --gx {
+  syntax: "<percentage>";
+  inherits: true;
+  initial-value: 50%;
+}
+
+@property --gy {
+  syntax: "<percentage>";
+  inherits: true;
+  initial-value: 50%;
+}
+
+.tilt::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: radial-gradient(240px circle at var(--gx) var(--gy), var(--accent), transparent 70%);
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--dur-3) var(--ease-standard), --gx var(--dur-4) var(--ease-out), --gy var(--dur-4) var(--ease-out);
+}
+
+.tilt.is-tilting::after,
+.tilt:has(:focus-visible)::after { opacity: 1; }
 
 /* Layers lift only while tilting: a resting translateZ under the card's
    perspective would enlarge them and pull them off the column edge. */
@@ -2627,4 +2668,27 @@ html.reveal-on .reveal.visible { animation: reveal-in var(--dur-4) var(--ease-ou
   }
 
   .case-hero .container > :not(.case-glyph) { max-width: min(46rem, calc(100% - 22rem)); }
+}
+
+/* ─── SURFACES ───────────────────────────────────────
+   Film grain over the whole page (a tile inlined by scripts/gen-grain.mjs):
+   plain alpha on a fixed layer, no blend mode, so scrolling stays cheap. A faint specular top edge on raised cards. */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: calc(var(--z-toast) + 50);
+  background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAQAAAAAYLlVAAAFeklEQVR42oVZV3bkMAzTwfyN4+gQvHjWsQoBluzkZYqLxAKSID3Gff3M9/95v+Aews/zHsH6dq7ZVw36BrlrfTe/4ltlvczvHffQjIf2YjiLvJ+QzYYKc/79rveXsUh67RUZ3/H3DVvOZYOozxGCxQvXkF7gLYNwrNRRkk11dF36bsP96jN/hSQnGeuSjXoMXZzJx8i3xgg4F15B9pmFiiXQtgtKB9bb5Wtf7Z584tcdnx+zsGQJNnPcrNJ+W1bsOOJG6wIBDxakfLsAW3x/du1kbq0ozkbYWRt+0gRoyJBijcQlUzYDAc02VuZ2IvIu7/G9gNHidoGF+80okGbE8XtknbcYMZ/GGOWL7BiDyLfZ4JxkervJZTIurkb++W0vWDASGU2U+4LkmhG8iyt/ox15+gTrzGG6xMPxW0yzmsvE39OTl0BtJhMHVC31xCryA3vxI4CphfaSyLrnTBiDL9gbMcRRmA4raL64nQeKRZiKxuQaFGm8zRFByhX/e0FE1HsZuzkE1UbbWhoTkpA2ILxYJk9in0f09BUMngdXtpDVHEdGYd7awrQ8UwppjMlXSjZ9+msJZxhd5nPJ12IRqrfuz7x9cCYTGhC4BSVtrSeaQSxJamiPdrEnuZFdZ5X2I1GzXKpQ5ooyLUUmtfkVZQnbgYZQr1CWp6z5cPidcE3BjZvqIEixETI5NGcLC3jqJBsorZfeGfjmCWtTVzUmLNJqdFDlPBMLWiVafLcINPltpW/NdayiOYvrQoQUVSTkaGyjwgvh98ZbRVxcVDzf/aZuvvwbLB+YbJwKsDyZdTzi3HNIKdtCDoHGPtMzl3gKKWmCkTqmovWoIycwC1LT/LaD25LRMrE83rMggm3K3iUnz4RUji1fztSEdaKlQfBD20Mpc6b0xYTuYt19JYzNWnyjMGhHQJ2yg5LfMwpuZ0VPGzhTUz9GQebnBalFsIoyTTWDE7QdJU/1K0Q0wjsUsJlR/a/ap2TLW+a+wRPuFdKoflrGy2HFD9eDy1zs9nMzVXohb5nK8x23+87Rcbec0svBMeBbne34nAhmsSPcqxtxAOTMiZq7rqVdsFTxrK8CElMJaWtVLcdDcS9QiRwIDrpiNuJVguFn0lXUFGbPQZ5CF8iIYkr4ouFL6AKVWp9AmA9KLc92pCCBI8FrZ+aICkmPjTyAgk89CFS5nFhrQCR8Q5m1YCLwCCSQTMGspXGc9nbWtFwWwZ1A+2ijoIzuaGNcoMp50AyRjn23pWwhZDS1JrK59wCTG6o7R0zm3+h/Uk/AU1YrelDdljKh8pyCfp0coTCUDhqBEYdG7vdIBIrOeH2CZKdh5/aSKLul0EMc7FaOk8nWmYgejB7/34rgjpg+DW740wxbn1YM1QiXSZIVHQJ01rPJpmPDislibE3uHqE8leAr0k0oJTwDgNYHnq2fBj/GApMahAxnIQ0bRYR1HVE/DwiNXZUHnd0sz5LnM6jGbjRi5/PUFP4UIG9OZL64SCmloRZUVAkQ5qUjj29Cfpj1qONkwdy7NKO2nutebSxMAq1VikgNEn9BMe3q2LEFG6AbyVLfBZqeIRYgu89Ibo8Tp+mSLZiwzvhs6d4J4RVFGcMOl50wtUMsH8bMIliVHaGdkZWJKxoR9SO2MIIzSlUg0g3pla0Y6jhT9AKh9U06gCHzH6pyQjOpfBVkFeyI/X7jz6oJftcbFqk0PnUjCrbBh3aXm0ZALH5wUb0kZDYFB4l20eCWnyU1g1weK3HPV7GfWOn/qoSCeqRuqsUmz0fMm26vgvVWXwKfRQdZXE0zpynDqD8CxZqYKQBY504Ce+4cAppnwXv1KRiq2VoZbtQVM3ilZy6HMkjxGuYfcscMJK2fLCfR/gFDgtyYe5lPVwAAAABJRU5ErkJggg==") 0 0 / 64px 64px;
+  opacity: 0.16;
+  pointer-events: none;
+}
+
+:root[data-theme="light"] body::after { opacity: 0.12; }
+
+:where(.proj-card, .hobby-card, .game-card, .media-thumb) {
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--text) 7%, transparent);
+}
+
+@media print {
+  body::after { display: none; }
 }
