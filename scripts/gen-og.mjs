@@ -29,7 +29,7 @@ const html = `<!doctype html><html><head><meta charset="utf-8"><link rel="styles
   <h1>Love Kush<br>Pranu</h1>
   <p class="role">Cybersecurity engineer · NYU Tandon MS ’26</p>
   <p class="topics">post-quantum crypto · kernel fuzzing · adversarial ML</p>
-  <p class="url">lutherleo.github.io/portfolio</p>
+  <p class="url">lovekushpranu.com</p>
 </div></body></html>`;
 
 // Served from a git-ignored folder inside the site, so the mask image and

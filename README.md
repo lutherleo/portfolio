@@ -2,7 +2,7 @@
 
 Personal portfolio of a cybersecurity engineer (NYU Tandon MS '26, OSIRIS Lab Research Coordinator).
 
-**Live:** https://lutherleo.github.io/portfolio/
+**Live:** https://lovekushpranu.com/
 
 ## Stack
 

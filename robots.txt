@@ -1,6 +1,6 @@
-# Crawlers read robots.txt from the domain root; for a GitHub project site this
-# file is informational. Submit the sitemap in Search Console.
+# Served from the domain root (lovekushpranu.com), so crawlers read it.
+# Also submit the sitemap in Search Console.
 User-agent: *
 Allow: /
 
-Sitemap: https://lutherleo.github.io/portfolio/sitemap.xml
+Sitemap: https://lovekushpranu.com/sitemap.xml
