@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="dark light" />
+  <script>
+    /* Apply the saved or system theme before first paint (see site.js). */
+    (() => {
+      let theme = null;
+      try { theme = localStorage.getItem('theme'); } catch { /* storage blocked */ }
+      if (theme !== 'light' && theme !== 'dark') theme = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      document.documentElement.dataset.theme = theme;
+    })();
+  </script>
+  <title>CHIP-8 Emulator in C — Love Kush Pranu</title>
+  <meta name="description" content="A fully functional CHIP-8 emulator written from scratch in C with SDL2 — all 35 opcodes, the classic 64×32 monochrome display, and cycle timing faithful…" />
+  <link rel="canonical" href="https://lutherleo.github.io/portfolio/projects/chip-8-emulator.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="CHIP-8 Emulator in C" />
+  <meta property="og:description" content="A fully functional CHIP-8 emulator written from scratch in C with SDL2 — all 35 opcodes, the classic 64×32 monochrome display, and cycle timing faithful…" />
+  <meta property="og:url" content="https://lutherleo.github.io/portfolio/projects/chip-8-emulator.html" />
+  <meta property="og:image" content="https://lutherleo.github.io/portfolio/photo.jpeg" />
+  <meta name="twitter:card" content="summary" />
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  <link rel="stylesheet" href="../style.css" />
+  <link rel="preload" href="../assets/fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- chrome:nav:start -->
+  <nav class="nav scrolled" id="nav" data-solid aria-label="Primary">
+    <a href="../index.html" class="nav-logo">Love Kush Pranu</a>
+    <ul class="nav-links">
+      <li><a href="../projects.html" aria-current="page">Work</a></li>
+      <li><a href="../index.html#osiris">Research</a></li>
+      <li><a href="../blog.html">Writing</a></li>
+      <li><a href="../games.html">Arcade</a></li>
+      <li><a href="../index.html#about">About</a></li>
+      <li><a href="../index.html#contact">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a class="nav-resume" href="../resume.pdf" type="application/pdf">Résumé</a>
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Dark mode" aria-pressed="true">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
+          <circle cx="12" cy="12" r="8.25" fill="none" stroke="currentColor" stroke-width="1.5" />
+          <path d="M12 3.75a8.25 8.25 0 0 0 0 16.5z" fill="currentColor" />
+        </svg>
+      </button>
+      <button class="hamburger" id="hamburger" type="button" aria-label="Menu">
+        <span></span><span></span>
+      </button>
+    </div>
+  </nav>
+  <!-- chrome:nav:end -->
+
+  <!-- chrome:menu:start -->
+  <nav class="mob-menu" id="mobMenu" aria-label="Mobile">
+    <a href="../projects.html" class="mob-item" aria-current="page">Work</a>
+    <a href="../index.html#osiris" class="mob-item">Research</a>
+    <a href="../blog.html" class="mob-item">Writing</a>
+    <a href="../games.html" class="mob-item">Arcade</a>
+    <a href="../index.html#about" class="mob-item">About</a>
+    <a href="../index.html#contact" class="mob-item">Contact</a>
+    <a href="../resume.pdf" class="mob-item mob-item-resume" type="application/pdf">Résumé (PDF)</a>
+  </nav>
+  <!-- chrome:menu:end -->
+
+  <main id="main" tabindex="-1">
+    <article class="case">
+      <header class="case-hero">
+        <div class="container">
+          <a class="case-back" href="../projects.html"><span aria-hidden="true">←</span> All projects</a>
+          <p class="eyebrow">Systems Programming · 2024</p>
+          <h1 class="case-title">CHIP-8 Emulator in C</h1>
+          <p class="case-lead">A fully functional CHIP-8 emulator written from scratch in C with SDL2 — all 35 opcodes, the classic 64×32 monochrome display, and cycle timing faithful enough to run the original ROM library.</p>
+          <ul class="tags" aria-label="Stack"><li>C</li><li>SDL2</li><li>CPU Emulation</li><li>Memory Management</li><li>Bitwise Ops</li></ul>
+        </div>
+      </header>
+
+      <div class="container case-body">
+        <section class="case-section" aria-labelledby="approach">
+          <h2 class="case-h" id="approach">Approach</h2>
+        <p>CHIP-8 is the canonical first emulator, but &quot;simple&quot; still means building a fetch-decode-execute loop, XOR-based sprite rendering with collision detection, delay and sound timers ticking at 60Hz independent of CPU speed, and a 16-key hexadecimal keypad mapped onto a modern keyboard.</p>
+        <p>It runs Pong, Tetris, Space Invaders, and the rest of the classic ROM set. The emulator mindset — memory maps, registers, instruction semantics — is the same muscle used for reverse engineering and exploitation work.</p>
+        </section>
+
+        <section class="case-section" aria-labelledby="highlights">
+          <h2 class="case-h" id="highlights">Highlights</h2>
+          <ul class="highlights">
+          <li>All 35 CHIP-8 opcodes with correct flag semantics</li>
+          <li>XOR sprite rendering with collision flag (the VF register)</li>
+          <li>60Hz delay/sound timers decoupled from instruction rate</li>
+          <li>SDL2 graphics, input, and audio</li>
+          </ul>
+        </section>
+
+        <section class="case-section" aria-labelledby="artefacts">
+          <h2 class="case-h" id="artefacts">Artefacts</h2>
+          <ul class="artefacts">
+          <li><a class="text-link" href="https://github.com/lutherleo/CHIP-8_emulator" rel="me">View on GitHub <span aria-hidden="true">↗</span></a></li>
+          </ul>
+        </section>
+      </div>
+
+      <nav class="case-pager-wrap" aria-label="More projects">
+        <div class="container case-pager">
+          <a class="case-pager-link case-pager-prev" href="adversarial-ml.html"><span class="case-pager-dir">Previous</span><span class="case-pager-title">Adversarial Robustness in Deep Neural Networks</span></a>
+          <a class="case-pager-link case-pager-next" href="vulnerability-scanner.html"><span class="case-pager-dir">Next</span><span class="case-pager-title">Vulnerability Scanner</span></a>
+        </div>
+      </nav>
+    </article>
+  </main>
+
+  <!-- chrome:footer:start -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-id">
+        <a class="footer-logo" href="../index.html">Love Kush Pranu</a>
+        <p class="footer-copy">© <span data-year>2026</span> Love Kush Pranu · Cybersecurity engineer · NYU Tandon ’26</p>
+      </div>
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h2 class="footer-h">Contact</h2>
+          <ul>
+            <li><a href="mailto:lp2989@nyu.edu">lp2989@nyu.edu</a></li>
+            <li><a href="https://github.com/lutherleo" rel="me">GitHub</a></li>
+            <li><a href="https://www.linkedin.com/in/lovekush-pranu" rel="me">LinkedIn</a></li>
+            <li><a href="https://medium.com/@lovekush.pranu" rel="me">Medium</a></li>
+            <li><a href="../resume.pdf" type="application/pdf">Résumé (PDF)</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h2 class="footer-h">Off-hours</h2>
+          <ul>
+            <li><a href="../interviews.html">Interviews</a></li>
+            <li><a href="../hobbies.html">Hobbies</a></li>
+            <li><a href="../games.html">Arcade</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!-- chrome:footer:end -->
+
+  <script src="../site.js"></script>
+</body>
+</html>
