@@ -1771,11 +1771,17 @@ main > .section + .section { border-top: 1px solid var(--border); }
 
 .tilt.is-tilting::before { opacity: 1; }
 
-.tilt :where(.proj-card-title, .media-title, .hobby-title, .case-pager-title, .game-title) {
+/* Layers lift only while tilting: a resting translateZ under the card's
+   perspective would enlarge them and pull them off the column edge. */
+.tilt :where(.proj-card-title, .media-title, .hobby-title, .case-pager-title, .game-title, .tags, .proj-card-more, .hobby-icon, .media-guest, .game-keys) {
+  transition: transform var(--dur-4) var(--ease-out);
+}
+
+.tilt.is-tilting :where(.proj-card-title, .media-title, .hobby-title, .case-pager-title, .game-title) {
   transform: translateZ(32px);
 }
 
-.tilt :where(.tags, .proj-card-more, .hobby-icon, .media-guest, .game-keys) {
+.tilt.is-tilting :where(.tags, .proj-card-more, .hobby-icon, .media-guest, .game-keys) {
   transform: translateZ(18px);
 }
 
