@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-20T00:31:37.865Z",
+  "updatedAt": "2026-10-20T00:40:35.156Z",
   "html": {
     "blog.html": 20,
     "games.html": 49,
@@ -12,111 +12,111 @@
     "projects.html": 37
   },
   "css": {
-    "style.css": 717
+    "style.css": 508
   },
   "links": [
     "index.html -> resume.pdf (404)"
   ],
   "a11y": {
-    "blog.html@dark": 5,
+    "blog.html@dark": 0,
     "games.html@dark": 0,
     "hobbies.html@dark": 0,
-    "index.html@dark": 3,
+    "index.html@dark": 2,
     "interviews.html@dark": 0,
-    "posts/building-the-same-secure-channel-twice.html@dark": 1,
-    "posts/fuzzing-kernel-race-conditions.html@dark": 1,
-    "posts/writing-a-csaw-ctf-challenge.html@dark": 1,
+    "posts/building-the-same-secure-channel-twice.html@dark": 0,
+    "posts/fuzzing-kernel-race-conditions.html@dark": 0,
+    "posts/writing-a-csaw-ctf-challenge.html@dark": 0,
     "projects.html@dark": 27,
-    "blog.html@light": 5,
+    "blog.html@light": 0,
     "games.html@light": 0,
     "hobbies.html@light": 0,
-    "index.html@light": 3,
+    "index.html@light": 2,
     "interviews.html@light": 0,
-    "posts/building-the-same-secure-channel-twice.html@light": 1,
-    "posts/fuzzing-kernel-race-conditions.html@light": 1,
-    "posts/writing-a-csaw-ctf-challenge.html@light": 1,
+    "posts/building-the-same-secure-channel-twice.html@light": 0,
+    "posts/fuzzing-kernel-race-conditions.html@light": 0,
+    "posts/writing-a-csaw-ctf-challenge.html@light": 0,
     "projects.html@light": 27
   },
   "lighthouse": {
     "blog.html": {
-      "performance": 94,
-      "accessibility": 90,
-      "best-practices": 100,
-      "seo": 100,
-      "lcpMs": 2510,
-      "cls": 0.004,
-      "tbtMs": 0
-    },
-    "games.html": {
-      "performance": 91,
-      "accessibility": 98,
-      "best-practices": 100,
-      "seo": 100,
-      "lcpMs": 2813,
-      "cls": 0.002,
-      "tbtMs": 0
-    },
-    "hobbies.html": {
       "performance": 95,
       "accessibility": 95,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 2797,
-      "cls": 0.021,
+      "lcpMs": 2817,
+      "cls": 0.004,
+      "tbtMs": 0
+    },
+    "games.html": {
+      "performance": 95,
+      "accessibility": 98,
+      "best-practices": 100,
+      "seo": 100,
+      "lcpMs": 2792,
+      "cls": 0.004,
+      "tbtMs": 0
+    },
+    "hobbies.html": {
+      "performance": 91,
+      "accessibility": 95,
+      "best-practices": 100,
+      "seo": 100,
+      "lcpMs": 2821,
+      "cls": 0,
       "tbtMs": 0
     },
     "index.html": {
-      "performance": 88,
+      "performance": 90,
       "accessibility": 96,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 3389,
+      "lcpMs": 2944,
       "cls": 0.002,
-      "tbtMs": 53
+      "tbtMs": 45
     },
     "interviews.html": {
       "performance": 95,
       "accessibility": 95,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 2354,
+      "lcpMs": 2795,
       "cls": 0.004,
       "tbtMs": 0
     },
     "posts/building-the-same-secure-channel-twice.html": {
-      "performance": 94,
-      "accessibility": 93,
+      "performance": 99,
+      "accessibility": 98,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 2504,
-      "cls": 0,
+      "lcpMs": 1502,
+      "cls": 0.066,
       "tbtMs": 0
     },
     "posts/fuzzing-kernel-race-conditions.html": {
       "performance": 100,
-      "accessibility": 93,
+      "accessibility": 98,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1429,
+      "lcpMs": 1502,
       "cls": 0.026,
       "tbtMs": 0
     },
     "posts/writing-a-csaw-ctf-challenge.html": {
-      "performance": 95,
-      "accessibility": 93,
+      "performance": 100,
+      "accessibility": 98,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 2367,
-      "cls": 0,
+      "lcpMs": 1502,
+      "cls": 0.024,
       "tbtMs": 0
     },
     "projects.html": {
-      "performance": 92,
+      "performance": 90,
       "accessibility": 88,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 2659,
-      "cls": 0.004,
+      "lcpMs": 2943,
+      "cls": 0,
       "tbtMs": 0
     }
   }
