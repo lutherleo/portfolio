@@ -1,48 +1,25 @@
 /* ══════════════════════════════════════════════════
-   hero3d.js — home hero wireframe sphere (three.js, loaded on demand)
+   hero3d.js — the home hero's crystal lattice (three.js, loaded on demand)
 
-   The static SVG poster in .hero-right is the default. three.js is only
-   imported when the visitor has a fine pointer, hasn't asked for reduced
-   motion, can see the hero, and the browser is idle. Rendering stops when
-   the hero is off-screen or the tab is hidden, and the pause button
-   (WCAG 2.2.2) stops it for the rest of the session.
+   A lattice on a skewed basis (a nod to lattice cryptography / Kyber
+   Crystals), trimmed to a sphere, with depth fog, data packets doing random
+   walks along its edges, and a pulsing "shortest vector". The static SVG
+   poster in .hero-right is the default; three.js is only imported when
+   motion3d.js allows it. Rendering stops off-screen, in hidden tabs, and when
+   the shared pause switch is on.
 ══════════════════════════════════════════════════ */
+
+import { motionAllowed, whenVisibleAndIdle, motionPaused, showPauseButton, tokens, seeded } from './motion3d.js';
 
 const root = document.querySelector('.hero-right');
 const canvas = document.getElementById('heroCanvas');
 const pauseBtn = document.querySelector('.hero-pause');
-const PAUSE_KEY = 'hero3d-paused';
 
-const canAnimate =
-  root && canvas && pauseBtn &&
-  root.offsetParent !== null &&
-  window.matchMedia('(pointer: fine)').matches &&
-  !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-if (canAnimate) {
-  const whenVisible = new Promise(resolve => {
-    const io = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) { io.disconnect(); resolve(); }
-    });
-    io.observe(root);
-  });
-  const whenIdle = () => new Promise(resolve => {
-    if ('requestIdleCallback' in window) requestIdleCallback(() => resolve(), { timeout: 2500 });
-    else setTimeout(resolve, 400);
-  });
-  whenVisible
-    .then(whenIdle)
+if (root && canvas && pauseBtn && root.offsetParent !== null && motionAllowed()) {
+  whenVisibleAndIdle(root)
     .then(() => import('three'))
     .then(start)
     .catch(() => { /* network or WebGL failure: the poster stays */ });
-}
-
-function readPaused() {
-  try { return sessionStorage.getItem(PAUSE_KEY) === '1'; } catch { return false; }
-}
-
-function savePaused(paused) {
-  try { sessionStorage.setItem(PAUSE_KEY, paused ? '1' : '0'); } catch { /* storage blocked */ }
 }
 
 function start(THREE) {
@@ -51,66 +28,115 @@ function start(THREE) {
   renderer.outputColorSpace = THREE.SRGBColorSpace;
 
   const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(48, 1, 0.1, 100);
-  camera.position.z = 5.2;
-  const group = new THREE.Group();
-  scene.add(group);
+  scene.fog = new THREE.Fog(0x000000, 5, 9.2);
+  const camera = new THREE.PerspectiveCamera(40, 1, 0.1, 50);
+  camera.position.set(0, 0, 7);
+  const crystal = new THREE.Group();
+  scene.add(crystal);
 
-  // Unlit materials, coloured from the CSS tokens ('accent' / 'hover').
-  const materials = [];
-  const material = (Kind, options, token) => {
-    const m = new Kind({ transparent: true, ...options });
-    m.userData.token = token;
-    materials.push(m);
-    return m;
+  // Lattice points on a skewed basis, kept inside a sphere of radius R.
+  const basis = [
+    new THREE.Vector3(0.62, 0.08, 0.02),
+    new THREE.Vector3(0.12, 0.6, 0.1),
+    new THREE.Vector3(0.06, 0.16, 0.62),
+  ];
+  const R = 2.05, N = 4;
+  const index = new Map();
+  const nodes = [];
+  for (let i = -N; i <= N; i++) {
+    for (let j = -N; j <= N; j++) {
+      for (let k = -N; k <= N; k++) {
+        const p = basis[0].clone().multiplyScalar(i)
+          .addScaledVector(basis[1], j)
+          .addScaledVector(basis[2], k);
+        if (p.length() > R) continue;
+        index.set(`${i},${j},${k}`, nodes.length);
+        nodes.push({ p, ijk: [i, j, k] });
+      }
+    }
+  }
+
+  // Edges along the three basis directions, plus neighbour lists for packets.
+  const edges = [];
+  const neighbours = nodes.map(() => []);
+  nodes.forEach((n, a) => {
+    for (const [di, dj, dk] of [[1, 0, 0], [0, 1, 0], [0, 0, 1]]) {
+      const b = index.get(`${n.ijk[0] + di},${n.ijk[1] + dj},${n.ijk[2] + dk}`);
+      if (b === undefined) continue;
+      edges.push([a, b]);
+      neighbours[a].push(b);
+      neighbours[b].push(a);
+    }
+  });
+
+  const points = list => {
+    const arr = new Float32Array(list.length * 3);
+    list.forEach((v, i) => v.toArray(arr, i * 3));
+    return new THREE.BufferGeometry().setAttribute('position', new THREE.BufferAttribute(arr, 3));
+  };
+  const lineMat = new THREE.LineBasicMaterial({ transparent: true, opacity: 0.3, depthWrite: false });
+  const nodeMat = new THREE.PointsMaterial({ size: 0.055, transparent: true, opacity: 0.9, depthWrite: false });
+  const packetMat = new THREE.PointsMaterial({ size: 0.12, transparent: true, depthWrite: false });
+  const vectorMat = new THREE.LineBasicMaterial({ transparent: true, depthWrite: false });
+  const markMat = new THREE.PointsMaterial({ size: 0.17, transparent: true, depthWrite: false });
+  const shellMat = new THREE.MeshBasicMaterial({ wireframe: true, transparent: true, opacity: 0.06, depthWrite: false });
+
+  crystal.add(new THREE.LineSegments(points(edges.flatMap(([a, b]) => [nodes[a].p, nodes[b].p])), lineMat));
+  crystal.add(new THREE.Points(points(nodes.map(n => n.p)), nodeMat));
+
+  // "Shortest vector": from the origin to a nearby lattice point.
+  const origin = nodes[index.get('0,0,0')].p;
+  const target = nodes[index.get('1,-1,1') ?? index.get('1,0,0')].p;
+  crystal.add(new THREE.Line(points([origin, target]), vectorMat));
+  crystal.add(new THREE.Points(points([origin, target]), markMat));
+
+  // Packets walking the edges (seeded, so the layout is the same every visit).
+  const random = seeded(7);
+  const packets = Array.from({ length: 26 }, () => {
+    const a = Math.floor(random() * nodes.length);
+    const options = neighbours[a].length ? neighbours[a] : [a];
+    return { prev: a, a, b: options[Math.floor(random() * options.length)], t: random(), speed: 0.9 + random() * 0.9 };
+  });
+  const packetPos = new Float32Array(packets.length * 3);
+  const packetGeo = new THREE.BufferGeometry().setAttribute('position', new THREE.BufferAttribute(packetPos, 3));
+  crystal.add(new THREE.Points(packetGeo, packetMat));
+
+  const shell = new THREE.Mesh(new THREE.IcosahedronGeometry(R + 0.25, 2), shellMat);
+  scene.add(shell);
+
+  const scratch = new THREE.Vector3();
+  const stepPackets = dt => {
+    packets.forEach((p, i) => {
+      p.t += dt * p.speed;
+      while (p.t >= 1) {
+        p.t -= 1;
+        const options = neighbours[p.b].filter(n => n !== p.a);
+        const pool = options.length ? options : neighbours[p.b];
+        p.a = p.b;
+        p.b = pool[Math.floor(random() * pool.length)] ?? p.a;
+      }
+      const s = p.t * p.t * (3 - 2 * p.t);
+      scratch.copy(nodes[p.a].p).lerp(nodes[p.b].p, s).toArray(packetPos, i * 3);
+    });
+    packetGeo.attributes.position.needsUpdate = true;
   };
 
-  const ico = new THREE.Mesh(
-    new THREE.IcosahedronGeometry(1.35, 1),
-    material(THREE.MeshBasicMaterial, { wireframe: true, opacity: 0.72 }, 'accent'),
-  );
-  const shell = new THREE.Mesh(
-    new THREE.SphereGeometry(2.15, 18, 13),
-    material(THREE.MeshBasicMaterial, { wireframe: true, opacity: 0.09 }, 'hover'),
-  );
-  group.add(ico, shell);
-
-  const ringMaterial = material(THREE.MeshBasicMaterial, { opacity: 0.28 }, 'accent');
-  const rings = [[Math.PI / 2, 0], [Math.PI / 5, Math.PI / 3.2], [-Math.PI / 4.5, -Math.PI / 4.8]].map(([rx, rz]) => {
-    const ring = new THREE.Mesh(new THREE.TorusGeometry(2.1, 0.006, 4, 90), ringMaterial);
-    ring.rotation.x = rx;
-    ring.rotation.z = rz;
-    group.add(ring);
-    return ring;
-  });
-
-  const dotGeometry = new THREE.SphereGeometry(0.052, 8, 8);
-  const dotMaterial = material(THREE.MeshBasicMaterial, { opacity: 1 }, 'hover');
-  const dots = Array.from({ length: 5 }, (_, i) => {
-    const mesh = new THREE.Mesh(dotGeometry, dotMaterial);
-    group.add(mesh);
-    return { mesh, phase: (i / 5) * Math.PI * 2, speed: 0.47 + i * 0.09, y: (i - 2) * 0.32 };
-  });
-
-  const count = 130;
-  const positions = new Float32Array(count * 3);
-  for (let i = 0; i < count; i++) {
-    const theta = Math.random() * Math.PI * 2;
-    const phi = Math.acos(2 * Math.random() - 1);
-    const r = 2.6 + Math.random() * 1.6;
-    positions[i * 3] = r * Math.sin(phi) * Math.cos(theta);
-    positions[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta);
-    positions[i * 3 + 2] = r * Math.cos(phi);
-  }
-  const particles = new THREE.BufferGeometry();
-  particles.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-  group.add(new THREE.Points(particles, material(THREE.PointsMaterial, { size: 0.026, opacity: 0.52 }, 'accent')));
-
+  // Colours from tokens; additive glow on dark, normal blending on light.
   let running = false;
-  const applyColours = () => {
-    const css = getComputedStyle(document.documentElement);
-    const colours = { accent: css.getPropertyValue('--accent').trim(), hover: css.getPropertyValue('--accent-hover').trim() };
-    materials.forEach(m => m.color.setStyle(colours[m.userData.token]));
+  const applyTheme = () => {
+    const c = tokens();
+    const dark = document.documentElement.dataset.theme !== 'light';
+    scene.fog.color.setStyle(c.bg);
+    lineMat.color.setStyle(c.accent);
+    nodeMat.color.setStyle(c.accent2);
+    packetMat.color.setStyle(dark ? c.accent2 : c.accent);
+    vectorMat.color.setStyle(c.text);
+    markMat.color.setStyle(c.text);
+    shellMat.color.setStyle(c.accent);
+    for (const m of [lineMat, nodeMat, packetMat, vectorMat, markMat, shellMat]) {
+      m.blending = dark ? THREE.AdditiveBlending : THREE.NormalBlending;
+      m.needsUpdate = true;
+    }
     if (!running) renderer.render(scene, camera);
   };
 
@@ -123,67 +149,56 @@ function start(THREE) {
     if (!running) renderer.render(scene, camera);
   };
 
-  // Gentle parallax towards the pointer.
-  let targetX = 0, targetY = 0, tiltX = 0, tiltY = 0;
+  // The camera drifts towards the pointer for parallax.
+  let targetX = 0, targetY = 0;
   root.addEventListener('pointermove', e => {
-    const r = canvas.getBoundingClientRect();
-    targetX = (e.clientX - r.left) / r.width * 2 - 1;
-    targetY = -((e.clientY - r.top) / r.height * 2 - 1);
+    const r = root.getBoundingClientRect();
+    targetX = ((e.clientX - r.left) / r.width - 0.5) * 2;
+    targetY = ((e.clientY - r.top) / r.height - 0.5) * 2;
   });
   root.addEventListener('pointerleave', () => { targetX = 0; targetY = 0; });
 
-  const clock = new THREE.Clock();
-  let t = 0;
-  let raf = 0;
-  const frame = () => {
-    t += Math.min(clock.getDelta(), 0.05);
-    ico.rotation.x = t * 0.19;
-    ico.rotation.y = t * 0.27;
-    shell.rotation.y = t * 0.055;
-    rings[0].rotation.z = t * 0.28;
-    rings[1].rotation.z = -t * 0.19;
-    rings[2].rotation.z = t * 0.16;
-    for (const d of dots) {
-      const a = d.phase + t * d.speed;
-      d.mesh.position.set(Math.cos(a) * 2.1, d.y, Math.sin(a) * 2.1);
-    }
-    tiltX += (targetY * 0.3 - tiltX) * 0.055;
-    tiltY += (targetX * 0.4 - tiltY) * 0.055;
-    group.rotation.x = tiltX;
-    group.rotation.y = tiltY;
+  let t = 0, last = 0, raf = 0;
+  const frame = now => {
+    const dt = Math.min((now - last) / 1000, 0.05);
+    last = now;
+    t += dt;
+    crystal.rotation.y = t * 0.14;
+    crystal.rotation.x = Math.sin(t * 0.23) * 0.18;
+    shell.rotation.y = -t * 0.05;
+    stepPackets(dt);
+    vectorMat.opacity = 0.55 + 0.45 * Math.sin(t * 2.2);
+    camera.position.x += (targetX * 0.9 - camera.position.x) * 0.05;
+    camera.position.y += (-targetY * 0.6 - camera.position.y) * 0.05;
+    camera.lookAt(0, 0, 0);
     renderer.render(scene, camera);
     raf = requestAnimationFrame(frame);
   };
 
   let onScreen = true;
-  let userPaused = readPaused();
   const update = () => {
-    const shouldRun = onScreen && !userPaused && !document.hidden;
+    const shouldRun = onScreen && !motionPaused.get() && !document.hidden;
     if (shouldRun && !running) {
       running = true;
-      clock.getDelta();
+      last = performance.now();
       raf = requestAnimationFrame(frame);
     } else if (!shouldRun && running) {
       running = false;
       cancelAnimationFrame(raf);
     }
-    root.dataset.state = running ? 'running' : userPaused ? 'paused' : 'idle';
-    pauseBtn.setAttribute('aria-pressed', String(userPaused));
+    root.dataset.state = running ? 'running' : motionPaused.get() ? 'paused' : 'idle';
   };
 
   new ResizeObserver(resize).observe(root);
   new IntersectionObserver(([entry]) => { onScreen = entry.isIntersecting; update(); }).observe(root);
   document.addEventListener('visibilitychange', update);
-  window.addEventListener('themechange', applyColours);
-  pauseBtn.addEventListener('click', () => {
-    userPaused = !userPaused;
-    savePaused(userPaused);
-    update();
-  });
+  window.addEventListener('motionpause', update);
+  window.addEventListener('themechange', applyTheme);
 
-  applyColours();
+  stepPackets(0);
+  applyTheme();
   resize();
-  pauseBtn.hidden = false;
+  showPauseButton(pauseBtn);
   root.classList.add('is-live');
   update();
 }

@@ -1173,7 +1173,7 @@ main > .section + .section { border-top: 1px solid var(--border); }
 
 .term-steps li {
   display: grid;
-  grid-template-columns: 7ch minmax(0, 1fr);
+  grid-template-columns: 8ch minmax(0, 1fr);
   gap: var(--space-2);
 }
 
@@ -1694,6 +1694,91 @@ main > .section + .section { border-top: 1px solid var(--border); }
 
 .contact-list a:where(:hover) { color: var(--accent); }
 
+/* Live 3D scene inside a terminal window (scenes3d.js). The space is only
+   reserved where the scene can run (fine pointer, motion allowed), so the
+   window never jumps when it starts; elsewhere the text outline stands alone. */
+.scene-pause {
+  display: inline-grid;
+  margin-left: auto;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--text-3);
+  cursor: pointer;
+}
+
+.scene-pause:hover {
+  border-color: var(--border-strong);
+  color: var(--accent);
+}
+
+.term-scene { display: none; }
+
+@media (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .term-scene {
+    position: relative;
+    display: block;
+    aspect-ratio: 16 / 9;
+    border-bottom: 1px solid var(--border);
+    background:
+      radial-gradient(ellipse at 50% 55%, color-mix(in srgb, var(--accent) 10%, transparent), transparent 70%),
+      linear-gradient(color-mix(in srgb, var(--accent) 6%, transparent) 1px, transparent 1px) 0 0 / 28px 28px,
+      linear-gradient(90deg, color-mix(in srgb, var(--accent) 6%, transparent) 1px, transparent 1px) 0 0 / 28px 28px;
+  }
+
+  .term-scene canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity var(--dur-4) var(--ease-out);
+  }
+
+  .term.is-live .term-scene canvas { opacity: 1; }
+}
+
+/* ─── 3D TILT CARDS ──────────────────────────────────
+   site.js sets --rx/--ry (tilt) and --gx/--gy (glare) from the pointer on
+   fine-pointer devices without reduced motion; elsewhere cards stay flat. */
+.tilt {
+  position: relative;
+  transform: perspective(1000px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transform-style: preserve-3d;
+  transition:
+    transform var(--dur-4) var(--ease-out),
+    border-color var(--dur-2) var(--ease-standard),
+    translate var(--dur-2) var(--ease-standard);
+}
+
+/* Durations line up with the transition lists on .tilt and .proj-card. */
+.tilt.is-tilting { transition-duration: 90ms, var(--dur-2), var(--dur-2); }
+
+.tilt::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: radial-gradient(circle at var(--gx, 50%) var(--gy, 50%), color-mix(in srgb, var(--accent) 14%, transparent), transparent 60%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--dur-2) var(--ease-standard);
+}
+
+.tilt.is-tilting::before { opacity: 1; }
+
+.tilt :where(.proj-card-title, .media-title, .hobby-title, .case-pager-title, .game-title) {
+  transform: translateZ(32px);
+}
+
+.tilt :where(.tags, .proj-card-more, .hobby-icon, .media-guest, .game-keys) {
+  transform: translateZ(18px);
+}
+
 /* ─── HERO ───────────────────────────────────────── */
 .hero {
   min-height: min(100svh, 52rem);
@@ -1798,10 +1883,13 @@ main > .section + .section { border-top: 1px solid var(--border); }
 .hero-right {
   position: relative;
   width: 100%;
-  max-width: 440px;
+  max-width: 520px;
   aspect-ratio: 1;
   justify-self: end;
 }
+
+.hero-poster-vector { stroke: var(--text); }
+.hero-poster-mark { fill: var(--text); }
 
 .hero-poster,
 .hero-canvas {
@@ -1847,7 +1935,9 @@ main > .section + .section { border-top: 1px solid var(--border); }
 }
 
 .hero-pause[aria-pressed="false"] .icon-play,
-.hero-pause[aria-pressed="true"] .icon-pause { display: none; }
+.hero-pause[aria-pressed="true"] .icon-pause,
+.scene-pause[aria-pressed="false"] .icon-play,
+.scene-pause[aria-pressed="true"] .icon-pause { display: none; }
 
 @media (width <= 900px) {
   .hero-inner { grid-template-columns: 1fr; }
@@ -2199,12 +2289,15 @@ html.reveal-on .reveal.visible { animation: reveal-in var(--dur-4) var(--ease-ou
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   background: var(--surface);
-  transition: border-color var(--dur-2) var(--ease-standard), transform var(--dur-2) var(--ease-standard);
+  transition:
+    transform var(--dur-4) var(--ease-out),
+    border-color var(--dur-2) var(--ease-standard),
+    translate var(--dur-2) var(--ease-standard);
 }
 
 .proj-card:hover {
   border-color: var(--accent);
-  transform: translateY(-2px);
+  translate: 0 -2px;
 }
 
 .proj-card:has(a:focus-visible) {

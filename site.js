@@ -123,6 +123,43 @@
   window.LKP = { reveal };
   reveal('.section-head, .card-grid > li, .media-grid > li, .hobby-grid > li, .games-grid > li, .post-list > li, .footer-inner');
 
+  /* ── 3D TILT CARDS ─────────────────────────────── */
+  // Cards lean towards the pointer, with title and tags at different depths
+  // (see .tilt in style.css). Mouse/trackpad only, never with reduced motion.
+  // Game cards tilt gently and flatten while the pointer is over the board.
+  const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  if (finePointer && !reducedMotion) {
+    const MAX = { 'game-card': 3 };
+    document.querySelectorAll('.proj-card, .media-card, .hobby-card, .case-pager-link, .game-card').forEach(card => {
+      const max = MAX[[...card.classList].find(c => c in MAX)] ?? 7;
+      let frame = 0, px = 0, py = 0, flat = false;
+      const paint = () => {
+        frame = 0;
+        const r = card.getBoundingClientRect();
+        const x = flat ? 0.5 : (px - r.left) / r.width;
+        const y = flat ? 0.5 : (py - r.top) / r.height;
+        card.style.setProperty('--ry', ((x - 0.5) * 2 * max).toFixed(2) + 'deg');
+        card.style.setProperty('--rx', ((0.5 - y) * 2 * max).toFixed(2) + 'deg');
+        card.style.setProperty('--gx', (x * 100).toFixed(1) + '%');
+        card.style.setProperty('--gy', (y * 100).toFixed(1) + '%');
+      };
+      card.classList.add('tilt');
+      card.addEventListener('pointermove', e => {
+        px = e.clientX;
+        py = e.clientY;
+        flat = !!e.target.closest('canvas, input, .doom-mount');
+        card.classList.toggle('is-tilting', !flat);
+        if (!frame) frame = requestAnimationFrame(paint);
+      });
+      card.addEventListener('pointerleave', () => {
+        cancelAnimationFrame(frame);
+        frame = 0;
+        card.classList.remove('is-tilting');
+        for (const v of ['--rx', '--ry', '--gx', '--gy']) card.style.removeProperty(v);
+      });
+    });
+  }
+
   /* ── PAGE TRANSITIONS ──────────────────────────── */
   // When a project card or work row opens a case study, name its title so the
   // cross-document View Transition morphs it into the case page's heading.
