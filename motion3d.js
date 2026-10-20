@@ -59,13 +59,3 @@ export function tokens(el = document.documentElement) {
     text: t('--text'), text2: t('--text-2'), text3: t('--text-3'), danger: t('--danger'),
   };
 }
-
-/* Deterministic layout randomness (mulberry32). */
-export function seeded(seed) {
-  return () => {
-    seed = (seed + 0x6D2B79F5) | 0;
-    let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
-    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
-    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-  };
-}

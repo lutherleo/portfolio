@@ -18,7 +18,8 @@
     "check:baseline": "node scripts/gate.mjs --write-baseline",
     "check:ratchet": "node scripts/gate.mjs --ratchet",
     "check:final": "node scripts/gate.mjs --final",
-    "check:browsers": "node scripts/gate.mjs --only=browsers"
+    "check:browsers": "node scripts/gate.mjs --only=browsers",
+    "gen:marks": "node scripts/gen-marks.mjs"
   },
   "devDependencies": {
     "axe-core": "4.14.0",

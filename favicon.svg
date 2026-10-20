@@ -1,4 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <rect width="32" height="32" rx="5" fill="#0a0f0a"/>
-  <text x="16" y="22" text-anchor="middle" font-family="'Space Grotesk',sans-serif" font-size="10.5" font-weight="700" fill="#22c55e" letter-spacing="0.3">LOKI</text>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 43.2 43.2"><rect width="43.2" height="43.2" rx="8.64" fill="#0e0f0b"/><g transform="translate(13 34.4)" fill="#5ad48e" color="#5ad48e"><path d="M4.8 -24L0 0M17.2 -25.6L2.4 -12L12.4 -1.6" fill="none" stroke="currentColor" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"/><g><circle cx="4.8" cy="-24" r="2.6"/><circle cx="3.6" cy="-18" r="2.6"/><circle cx="2.4" cy="-12" r="2.6"/><circle cx="1.2" cy="-6" r="2.6"/><circle cx="0" cy="0" r="2.6"/><circle cx="17.2" cy="-25.6" r="2.6"/><circle cx="9.8" cy="-18.8" r="2.6"/><circle cx="7.4" cy="-6.8" r="2.6"/><circle cx="12.4" cy="-1.6" r="2.6"/></g></g></svg>

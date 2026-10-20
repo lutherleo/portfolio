@@ -1,15 +1,16 @@
 /* ══════════════════════════════════════════════════
    hero3d.js — the home hero's crystal lattice (three.js, loaded on demand)
 
-   A lattice on a skewed basis (a nod to lattice cryptography / Kyber
-   Crystals), trimmed to a sphere, with depth fog, data packets doing random
+   The lattice from lattice.js (a skewed basis, a nod to lattice
+   cryptography / Kyber Crystals), with depth fog, data packets doing random
    walks along its edges, and a pulsing "shortest vector". The static SVG
    poster in .hero-right is the default; three.js is only imported when
    motion3d.js allows it. Rendering stops off-screen, in hidden tabs, and when
    the shared pause switch is on.
 ══════════════════════════════════════════════════ */
 
-import { motionAllowed, whenVisibleAndIdle, motionPaused, showPauseButton, tokens, seeded } from './motion3d.js';
+import { motionAllowed, whenVisibleAndIdle, motionPaused, showPauseButton, tokens } from './motion3d.js';
+import { lattice, seeded } from './lattice.js';
 
 const root = document.querySelector('.hero-right');
 const canvas = document.getElementById('heroCanvas');
@@ -34,40 +35,10 @@ function start(THREE) {
   const crystal = new THREE.Group();
   scene.add(crystal);
 
-  // Lattice points on a skewed basis, kept inside a sphere of radius R.
-  const basis = [
-    new THREE.Vector3(0.62, 0.08, 0.02),
-    new THREE.Vector3(0.12, 0.6, 0.1),
-    new THREE.Vector3(0.06, 0.16, 0.62),
-  ];
-  const R = 2.05, N = 4;
-  const index = new Map();
-  const nodes = [];
-  for (let i = -N; i <= N; i++) {
-    for (let j = -N; j <= N; j++) {
-      for (let k = -N; k <= N; k++) {
-        const p = basis[0].clone().multiplyScalar(i)
-          .addScaledVector(basis[1], j)
-          .addScaledVector(basis[2], k);
-        if (p.length() > R) continue;
-        index.set(`${i},${j},${k}`, nodes.length);
-        nodes.push({ p, ijk: [i, j, k] });
-      }
-    }
-  }
-
-  // Edges along the three basis directions, plus neighbour lists for packets.
-  const edges = [];
-  const neighbours = nodes.map(() => []);
-  nodes.forEach((n, a) => {
-    for (const [di, dj, dk] of [[1, 0, 0], [0, 1, 0], [0, 0, 1]]) {
-      const b = index.get(`${n.ijk[0] + di},${n.ijk[1] + dj},${n.ijk[2] + dk}`);
-      if (b === undefined) continue;
-      edges.push([a, b]);
-      neighbours[a].push(b);
-      neighbours[b].push(a);
-    }
-  });
+  // Lattice points, edges along the basis directions, neighbour lists for packets.
+  const R = 2.05;
+  const { nodes: raw, edges, neighbours, index } = lattice({ radius: R });
+  const nodes = raw.map(n => ({ p: new THREE.Vector3(...n.p) }));
 
   const points = list => {
     const arr = new Float32Array(list.length * 3);
