@@ -1617,14 +1617,17 @@ main > .section + .section { border-top: 1px solid var(--border); }
 .stats dt {
   font-size: var(--step--1);
   color: var(--text-2);
+  font-family: var(--font-pixel);
 }
 
 .stats dd {
-  font-family: var(--font-mono);
-  font-size: var(--step-2);
-  font-weight: 500;
+  font-family: var(--font-sans);
+  font-size: var(--display-section);
+  font-weight: var(--weight-display);
   font-variant-numeric: tabular-nums;
-  color: var(--text);
+  color: var(--finding);
+  line-height: 1;
+  letter-spacing: -0.04em;
 }
 
 .highlights {
@@ -1776,15 +1779,16 @@ main > .section + .section { border-top: 1px solid var(--border); }
 }
 
 .email-big {
-  font-size: var(--step-2);
-  font-weight: 600;
-  letter-spacing: -0.02em;
+  font-size: var(--display-section);
+  font-weight: var(--weight-display);
+  letter-spacing: -0.04em;
   color: var(--text);
   text-decoration: underline;
   text-decoration-color: var(--accent);
   text-decoration-thickness: 2px;
   text-underline-offset: 0.2em;
   overflow-wrap: anywhere;
+  line-height: 1.05;
 }
 
 .email-big:hover { color: var(--accent); }
@@ -2691,4 +2695,171 @@ body::after {
 
 @media print {
   body::after { display: none; }
+}
+
+/* ─── HOME: SECTION RHYTHM ───────────────────────────
+   Sections are numbered 01-06. On wide screens the number and name ride in
+   a sticky rail in the left gutter (outside the content column, so it never
+   covers anything); elsewhere the number leads the eyebrow. */
+.sec-num {
+  margin-right: 0.6em;
+  color: var(--text-3);
+}
+
+.sec-rail { display: none; }
+
+@media (width >= 1400px) {
+  .section > .container { position: relative; }
+  .section .sec-num { display: none; }
+
+  .sec-rail {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -4.5rem;
+    display: block;
+    width: 1.5rem;
+  }
+
+  .sec-rail-label {
+    position: sticky;
+    top: calc(var(--nav-h) + var(--space-6));
+    display: block;
+    writing-mode: vertical-rl;
+    rotate: 180deg;
+    font-family: var(--font-pixel);
+    font-size: var(--step--1);
+    letter-spacing: var(--tracking-pixel);
+    white-space: nowrap;
+    color: var(--text-3);
+  }
+
+  .sec-rail-label b {
+    margin-bottom: 0.8em;
+    font-weight: 500;
+    color: var(--accent);
+  }
+}
+
+/* Research: case-file cards. On desktops tall enough, they stack as you
+   scroll (CSS sticky, each a little lower than the last); a card you open
+   leaves the stack so nothing covers what you are reading. */
+.research .research-list {
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-3);
+  border-top: 0;
+}
+
+.research .research-item {
+  padding: 0 var(--space-5);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+}
+
+.research .ri-summary { grid-template-columns: 8ch minmax(0, 1fr) auto; }
+.research .ri-num::before { content: 'FILE '; }
+.research .ri-desc { padding-left: calc(8ch + var(--space-4)); }
+
+@media (width >= 900px) and (height >= 700px) {
+  .research .research-item {
+    position: sticky;
+    top: calc(var(--nav-h) + var(--space-4) + var(--i, 0) * 0.75rem);
+    box-shadow: 0 -16px 32px -20px rgb(0 0 0 / 60%);
+  }
+
+  .research .research-item:nth-child(2) { --i: 1; }
+  .research .research-item:nth-child(3) { --i: 2; }
+  .research .research-item:nth-child(4) { --i: 3; }
+  .research .research-item:nth-child(5) { --i: 4; }
+  .research .research-item:nth-child(6) { --i: 5; }
+  .research .research-item:nth-child(7) { --i: 6; }
+  .research .research-item:nth-child(8) { --i: 7; }
+  .research .research-item:nth-child(9) { --i: 8; }
+
+  .research .research-item:has(.ri[open]) {
+    position: relative;
+    top: auto;
+  }
+}
+
+/* Writing (home): an index. Date, title, and the related project's glyph
+   sliding in on hover; the whole row is the link. */
+.writing .post-row {
+  grid-template-columns: 22ch minmax(0, 1fr) 4.5rem 2rem;
+  align-items: center;
+  transition: background-color var(--dur-2) var(--ease-standard);
+}
+
+.writing .post-title { font-size: var(--step-2); }
+
+.writing .post-title a::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+}
+
+/* The preview glyph is a CSS mask of the project's SVG, set only on hover or
+   focus, so the home page doesn't load or embed it up front. */
+.post-glyph {
+  width: 4.5rem;
+  aspect-ratio: 1;
+  background: var(--accent);
+  mask: center / contain no-repeat;
+  opacity: 0;
+  translate: -8px 0;
+  transition: opacity var(--dur-3) var(--ease-standard), translate var(--dur-3) var(--ease-out);
+}
+
+.post-arrow {
+  font-size: var(--step-2);
+  color: var(--text-3);
+  transition: color var(--dur-2) var(--ease-standard), translate var(--dur-2) var(--ease-out);
+}
+
+@media (width <= 760px) {
+  .writing .post-row { grid-template-columns: minmax(0, 1fr) 2rem; }
+  .writing .post-row .post-meta { grid-column: 1 / -1; }
+  .writing .post-glyph { display: none; }
+}
+
+.writing .post-row:hover,
+.writing .post-row:has(a:focus-visible) { background: color-mix(in srgb, var(--surface) 70%, transparent); }
+
+.writing .post-row:is(:hover, :has(a:focus-visible)) .post-glyph {
+  opacity: 1;
+  translate: 0 0;
+}
+
+.writing .post-row:is(:hover, :has(a:focus-visible)) [data-glyph="kyber-crystals"] { mask-image: url("assets/marks/kyber-crystals.svg"); }
+.writing .post-row:is(:hover, :has(a:focus-visible)) [data-glyph="racefuzz"] { mask-image: url("assets/marks/racefuzz.svg"); }
+.writing .post-row:is(:hover, :has(a:focus-visible)) [data-glyph="csaw-ctf-2025"] { mask-image: url("assets/marks/csaw-ctf-2025.svg"); }
+
+.writing .post-row:is(:hover, :has(a:focus-visible)) .post-arrow {
+  color: var(--accent);
+  translate: 4px 0;
+}
+
+/* Contact: the monogram as a sign-off. */
+.contact-inner { position: relative; }
+
+.contact-mark { display: none; }
+
+@media (width >= 1000px) {
+  .contact-mark {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: block;
+    width: 16rem;
+    color: var(--accent);
+  }
+
+  .contact-mark-svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .contact-inner > :not(.contact-mark, .sec-rail) { max-width: calc(100% - 18rem); }
 }
