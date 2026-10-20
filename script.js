@@ -1,6 +1,6 @@
 /* ══════════════════════════════════════════════════
    script.js — home page only
-   Hero (three.js) · CHIP-8 art · Active nav · Contact clipboard
+   Hero (three.js) · Active nav · Contact clipboard
    (shared behaviour lives in site.js)
 ══════════════════════════════════════════════════ */
 
@@ -111,76 +111,25 @@ function initHeroScene() {
 }
 window.addEventListener('load', () => setTimeout(initHeroScene, 500));
 
-/* ── CHIP-8 PIXEL ART ─────────────────────────────── */
-const pixelGrid = document.getElementById('pixelGrid');
-if (pixelGrid) {
-  const pattern = [
-    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-    1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-    1,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,
-    1,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1,
-    1,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1,
-    1,0,0,0,0,0,1,1,0,0,0,0,0,0,0,1,
-    1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
-    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-  ];
-  pattern.forEach(bit => {
-    const p = document.createElement('div');
-    p.className = 'na-pixel ' + (bit ? 'on' : 'off');
-    pixelGrid.appendChild(p);
-  });
-  if (!reducedMotion) {
-    setInterval(() => {
-      const pixels = pixelGrid.querySelectorAll('.na-pixel');
-      const idx = Math.floor(Math.random() * pixels.length);
-      pixels[idx].classList.toggle('on');
-      pixels[idx].classList.toggle('off');
-    }, 400);
-  }
-}
-
 /* ── SCROLL REVEAL (home-specific elements) ──────── */
 LKP.reveal([
-  '.about-headline', '.about-p', '.about-tags', '.about-actions-row',
-  '.about-stat-cards', '.photo-box',
-  '.services-title', '.service-row',
-  '.work-title', '.project-block',
-  '.osiris-header', '.osiris-desc',
-  '.exp-row', '.ach-quote', '.sg-col',
-  '.contact-title', '.contact-left', '.contact-links'
+  '.now-strip', '.section-head', '.section-lead', '.work-row',
+  '.research-item', '.post-row', '.about-photo', '.about-body',
+  '.tl-item', '.contact-inner'
 ].join(','));
 
-/* ── NEUMORPHIC CELL ANIMATION ────────────────────── */
-if (!reducedMotion) {
-  const kernelCells = document.querySelectorAll('.na-cell');
-  if (kernelCells.length) {
-    setInterval(() => {
-      const i = Math.floor(Math.random() * kernelCells.length);
-      kernelCells[i].classList.toggle('active');
-    }, 500);
-  }
-  const mlNodes = document.querySelectorAll('.na-node');
-  if (mlNodes.length) {
-    setInterval(() => {
-      const i = Math.floor(Math.random() * mlNodes.length);
-      mlNodes[i].classList.toggle('active');
-    }, 600);
-  }
-}
-
 /* ── ACTIVE NAV LINK ─────────────────────────────── */
-const sections = document.querySelectorAll('section[id]');
-const navAs    = document.querySelectorAll('.nav-links a');
+// Highlights the in-page nav link whose section crosses the middle of the
+// viewport (works for sections of any height).
+const navAs = document.querySelectorAll('.nav-links a');
 const sectionObs = new IntersectionObserver(entries => {
   entries.forEach(e => {
-    if (e.isIntersecting) {
-      navAs.forEach(a => a.classList.remove('active'));
-      const active = document.querySelector(`.nav-links a[href="#${e.target.id}"]`);
-      if (active) active.classList.add('active');
-    }
+    if (!e.isIntersecting) return;
+    navAs.forEach(a => a.classList.remove('active'));
+    document.querySelector(`.nav-links a[href="#${e.target.id}"]`)?.classList.add('active');
   });
-}, { threshold: 0.35 });
-sections.forEach(s => sectionObs.observe(s));
+}, { rootMargin: '-50% 0px -50% 0px' });
+document.querySelectorAll('main section[id]').forEach(s => sectionObs.observe(s));
 
 /* ── COPY EMAIL TO CLIPBOARD ─────────────────────── */
 const copyBtn = document.getElementById('copyEmail');
