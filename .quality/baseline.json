@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-20T01:07:38.497Z",
+  "updatedAt": "2026-10-20T01:15:48.243Z",
   "html": {
     "blog.html": 3,
     "games.html": 28,
@@ -12,7 +12,7 @@
     "projects.html": 20
   },
   "css": {
-    "style.css": 421
+    "style.css": 407
   },
   "links": [
     "index.html -> resume.pdf (404)"
@@ -43,7 +43,7 @@
       "accessibility": 96,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1960,
+      "lcpMs": 1804,
       "cls": 0,
       "tbtMs": 0
     },
@@ -52,7 +52,7 @@
       "accessibility": 98,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 2105,
+      "lcpMs": 1956,
       "cls": 0,
       "tbtMs": 0
     },
@@ -61,61 +61,61 @@
       "accessibility": 95,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1803,
-      "cls": 0,
-      "tbtMs": 0
-    },
-    "index.html": {
-      "performance": 91,
-      "accessibility": 96,
-      "best-practices": 100,
-      "seo": 100,
-      "lcpMs": 3367,
-      "cls": 0,
-      "tbtMs": 34
-    },
-    "interviews.html": {
-      "performance": 98,
-      "accessibility": 96,
-      "best-practices": 100,
-      "seo": 100,
-      "lcpMs": 2336,
-      "cls": 0,
-      "tbtMs": 0
-    },
-    "posts/building-the-same-secure-channel-twice.html": {
-      "performance": 100,
-      "accessibility": 98,
-      "best-practices": 100,
-      "seo": 100,
-      "lcpMs": 1654,
-      "cls": 0,
-      "tbtMs": 0
-    },
-    "posts/fuzzing-kernel-race-conditions.html": {
-      "performance": 100,
-      "accessibility": 98,
-      "best-practices": 100,
-      "seo": 100,
-      "lcpMs": 1655,
-      "cls": 0,
-      "tbtMs": 0
-    },
-    "posts/writing-a-csaw-ctf-challenge.html": {
-      "performance": 99,
-      "accessibility": 98,
-      "best-practices": 100,
-      "seo": 100,
       "lcpMs": 1804,
       "cls": 0,
       "tbtMs": 0
     },
+    "index.html": {
+      "performance": 97,
+      "accessibility": 96,
+      "best-practices": 100,
+      "seo": 100,
+      "lcpMs": 2408,
+      "cls": 0,
+      "tbtMs": 53
+    },
+    "interviews.html": {
+      "performance": 99,
+      "accessibility": 96,
+      "best-practices": 100,
+      "seo": 100,
+      "lcpMs": 1806,
+      "cls": 0,
+      "tbtMs": 0
+    },
+    "posts/building-the-same-secure-channel-twice.html": {
+      "performance": 99,
+      "accessibility": 98,
+      "best-practices": 100,
+      "seo": 100,
+      "lcpMs": 1803,
+      "cls": 0,
+      "tbtMs": 0
+    },
+    "posts/fuzzing-kernel-race-conditions.html": {
+      "performance": 99,
+      "accessibility": 98,
+      "best-practices": 100,
+      "seo": 100,
+      "lcpMs": 1807,
+      "cls": 0,
+      "tbtMs": 0
+    },
+    "posts/writing-a-csaw-ctf-challenge.html": {
+      "performance": 100,
+      "accessibility": 98,
+      "best-practices": 100,
+      "seo": 100,
+      "lcpMs": 1511,
+      "cls": 0,
+      "tbtMs": 0
+    },
     "projects.html": {
-      "performance": 98,
+      "performance": 99,
       "accessibility": 88,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 2107,
+      "lcpMs": 1954,
       "cls": 0,
       "tbtMs": 0
     }

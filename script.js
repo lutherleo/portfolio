@@ -1,62 +1,10 @@
 /* ══════════════════════════════════════════════════
    script.js — home page only
-   Preloader · Hero (three.js) · CHIP-8 art ·
-   Smooth scroll · Active nav · Contact clipboard
+   Hero (three.js) · CHIP-8 art · Active nav · Contact clipboard
    (shared behaviour lives in site.js)
 ══════════════════════════════════════════════════ */
 
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-/* ── PRELOADER ───────────────────────────────────── */
-const preloader = document.getElementById('preloader');
-if (preloader) {
-  const preFill = document.getElementById('preFill');
-  const prePct  = document.getElementById('prePct');
-  const seenBefore = sessionStorage.getItem('lkp-preloaded');
-
-  if (seenBefore || reducedMotion) {
-    preloader.classList.add('done');
-    animateHeroTitle();
-  } else {
-    let pct = 0;
-    const pctTimer = setInterval(() => {
-      pct += 12 + Math.random() * 18;
-      if (pct >= 100) { pct = 100; clearInterval(pctTimer); endPreload(); }
-      preFill.style.width = pct + '%';
-      prePct.textContent  = Math.floor(pct) + '%';
-    }, 70);
-  }
-
-  function endPreload() {
-    sessionStorage.setItem('lkp-preloaded', '1');
-    setTimeout(() => {
-      preloader.classList.add('done');
-      animateHeroTitle();
-    }, 250);
-  }
-}
-
-/* ── HERO CIRCLE — follows mouse ONLY on title hover ─ */
-const heroCircle = document.getElementById('heroCircle');
-const heroTitle  = document.getElementById('heroTitle');
-let targetCX = 0, targetCY = 0, heroCircleX = 0, heroCircleY = 0, onTitle = false;
-
-if (heroTitle && heroCircle && !reducedMotion) {
-  heroTitle.addEventListener('mouseenter', () => { onTitle = true; });
-  heroTitle.addEventListener('mouseleave', () => { onTitle = false; targetCX = 0; targetCY = 0; });
-  document.addEventListener('mousemove', e => {
-    if (!onTitle) return;
-    const rect = document.getElementById('hero').getBoundingClientRect();
-    targetCX = (e.clientX - rect.left - rect.width  * 0.5) * 0.55;
-    targetCY = (e.clientY - rect.top  - rect.height * 0.5) * 0.35;
-  });
-  (function animCircle() {
-    heroCircleX += (targetCX - heroCircleX) * 0.06;
-    heroCircleY += (targetCY - heroCircleY) * 0.06;
-    heroCircle.style.transform = `translate(${heroCircleX}px, ${heroCircleY}px)`;
-    requestAnimationFrame(animCircle);
-  })();
-}
 
 /* ── THREE.JS HERO SCENE ─────────────────────────── */
 function initHeroScene() {
@@ -162,25 +110,6 @@ function initHeroScene() {
 }
 window.addEventListener('load', () => setTimeout(initHeroScene, 500));
 
-/* ── HERO TITLE STAGGER ──────────────────────────── */
-function animateHeroTitle() {
-  if (reducedMotion) return;
-  document.querySelectorAll('.ht-line').forEach((span, i) => {
-    span.style.opacity = '0';
-    span.style.transform = 'translateY(50px)';
-    span.style.transition = `opacity 0.75s cubic-bezier(0.16,1,0.3,1) ${300 + i * 110}ms, transform 0.75s cubic-bezier(0.16,1,0.3,1) ${300 + i * 110}ms`;
-    setTimeout(() => { span.style.opacity = '1'; span.style.transform = 'none'; }, 50);
-  });
-  const eyebrow = document.querySelector('.hero-eyebrow');
-  const bottom  = document.querySelector('.hero-bottom');
-  [eyebrow, bottom].forEach((el, i) => {
-    if (!el) return;
-    el.style.opacity = '0';
-    el.style.transition = `opacity 0.8s ease ${600 + i * 200}ms`;
-    setTimeout(() => { el.style.opacity = '1'; }, 50);
-  });
-}
-
 /* ── CHIP-8 PIXEL ART ─────────────────────────────── */
 const pixelGrid = document.getElementById('pixelGrid');
 if (pixelGrid) {
@@ -209,16 +138,6 @@ if (pixelGrid) {
   }
 }
 
-/* ── SMOOTH SCROLL (offset for nav) ─────────────── */
-document.querySelectorAll('a[href^="#"]').forEach(a => {
-  a.addEventListener('click', e => {
-    const t = document.querySelector(a.getAttribute('href'));
-    if (!t) return;
-    e.preventDefault();
-    window.scrollTo({ top: t.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' });
-  });
-});
-
 /* ── SCROLL REVEAL (home-specific elements) ──────── */
 LKP.reveal([
   '.about-headline', '.about-p', '.about-tags', '.about-actions-row',
@@ -229,19 +148,6 @@ LKP.reveal([
   '.exp-row', '.ach-quote', '.sg-col',
   '.contact-title', '.contact-left', '.contact-links'
 ].join(','));
-
-/* ── PROJECT IMAGE TILT ──────────────────────────── */
-if (!reducedMotion) {
-  document.querySelectorAll('.proj-img').forEach(img => {
-    img.addEventListener('mousemove', e => {
-      const r = img.getBoundingClientRect();
-      const x = (e.clientX - r.left) / r.width  - 0.5;
-      const y = (e.clientY - r.top)  / r.height - 0.5;
-      img.style.transform = `perspective(900px) rotateY(${x * 4}deg) rotateX(${-y * 3}deg) scale(1.005)`;
-    });
-    img.addEventListener('mouseleave', () => { img.style.transform = ''; });
-  });
-}
 
 /* ── NEUMORPHIC CELL ANIMATION ────────────────────── */
 if (!reducedMotion) {

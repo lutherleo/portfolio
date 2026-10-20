@@ -183,81 +183,19 @@
   }
 }
 
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; scroll-padding-top: calc(var(--nav-h) + 1rem); }
 body {
   background: var(--bg);
   color: var(--text);
   font-family: var(--font-sans);
   line-height: 1.6;
   overflow-x: hidden;
-  cursor: none;
-  opacity: 0;
-  transition: opacity 0.5s ease;
 }
-body.loaded { opacity: 1; }
 
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: var(--bg); }
 ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 4px; }
 ::selection { background: color-mix(in srgb, var(--accent) 25%, transparent); color: var(--white); }
-
-/* ─── PRELOADER ─────────────────────────────────── */
-.preloader {
-  position: fixed; inset: 0; z-index: 9999;
-  background: var(--bg);
-  display: flex; align-items: center; justify-content: center;
-  transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
-}
-.preloader.done { opacity: 0; pointer-events: none; transform: translateY(-20px); }
-.pre-inner { text-align: center; }
-.pre-logo {
-  font-family:var(--font-mono); font-size: 3.5rem; font-weight: 700;
-  color: var(--accent); margin-bottom: 2rem; letter-spacing: -0.04em;
-  text-shadow: 0 0 40px color-mix(in srgb, var(--accent) 40%, transparent);
-}
-.pre-bar {
-  width: 200px; height: 2px; background: color-mix(in srgb, var(--accent) 10%, transparent);
-  margin: 0 auto 1rem; border-radius: 2px; overflow: hidden;
-}
-.pre-fill { height: 100%; background: var(--accent); width: 0; transition: width 0.1s linear; }
-.pre-pct { font-family:var(--font-mono); font-size: 0.72rem; color: var(--text-dim); letter-spacing: 0.1em; }
-
-/* ─── CURSOR ─────────────────────────────────────── */
-@property --s {
-  syntax: '<number>';
-  initial-value: 1;
-  inherits: false;
-}
-.cursor, .cursor-ring {
-  position: fixed; left: 0; top: 0;
-  border-radius: 50%; pointer-events: none;
-  opacity: 0;
-  transform: translate3d(var(--x, -100px), var(--y, -100px), 0) translate(-50%,-50%) scale(var(--s, 1));
-  transition: opacity 0.3s ease, --s 0.28s var(--ease);
-  will-change: transform;
-}
-.cursor {
-  width: 8px; height: 8px; z-index: 9998;
-  background: var(--accent-2);
-  box-shadow: 0 0 10px color-mix(in srgb, var(--accent-hover) 55%, transparent);
-}
-.cursor-ring {
-  width: 34px; height: 34px; z-index: 9997;
-  border: 1.5px solid color-mix(in srgb, var(--accent) 50%, transparent);
-  transition: opacity 0.3s ease, --s 0.28s var(--ease), border-color 0.3s, background 0.3s;
-}
-body.cursor-on .cursor, body.cursor-on .cursor-ring { opacity: 1; }
-body.cursor-hover .cursor      { --s: 0.45; }
-body.cursor-hover .cursor-ring { --s: 1.5; border-color: var(--accent); background: color-mix(in srgb, var(--accent) 7%, transparent); }
-body.cursor-down  .cursor      { --s: 0.7; }
-body.cursor-down  .cursor-ring { --s: 0.85; }
-body.cursor-text  .cursor      { --s: 0.3; opacity: 0.35; }
-body.cursor-text  .cursor-ring { --s: 0.55; opacity: 0.35; }
-
-/* Touch devices: native cursor, no custom one */
-html.touch .cursor, html.touch .cursor-ring { display: none; }
-html.touch body, html.touch a, html.touch button { cursor: auto; }
-input, textarea { cursor: text; }
 
 /* Keyboard focus */
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
@@ -306,7 +244,7 @@ input, textarea { cursor: text; }
 /* MORE ▾ dropdown */
 .nav-more { position: relative; }
 .nav-more-btn {
-  background: none; border: none; color: var(--text-dim); cursor: none;
+  background: none; border: none; color: var(--text-dim);
   font-family: inherit; font-size: 0.7rem; letter-spacing: 0.12em; font-weight: 500;
   display: inline-flex; align-items: center; gap: 5px; padding: 4px 0;
   transition: color 0.3s;
@@ -329,7 +267,7 @@ input, textarea { cursor: text; }
 .nav-drop a { display: block; padding: 0.55rem 0.9rem; border-radius: 5px; }
 .nav-drop a::after { display: none; }
 .nav-drop a:hover { background: var(--accent-dim); }
-.hamburger { display:none; flex-direction:column; gap:6px; background:none; border:none; cursor:none; }
+.hamburger { display:none; flex-direction:column; gap:6px; background:none; border:none; }
 .hamburger span { display:block; width:22px; height:1.5px; background:var(--text); transition:transform 0.4s var(--ease), opacity 0.3s; }
 .hamburger.open span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
 .hamburger.open span:nth-child(2) { transform: translateY(-7.5px) rotate(-45deg); }
@@ -369,15 +307,6 @@ input, textarea { cursor: text; }
   -webkit-mask-image: radial-gradient(ellipse at 50% 38%, black 25%, transparent 78%);
   mask-image: radial-gradient(ellipse at 50% 38%, black 25%, transparent 78%);
 }
-.hero-circle {
-  position: absolute;
-  width: 520px; height: 520px; border-radius: 50%;
-  background: var(--accent);
-  opacity: 0.09;
-  pointer-events: none; z-index: 0;
-  transition: transform 0.15s linear;
-  top: 8%; left: 3%;
-}
 /* ── Hero two-column layout ── */
 .hero-inner {
   position: relative; z-index: 1;
@@ -387,10 +316,8 @@ input, textarea { cursor: text; }
 .hero-left { flex: 1; min-width: 0; }
 .hero-right {
   width: 420px; height: 420px; flex-shrink: 0;
-  position: relative; opacity: 0;
-  animation: fadeCanvasIn 1.2s var(--ease) 1.4s forwards;
+  position: relative;
 }
-@keyframes fadeCanvasIn { to { opacity: 1; } }
 #heroCanvas { width: 100%; height: 100%; display: block; }
 
 .hero-eyebrow { font-family:var(--font-mono); font-size:0.78rem; letter-spacing:0.1em; color:color-mix(in srgb, var(--accent) 60%, transparent); margin-bottom:1.5rem; }
@@ -540,7 +467,7 @@ input, textarea { cursor: text; }
 .na-reg { font-family:var(--font-mono); font-size:0.7rem; color:var(--text-muted); }
 .na-reg span { color:var(--accent); }
 .na-keys { display:grid; grid-template-columns:repeat(4,1fr); gap:4px; margin-top:0.5rem; }
-.na-keys span { width:24px; height:24px; display:flex; align-items:center; justify-content:center; font-family:var(--font-mono); font-size:0.6rem; color:var(--text-dim); background:var(--surface); border-radius:4px; box-shadow:var(--neu-shadow); border:1px solid var(--border-dim); cursor:none; }
+.na-keys span { width:24px; height:24px; display:flex; align-items:center; justify-content:center; font-family:var(--font-mono); font-size:0.6rem; color:var(--text-dim); background:var(--surface); border-radius:4px; box-shadow:var(--neu-shadow); border:1px solid var(--border-dim); }
 
 /* Scanner Art */
 .neu-scanner { flex-direction:row; gap:4rem; padding:2rem; }
@@ -718,8 +645,7 @@ input, textarea { cursor: text; }
   display:inline-flex; align-items:center; gap:0.5rem;
   font-family:var(--font-mono); font-size:0.72rem; letter-spacing:0.08em; font-weight:600;
   color:var(--accent); background:transparent;
-  border:1px solid var(--border-accent); border-radius:6px; padding:0.55rem 1.2rem;
-  cursor:none; transition:background 0.3s, border-color 0.3s, color 0.3s;
+  border:1px solid var(--border-accent); border-radius:6px; padding:0.55rem 1.2rem; transition:background 0.3s, border-color 0.3s, color 0.3s;
 }
 .btn-copy:hover { background:var(--accent-dim); border-color:var(--accent); }
 .btn-copy.copied { color:var(--on-accent); background:var(--accent); border-color:var(--accent); }
@@ -735,8 +661,17 @@ input, textarea { cursor: text; }
 .footer-socials a:hover { color:var(--accent); }
 
 /* ─── REVEAL ─────────────────────────────────────── */
-.reveal { opacity:0; transform:translateY(28px); transition:opacity 0.8s var(--ease), transform 0.8s var(--ease); transition-delay:var(--d, 0ms); }
-.reveal.visible { opacity:1; transform:none; }
+/* Content is visible by default. site.js adds html.reveal-on only when JS runs
+   and reduced motion isn't requested; the fade then uses an animation on the
+   individual `translate` property, so it never fights hover transforms or the
+   components' own transitions. */
+html.reveal-on .reveal:not(.visible) { opacity: 0; }
+html.reveal-on .reveal.visible { animation: reveal-in var(--dur-4) var(--ease-out) var(--d, 0ms) both; }
+
+@keyframes reveal-in {
+  from { opacity: 0; translate: 0 24px; }
+  to { opacity: 1; translate: none; }
+}
 
 /* ─── RESPONSIVE ──────────────────────────────────── */
 @media (max-width:1024px) {
@@ -774,7 +709,6 @@ input, textarea { cursor: text; }
   }
 }
 @media (max-width:600px) {
-  .hero-circle { width:300px; height:300px; }
   .hero-title  { font-size:clamp(3rem,13vw,5rem); }
   .hero-right  { height:220px; }
   .section     { padding:5rem 0; }
@@ -1056,8 +990,5 @@ body.modal-open { overflow:hidden; }
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
-  .reveal { opacity: 1; transform: none; }
   .marquee-track, .skills-track { animation: none; }
-  .cursor, .cursor-ring { display: none; }
-  body { cursor: auto; }
 }
