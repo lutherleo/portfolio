@@ -25,15 +25,21 @@ if (name && !window.matchMedia('(prefers-reduced-motion: reduce)').matches && !s
 function run() {
   const lines = [...name.querySelectorAll('.hero-line')];
   const original = lines.map(line => line.textContent);
+  // Spaces stay plain text: an inline-block cell holding a space measures 0px
+  // and would close the word gap for the length of the animation.
   const cells = lines.flatMap(line => {
     const chars = [...line.textContent];
     line.textContent = '';
-    return chars.map(ch => {
+    return chars.flatMap(ch => {
+      if (ch === ' ') {
+        line.append(' ');
+        return [];
+      }
       const span = document.createElement('span');
       span.className = 'decrypt-cell';
       span.textContent = ch;
       line.append(span);
-      return { span, ch };
+      return [{ span, ch }];
     });
   });
   for (const c of cells) c.width = c.span.getBoundingClientRect().width;
@@ -59,7 +65,6 @@ function run() {
     const swap = now - lastSwap > 55;
     if (swap) lastSwap = now;
     cells.forEach((c, i) => {
-      if (c.ch === ' ') return;
       const startAt = LEAD + i * STEP;
       const scrambling = t >= startAt && t < startAt + HOLD;
       if (scrambling && swap) c.span.textContent = GLYPHS[Math.floor(Math.random() * GLYPHS.length)];
