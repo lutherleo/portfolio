@@ -25,26 +25,18 @@
   <link rel="preload" href="../assets/fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin />
 </head>
 <body>
+  <a class="skip-link" href="#main">Skip to content</a>
 
   <!-- chrome:nav:start -->
-  <nav class="nav scrolled" id="nav" data-solid>
+  <nav class="nav scrolled" id="nav" data-solid aria-label="Primary">
     <a href="../index.html" class="nav-logo">Love Kush Pranu</a>
     <ul class="nav-links">
-      <li><a href="../index.html#about">ABOUT</a></li>
-      <li><a href="../index.html#work">WORK</a></li>
-      <li><a href="../index.html#osiris">RESEARCH</a></li>
-      <li><a href="../index.html#experience">HISTORY</a></li>
-      <li><a href="../projects.html">PROJECTS</a></li>
-      <li><a href="../games.html">GAMES</a></li>
-      <li><a href="../blog.html" class="active">BLOG</a></li>
-      <li class="nav-more">
-        <button class="nav-more-btn" type="button" aria-haspopup="true" aria-expanded="false">MORE</button>
-        <ul class="nav-drop">
-          <li><a href="../interviews.html">INTERVIEWS</a></li>
-          <li><a href="../hobbies.html">HOBBIES</a></li>
-        </ul>
-      </li>
-      <li><a href="../index.html#contact">CONTACT</a></li>
+      <li><a href="../projects.html">Work</a></li>
+      <li><a href="../index.html#osiris">Research</a></li>
+      <li><a href="../blog.html" aria-current="page">Writing</a></li>
+      <li><a href="../games.html">Arcade</a></li>
+      <li><a href="../index.html#about">About</a></li>
+      <li><a href="../index.html#contact">Contact</a></li>
     </ul>
     <div class="nav-actions">
       <a class="nav-resume" href="../resume.pdf" type="application/pdf">Résumé</a>
@@ -62,19 +54,18 @@
   <!-- chrome:nav:end -->
 
   <!-- chrome:menu:start -->
-  <div class="mob-menu" id="mobMenu">
-    <a href="../index.html#about"      class="mob-item">ABOUT</a>
-    <a href="../index.html#work"       class="mob-item">WORK</a>
-    <a href="../index.html#osiris"     class="mob-item">RESEARCH</a>
-    <a href="../index.html#experience" class="mob-item">HISTORY</a>
-    <a href="../projects.html"         class="mob-item">PROJECTS</a>
-    <a href="../games.html"            class="mob-item">GAMES</a>
-    <a href="../blog.html"             class="mob-item">BLOG</a>
-    <a href="../interviews.html"       class="mob-item">INTERVIEWS</a>
-    <a href="../hobbies.html"          class="mob-item">HOBBIES</a>
-    <a href="../index.html#contact"    class="mob-item">CONTACT</a>
-  </div>
+  <nav class="mob-menu" id="mobMenu" aria-label="Mobile">
+    <a href="../projects.html" class="mob-item">Work</a>
+    <a href="../index.html#osiris" class="mob-item">Research</a>
+    <a href="../blog.html" class="mob-item" aria-current="page">Writing</a>
+    <a href="../games.html" class="mob-item">Arcade</a>
+    <a href="../index.html#about" class="mob-item">About</a>
+    <a href="../index.html#contact" class="mob-item">Contact</a>
+    <a href="../resume.pdf" class="mob-item mob-item-resume" type="application/pdf">Résumé (PDF)</a>
+  </nav>
   <!-- chrome:menu:end -->
+
+  <main id="main" tabindex="-1">
 
   <section class="section" style="background:var(--bg-2);padding-top:calc(var(--nav-h) + 4rem);">
     <div class="article-wrap article">
@@ -133,19 +124,33 @@
     </div>
   </section>
 
+  </main>
+
   <!-- chrome:footer:start -->
   <footer class="footer">
-    <div class="container">
-      <div class="footer-inner">
-        <span class="footer-logo">LKP.</span>
-        <span class="footer-copy">© <span data-year>2026</span> Love Kush Pranu — Cybersecurity Engineer · NYU Tandon '26 · OSIRIS Lab</span>
-        <div class="footer-socials">
-          <a href="https://github.com/lutherleo" target="_blank">GH</a>
-          <a href="https://www.linkedin.com/in/lovekush-pranu" target="_blank">LI</a>
-          <a href="../blog.html">BLOG</a>
-          <a href="../interviews.html">INTERVIEWS</a>
-          <a href="../hobbies.html">HOBBIES</a>
-          <a href="../resume.pdf" type="application/pdf">RÉSUMÉ</a>
+    <div class="container footer-inner">
+      <div class="footer-id">
+        <a class="footer-logo" href="../index.html">Love Kush Pranu</a>
+        <p class="footer-copy">© <span data-year>2026</span> Love Kush Pranu · Cybersecurity engineer · NYU Tandon ’26</p>
+      </div>
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h2 class="footer-h">Contact</h2>
+          <ul>
+            <li><a href="mailto:lp2989@nyu.edu">lp2989@nyu.edu</a></li>
+            <li><a href="https://github.com/lutherleo" rel="me">GitHub</a></li>
+            <li><a href="https://www.linkedin.com/in/lovekush-pranu" rel="me">LinkedIn</a></li>
+            <li><a href="https://medium.com/@lovekush.pranu" rel="me">Medium</a></li>
+            <li><a href="../resume.pdf" type="application/pdf">Résumé (PDF)</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h2 class="footer-h">Off-hours</h2>
+          <ul>
+            <li><a href="../interviews.html">Interviews</a></li>
+            <li><a href="../hobbies.html">Hobbies</a></li>
+            <li><a href="../games.html">Arcade</a></li>
+          </ul>
         </div>
       </div>
     </div>

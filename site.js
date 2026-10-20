@@ -42,28 +42,6 @@
     onScroll();
   }
 
-  /* ── MORE ▾ DROPDOWN ───────────────────────────── */
-  const moreBtn  = document.querySelector('.nav-more-btn');
-  const moreItem = document.querySelector('.nav-more');
-  if (moreBtn && moreItem) {
-    moreBtn.addEventListener('click', () => {
-      const open = moreItem.classList.toggle('open');
-      moreBtn.setAttribute('aria-expanded', open);
-    });
-    document.addEventListener('click', e => {
-      if (!moreItem.contains(e.target)) {
-        moreItem.classList.remove('open');
-        moreBtn.setAttribute('aria-expanded', 'false');
-      }
-    });
-    document.addEventListener('keydown', e => {
-      if (e.key === 'Escape') {
-        moreItem.classList.remove('open');
-        moreBtn.setAttribute('aria-expanded', 'false');
-      }
-    });
-  }
-
   /* ── HAMBURGER / MOBILE MENU ───────────────────── */
   // Closed: invisible and inert. Open: everything outside the nav and the menu
   // is inert, focus moves into the menu, Escape closes it and returns focus.
@@ -93,7 +71,7 @@
     document.addEventListener('keydown', e => {
       if (e.key === 'Escape' && mobMenu.classList.contains('open')) setMenu(false, true);
     });
-    window.matchMedia('(min-width: 901px)').addEventListener('change', e => { if (e.matches) setMenu(false); });
+    window.matchMedia('(min-width: 1024px)').addEventListener('change', e => { if (e.matches) setMenu(false); });
   }
 
   /* ── SCROLL REVEAL ─────────────────────────────── */
