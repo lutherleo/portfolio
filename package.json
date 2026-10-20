@@ -20,7 +20,8 @@
     "check:final": "node scripts/gate.mjs --final",
     "check:browsers": "node scripts/gate.mjs --only=browsers",
     "gen:marks": "node scripts/gen-marks.mjs",
-    "gen:poster": "node scripts/gen-hero-poster.mjs"
+    "gen:poster": "node scripts/gen-hero-poster.mjs",
+    "gen:og": "node scripts/gen-og.mjs"
   },
   "devDependencies": {
     "axe-core": "4.14.0",
