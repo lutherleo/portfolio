@@ -7,8 +7,9 @@
 
 /* ─── FONTS ─────────────────────────────────────────
    Geist + Geist Mono (SIL OFL 1.1, see assets/fonts/), self-hosted latin
-   variable files. The fallbacks are Arial / Courier New with metrics tuned so
-   text doesn't reflow when the web font arrives. */
+   variable files, plus Geist Pixel Square (geist 1.8.1, unmodified) for
+   labels and numerals. The fallbacks are Arial / Courier New with metrics
+   tuned so text doesn't reflow when the web font arrives. */
 @font-face {
   font-family: Geist;
   src: url("assets/fonts/geist-latin.woff2") format("woff2");
@@ -21,6 +22,14 @@
   font-family: "Geist Mono";
   src: url("assets/fonts/geist-mono-latin.woff2") format("woff2");
   font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Geist Pixel";
+  src: url("assets/fonts/geist-pixel-square.woff2") format("woff2");
+  font-weight: 500;
   font-style: normal;
   font-display: swap;
 }
@@ -43,10 +52,23 @@
   line-gap-override: 0%;
 }
 
+/* Matched on the average advance of typical label text (Geist Pixel is
+   proportional, so Arial is the closer stand-in than a monospace). */
+@font-face {
+  font-family: "Geist Pixel Fallback";
+  src: local("Arial");
+  size-adjust: 110.79%;
+  ascent-override: 90.71%;
+  descent-override: 26.63%;
+  line-gap-override: 0%;
+}
+
 /* ─── DESIGN TOKENS ─────────────────────────────────
    Colour: dark is the default theme; light applies via [data-theme="light"]
    (set before first paint by the inline script in each page's <head>).
-   Terminal-style panels keep the dark palette in either theme.
+   Terminal-style panels keep the dark palette in either theme. Neutrals are
+   warm (olive-tinted) rather than green-grey; green is the signal colour and
+   amber (--finding) is reserved for real results and evidence.
    Every text token passes WCAG AA (4.5:1) on bg/surface/surface-2 in its
    theme, checked by scripts/contrast.mjs. */
 :root,
@@ -55,18 +77,20 @@
 .article pre {
   color-scheme: dark;
 
-  --bg:            #0b0e0c;
-  --surface:       #121714;
-  --surface-2:     #19201c;
-  --border:        #29332d;   /* decorative dividers only */
+  --bg:            #0e0f0b;
+  --surface:       #151711;
+  --surface-2:     #1c1f17;
+  --border:        #2d3027;   /* decorative dividers only */
   --border-accent: color-mix(in srgb, var(--accent) 22%, var(--border));
-  --border-strong: #66766c;   /* inputs, controls, focusable edges (≥3:1) */
-  --text:          #e7ece9;
-  --text-2:        #aab6af;   /* secondary copy */
-  --text-3:        #8d9a92;   /* metadata, captions */
-  --accent:        #5ad48e;   /* the single signal colour */
+  --border-strong: #6c7263;   /* inputs, controls, focusable edges (≥3:1) */
+  --text:          #ecede5;
+  --text-2:        #b4b8aa;   /* secondary copy */
+  --text-3:        #979c8d;   /* metadata, captions */
+  --accent:        #5ad48e;   /* signal: links, active, live */
   --accent-hover:  #7ee0a6;
   --on-accent:     #06140c;
+  --finding:       #f2b544;   /* results and evidence only */
+  --finding-dim:   color-mix(in srgb, var(--finding) 14%, transparent);
   --danger:        #ff8a7a;   /* severity / errors only */
   --warn:          #f0c062;
   --focus:         var(--accent);
@@ -90,6 +114,7 @@
   /* Type: fluid scale, 360px → 1440px viewport */
   --font-sans: "Geist", "Geist Fallback", system-ui, sans-serif;
   --font-mono: "Geist Mono", "Geist Mono Fallback", ui-monospace, monospace;
+  --font-pixel: "Geist Pixel", "Geist Pixel Fallback", var(--font-mono);
   --step--2: clamp(0.75rem, 0.733rem + 0.074vw, 0.8rem);       /* 12 → 12.8  mono labels (floor) */
   --step--1: clamp(0.875rem, 0.854rem + 0.093vw, 0.9375rem);   /* 14 → 15    meta, tags */
   --step-0:  clamp(1rem, 0.958rem + 0.185vw, 1.125rem);        /* 16 → 18    body */
@@ -98,11 +123,20 @@
   --step-3:  clamp(1.9375rem, 1.688rem + 1.111vw, 2.6875rem);  /* 31 → 43    h2 */
   --step-4:  clamp(2.4375rem, 2.063rem + 1.667vw, 3.5625rem);  /* 39 → 57    page h1 */
   --step-5:  clamp(2.75rem, 1.833rem + 4.074vw, 5.5rem);       /* 44 → 88    home display */
+
+  /* Display scale (sprint 5): bold, tight, used sparingly */
+  --display-hero:    clamp(3.25rem, 0.583rem + 11.852vw, 11.25rem); /* 52 → 180  hero name */
+  --display-page:    clamp(2.75rem, 1.583rem + 5.185vw, 6.25rem);   /* 44 → 100  page h1 */
+  --display-section: clamp(2.25rem, 1.333rem + 4.074vw, 5rem);      /* 36 → 80   section h2 */
+  --weight-display: 700;
+  --lh-display: 0.92;
+  --tracking-hero: -0.055em;
   --lh-tight: 1.05;
   --lh-heading: 1.15;
   --lh-body: 1.6;
   --tracking-display: -0.03em;
   --tracking-label: 0.08em;
+  --tracking-pixel: 0.02em;
   --measure: 65ch;
 
   /* Space: 4px base */
@@ -150,18 +184,20 @@
 :root[data-theme="light"] {
   color-scheme: light;
 
-  --bg:            #f6f7f3;
-  --surface:       #fff;
-  --surface-2:     #edf0ea;
-  --border:        #d8ddd5;
+  --bg:            #f5f4ee;
+  --surface:       #fffefa;
+  --surface-2:     #ecebe3;
+  --border:        #d9d8cd;
   --border-accent: color-mix(in srgb, var(--accent) 30%, var(--border));
-  --border-strong: #7f8b83;
-  --text:          #0f1411;
-  --text-2:        #3b4640;
-  --text-3:        #56625b;
+  --border-strong: #7e8175;
+  --text:          #13140f;
+  --text-2:        #3e4137;
+  --text-3:        #585b50;
   --accent:        #096b36;
   --accent-hover:  #075a2d;
   --on-accent:     #fff;
+  --finding:       #845300;
+  --finding-dim:   color-mix(in srgb, var(--finding) 12%, transparent);
   --danger:        #b3261e;
   --warn:          #8a5300;
   --shadow-overlay: 0 24px 64px -16px rgb(16 21 18 / 28%), 0 0 0 1px var(--border);

@@ -11,7 +11,7 @@ const THEMES = {
   light: /:root\[data-theme="light"\] \{([\s\S]*?)\n\}/,
 };
 const BACKGROUNDS = ['--bg', '--surface', '--surface-2'];
-const TEXT = ['--text', '--text-2', '--text-3', '--accent', '--danger', '--warn'];
+const TEXT = ['--text', '--text-2', '--text-3', '--accent', '--finding', '--danger', '--warn'];
 const UI = ['--border-strong', '--accent'];
 
 function tokens(block) {

@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-20T10:52:46.469Z",
+  "updatedAt": "2026-10-20T11:10:46.528Z",
   "html": {
     "blog.html": 0,
     "games.html": 0,
@@ -91,11 +91,11 @@
   },
   "lighthouse": {
     "blog.html": {
-      "performance": 100,
+      "performance": 99,
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1511,
+      "lcpMs": 1806,
       "cls": 0,
       "tbtMs": 0
     },
@@ -104,16 +104,16 @@
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 2323,
+      "lcpMs": 2110,
       "cls": 0,
-      "tbtMs": 61
+      "tbtMs": 155
     },
     "hobbies.html": {
-      "performance": 100,
+      "performance": 99,
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1520,
+      "lcpMs": 1809,
       "cls": 0,
       "tbtMs": 0
     },
@@ -122,7 +122,7 @@
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 2258,
+      "lcpMs": 2266,
       "cls": 0,
       "tbtMs": 0
     },
@@ -131,7 +131,7 @@
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 2140,
+      "lcpMs": 2134,
       "cls": 0,
       "tbtMs": 0
     },
@@ -140,25 +140,25 @@
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1658,
+      "lcpMs": 1386,
       "cls": 0,
       "tbtMs": 0
     },
     "posts/fuzzing-kernel-race-conditions.html": {
-      "performance": 99,
-      "accessibility": 100,
-      "best-practices": 100,
-      "seo": 100,
-      "lcpMs": 1804,
-      "cls": 0,
-      "tbtMs": 0
-    },
-    "posts/writing-a-csaw-ctf-challenge.html": {
       "performance": 100,
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1513,
+      "lcpMs": 1659,
+      "cls": 0,
+      "tbtMs": 0
+    },
+    "posts/writing-a-csaw-ctf-challenge.html": {
+      "performance": 99,
+      "accessibility": 100,
+      "best-practices": 100,
+      "seo": 100,
+      "lcpMs": 1807,
       "cls": 0,
       "tbtMs": 0
     },
@@ -167,7 +167,7 @@
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1955,
+      "lcpMs": 1956,
       "cls": 0,
       "tbtMs": 0
     },
@@ -176,7 +176,7 @@
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1803,
+      "lcpMs": 1805,
       "cls": 0,
       "tbtMs": 0
     },
@@ -185,7 +185,7 @@
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1804,
+      "lcpMs": 1814,
       "cls": 0,
       "tbtMs": 0
     },
@@ -194,7 +194,7 @@
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1805,
+      "lcpMs": 1804,
       "cls": 0,
       "tbtMs": 0
     },
@@ -203,7 +203,7 @@
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1802,
+      "lcpMs": 1684,
       "cls": 0,
       "tbtMs": 0
     },
@@ -212,16 +212,16 @@
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1816,
+      "lcpMs": 1806,
       "cls": 0,
       "tbtMs": 0
     },
     "projects/kyber-crystals.html": {
-      "performance": 99,
+      "performance": 100,
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1803,
+      "lcpMs": 1659,
       "cls": 0,
       "tbtMs": 0
     },
@@ -230,7 +230,7 @@
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1654,
+      "lcpMs": 1508,
       "cls": 0,
       "tbtMs": 0
     },
@@ -239,16 +239,16 @@
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1805,
+      "lcpMs": 1664,
       "cls": 0,
       "tbtMs": 0
     },
     "projects/racefuzz.html": {
-      "performance": 100,
+      "performance": 99,
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1654,
+      "lcpMs": 1804,
       "cls": 0,
       "tbtMs": 0
     },
@@ -257,7 +257,7 @@
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1805,
+      "lcpMs": 1804,
       "cls": 0,
       "tbtMs": 0
     },
@@ -266,7 +266,7 @@
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1505,
+      "lcpMs": 1655,
       "cls": 0,
       "tbtMs": 0
     }
