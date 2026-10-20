@@ -115,6 +115,17 @@
   window.LKP = { reveal };
   reveal('.page-hero-inner, .sec-label, .neu-card, .footer-inner');
 
+  /* ── PAGE TRANSITIONS ──────────────────────────── */
+  // When a project card or work row opens a case study, name its title so the
+  // cross-document View Transition morphs it into the case page's heading.
+  window.addEventListener('pageswap', e => {
+    const url = e.activation?.entry?.url;
+    if (!e.viewTransition || !url || !url.includes('/projects/')) return;
+    const link = [...document.querySelectorAll('a[href]')].find(a => a.href === url);
+    const title = link?.closest('.proj-card, .work-row')?.querySelector('.proj-card-title, .work-title');
+    if (title) title.style.viewTransitionName = 'case-title';
+  });
+
   /* ── FOOTER YEAR ───────────────────────────────── */
   document.querySelectorAll('[data-year]').forEach(el => {
     el.textContent = new Date().getFullYear();

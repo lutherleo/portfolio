@@ -68,206 +68,133 @@
   <!-- chrome:menu:end -->
 
   <main id="main" tabindex="-1">
-
-  <!-- Page Hero -->
-  <div class="page-hero" style="background:var(--bg-2);">
-    <div class="page-hero-inner">
-      <span class="page-hero-eye">ALL WORK</span>
-      <h1 class="page-hero-title">Every <em>project.</em></h1>
-      <p class="page-hero-sub">Featured builds, research prototypes, and everything in between. Click any card to view on GitHub.</p>
-    </div>
-  </div>
-
-  <!-- ── FEATURED PROJECTS ────────────────────────── -->
-  <section class="section" style="background:var(--bg-2);">
-    <div class="container">
-      <p class="sec-label"><span class="sec-num">01</span> FEATURED</p>
-      <div class="proj-grid">
-
-        <div class="proj-card neu-card" data-proj="pq">
-          <span class="proj-card-cat">Post-Quantum Crypto · 2026</span>
-          <h3 class="proj-card-title">Kyber Crystals — Post-Quantum Channel</h3>
-          <p class="proj-card-desc">Research-grade PQ secure channel in C, implemented twice with two different post-quantum families behind one pluggable backend — ML-KEM-768 + Dilithium vs HQC-192 + SPHINCS+ — then attacked and benchmarked under a unified Docker harness. NIST PQ Category 3.</p>
-          <div class="proj-card-tags">
-            <span>C</span><span>liboqs</span><span>Kyber</span><span>Dilithium</span><span>SPHINCS+</span><span>AES-GCM</span>
-          </div>
-          <div class="proj-card-footer">
-            <button class="proj-card-details">View details ↗</button>
-            <a href="https://github.com/lutherleo/Quantum-safe-Kyber-Crystals" target="_blank" class="proj-card-link" onclick="event.stopPropagation()">GitHub →</a>
-          </div>
-        </div>
-
-        <div class="proj-card neu-card" data-proj="racefuzz">
-          <span class="proj-card-cat">Kernel Fuzzing · 2026</span>
-          <h3 class="proj-card-title">RaceFuzz — Kernel Fuzzer</h3>
-          <p class="proj-card-desc">Semantic fuzzing framework targeting the Linux kernel's network stack for race conditions — the OSIRIS Lab research project I lead. Coverage-guided mutation, Go-based corpus generation, and concurrency-aware race detection heuristics.</p>
-          <div class="proj-card-tags">
-            <span>Go</span><span>C</span><span>Kernel</span><span>Fuzzing</span><span>OSIRIS Lab</span>
-          </div>
-          <div class="proj-card-footer">
-            <button class="proj-card-details">View details ↗</button>
-            <a href="https://github.com/lutherleo" target="_blank" class="proj-card-link" onclick="event.stopPropagation()">GitHub →</a>
-          </div>
-        </div>
-
-        <div class="proj-card neu-card" data-proj="xv6">
-          <span class="proj-card-cat">Kernel Security · 2024–2025</span>
-          <h3 class="proj-card-title">xv6 OS Security Enhancements</h3>
-          <p class="proj-card-desc">Kernel-level security enhancements to the xv6 OS — ASLR, W^X memory policies, stack canaries, process isolation, and custom system calls for security auditing. Built on the Lind sandbox research at NYU.</p>
-          <div class="proj-card-tags">
-            <span>C</span><span>xv6</span><span>ASLR</span><span>W^X</span><span>Stack Canaries</span>
-          </div>
-          <div class="proj-card-footer">
-            <button class="proj-card-details">View details ↗</button>
-            <a href="https://github.com/lutherleo/xv6-OS" target="_blank" class="proj-card-link" onclick="event.stopPropagation()">GitHub →</a>
-          </div>
-        </div>
-
-        <div class="proj-card neu-card" data-proj="advml">
-          <span class="proj-card-cat">Adversarial ML · 2025</span>
-          <h3 class="proj-card-title">Adversarial Robustness in DNNs</h3>
-          <p class="proj-card-desc">PGD adversarial training on MNIST, validating Madry et al. (2018) — achieving ~90% accuracy against PGD/FGSM attacks. Identified weaknesses under C&W attacks. Re-engineered TensorFlow 1.x → 2.x for CleverHans and ART.</p>
-          <div class="proj-card-tags">
-            <span>Python</span><span>TensorFlow</span><span>CleverHans</span><span>ART</span><span>PGD</span>
-          </div>
-          <div class="proj-card-footer">
-            <button class="proj-card-details">View details ↗</button>
-            <a href="https://github.com/lutherleo/MLClass" target="_blank" class="proj-card-link" onclick="event.stopPropagation()">GitHub →</a>
-          </div>
-        </div>
-
-        <div class="proj-card neu-card" data-proj="chip8">
-          <span class="proj-card-cat">Emulation · 2024</span>
-          <h3 class="proj-card-title">CHIP-8 Emulator</h3>
-          <p class="proj-card-desc">A fully functional CHIP-8 emulator from scratch — all 35 opcodes, 64×32 pixel XOR-based sprite rendering, SDL2 graphics and input, proper timing with delay/sound timers, and 16-key hexadecimal keypad.</p>
-          <div class="proj-card-tags">
-            <span>C</span><span>SDL2</span><span>CPU Emulation</span><span>Memory Management</span>
-          </div>
-          <div class="proj-card-footer">
-            <button class="proj-card-details">View details ↗</button>
-            <a href="https://github.com/lutherleo/CHIP-8_emulator" target="_blank" class="proj-card-link" onclick="event.stopPropagation()">GitHub →</a>
-          </div>
-        </div>
-
-        <div class="proj-card neu-card" data-proj="vulnscan">
-          <span class="proj-card-cat">Security Tool · 2026</span>
-          <h3 class="proj-card-title">Vulnerability Scanner</h3>
-          <p class="proj-card-desc">A CLI tool to quickly scan binaries and applications for common vulnerability classes — weak permissions, outdated libraries, CVE matches, and ROP gadget detection. Designed for CTF and real-world assessments.</p>
-          <div class="proj-card-tags">
-            <span>Security Analysis</span><span>Binary Exploitation</span><span>CVE Detection</span><span>CLI</span>
-          </div>
-          <div class="proj-card-footer">
-            <button class="proj-card-details">View details ↗</button>
-            <a href="https://github.com/lutherleo/vulnerability-scanner" target="_blank" class="proj-card-link" onclick="event.stopPropagation()">GitHub →</a>
-          </div>
-        </div>
-
+    <header class="page-head">
+      <div class="container">
+        <p class="eyebrow">~/work</p>
+        <h1 class="page-title">Projects</h1>
+        <p class="page-lead">Featured builds, research prototypes and everything in between. Each card opens a case study with the approach, highlights and source.</p>
       </div>
-    </div>
-  </section>
+    </header>
 
-  <!-- ── MORE PROJECTS ─────────────────────────────── -->
-  <section class="section" style="background:var(--bg);">
-    <div class="container projects-wide">
-      <p class="sec-label"><span class="sec-num">02</span> MORE WORK</p>
-      <h2 style="font-family:var(--font-sans);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:var(--white);letter-spacing:-0.04em;margin-bottom:3rem;">
-        Other <em style="font-style:normal;color:var(--accent);">projects</em>
-      </h2>
-      <div class="proj-grid proj-grid-4">
-
-        <div class="proj-card neu-card" data-proj="chronos">
-          <span class="proj-card-cat">Productivity · 2026</span>
-          <h3 class="proj-card-title">Chronos</h3>
-          <p class="proj-card-desc">A scheduling and time-coordination app I built for OSIRIS Lab dev meetings — find the slot that works across everyone's availability, without the spreadsheet chaos. TypeScript, end to end.</p>
-          <div class="proj-card-tags">
-            <span>TypeScript</span><span>Scheduling</span><span>OSIRIS Lab</span>
-          </div>
-          <div class="proj-card-footer">
-            <button class="proj-card-details">View details ↗</button>
-            <a href="https://github.com/lutherleo/timefull" target="_blank" class="proj-card-link" onclick="event.stopPropagation()">GitHub →</a>
-          </div>
-        </div>
-
-        <div class="proj-card neu-card" data-proj="animus">
-          <span class="proj-card-cat">Project Management · 2026</span>
-          <h3 class="proj-card-title">Animus</h3>
-          <p class="proj-card-desc">A project management solution I built for OSIRIS Lab — coordinating 9 concurrent research projects, their leads, milestones, and student teams from a single control plane.</p>
-          <div class="proj-card-tags">
-            <span>Project Management</span><span>OSIRIS Lab</span><span>Research Ops</span>
-          </div>
-          <div class="proj-card-footer">
-            <button class="proj-card-details">View details ↗</button>
-            <a href="https://osiris.cyber.nyu.edu/" target="_blank" class="proj-card-link" onclick="event.stopPropagation()">OSIRIS →</a>
-          </div>
-        </div>
-
-        <div class="proj-card neu-card" data-proj="lind">
-          <span class="proj-card-cat">OS Security · 2025</span>
-          <h3 class="proj-card-title">Lind Sandbox — Rust Research</h3>
-          <p class="proj-card-desc">OS-level security research using Rust, contributing to the Lind sandbox project — a restricted POSIX environment to safely execute untrusted code via WebAssembly. Part of NYU Tandon systems security research.</p>
-          <div class="proj-card-tags">
-            <span>Rust</span><span>POSIX</span><span>WebAssembly</span><span>Sandbox</span>
-          </div>
-          <div class="proj-card-footer">
-            <button class="proj-card-details">View details ↗</button>
-            <a href="https://github.com/lutherleo/lind-wasm" target="_blank" class="proj-card-link" onclick="event.stopPropagation()">GitHub →</a>
-          </div>
-        </div>
-
-        <div class="proj-card neu-card" data-proj="csaw">
-          <div class="csaw-badge" aria-hidden="true">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-              <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/>
-              <line x1="4" y1="22" x2="4" y2="15"/>
-            </svg>
-            <span class="csaw-badge-text">
-              <span class="csaw-badge-top">CSAW '25</span>
-              <span class="csaw-badge-sub">CHALLENGE AUTHOR</span>
-            </span>
-          </div>
-          <span class="proj-card-cat">CTF Infrastructure · 2025</span>
-          <h3 class="proj-card-title">CSAW CTF 2025 — Author & Infra</h3>
-          <p class="proj-card-desc">Authored a challenge for CSAW CTF 2025 and co-ran the qualifiers — challenge hosting, platform maintenance, and moderation at scale across dozens of global regions for one of the world's largest student-run security competitions.</p>
-          <div class="proj-card-tags">
-            <span>CTF</span><span>Challenge Design</span><span>Infrastructure</span><span>OSIRIS Lab</span>
-          </div>
-          <div class="proj-card-footer">
-            <button class="proj-card-details">View details ↗</button>
-            <a href="posts/writing-a-csaw-ctf-challenge.html" class="proj-card-link" onclick="event.stopPropagation()">Read post →</a>
-          </div>
-        </div>
-
-        <div class="proj-card neu-card" data-proj="otw">
-          <span class="proj-card-cat">Wargames · 2024</span>
-          <h3 class="proj-card-title">OverTheWire Write-ups</h3>
-          <p class="proj-card-desc">Documented solutions and methodology for OverTheWire Bandit and Natas wargame challenges — covering Linux privilege escalation, web exploitation, and crypto fundamentals.</p>
-          <div class="proj-card-tags">
-            <span>CTF</span><span>Bash</span><span>Web</span><span>Write-up</span>
-          </div>
-          <div class="proj-card-footer">
-            <button class="proj-card-details">View details ↗</button>
-            <a href="https://github.com/lutherleo/Bandit" target="_blank" class="proj-card-link" onclick="event.stopPropagation()">GitHub →</a>
-          </div>
-        </div>
-
+    <section class="section" aria-labelledby="featured-title">
+      <div class="container">
+        <header class="section-head">
+          <h2 class="section-title" id="featured-title">Featured</h2>
+        </header>
+        <ul class="card-grid">
+          <li>
+            <article class="proj-card">
+              <p class="proj-card-cat">Post-Quantum Crypto · 2026</p>
+              <h3 class="proj-card-title"><a href="projects/kyber-crystals.html">Kyber Crystals — Post-Quantum Channel</a></h3>
+              <p class="proj-card-desc">Research-grade PQ secure channel in C, implemented twice with two different post-quantum families behind one pluggable backend — ML-KEM-768 + Dilithium vs HQC-192 + SPHINCS+ — then attacked and benchmarked under a unified Docker harness. NIST PQ Category 3.</p>
+              <ul class="tags" aria-label="Stack"><li>C</li><li>liboqs</li><li>Kyber</li><li>Dilithium</li><li>SPHINCS+</li><li>AES-GCM</li></ul>
+              <p class="proj-card-more" aria-hidden="true">Case study →</p>
+            </article>
+          </li>
+          <li>
+            <article class="proj-card">
+              <p class="proj-card-cat">Kernel Fuzzing · 2026</p>
+              <h3 class="proj-card-title"><a href="projects/racefuzz.html">RaceFuzz — Kernel Fuzzer</a></h3>
+              <p class="proj-card-desc">Semantic fuzzing framework targeting the Linux kernel's network stack for race conditions — the OSIRIS Lab research project I lead. Coverage-guided mutation, Go-based corpus generation, and concurrency-aware race detection heuristics.</p>
+              <ul class="tags" aria-label="Stack"><li>Go</li><li>C</li><li>Kernel</li><li>Fuzzing</li><li>OSIRIS Lab</li></ul>
+              <p class="proj-card-more" aria-hidden="true">Case study →</p>
+            </article>
+          </li>
+          <li>
+            <article class="proj-card">
+              <p class="proj-card-cat">Kernel Security · 2024–2025</p>
+              <h3 class="proj-card-title"><a href="projects/xv6-security.html">xv6 OS Security Enhancements</a></h3>
+              <p class="proj-card-desc">Kernel-level security enhancements to the xv6 OS — ASLR, W^X memory policies, stack canaries, process isolation, and custom system calls for security auditing. Built on the Lind sandbox research at NYU.</p>
+              <ul class="tags" aria-label="Stack"><li>C</li><li>xv6</li><li>ASLR</li><li>W^X</li><li>Stack Canaries</li></ul>
+              <p class="proj-card-more" aria-hidden="true">Case study →</p>
+            </article>
+          </li>
+          <li>
+            <article class="proj-card">
+              <p class="proj-card-cat">Adversarial ML · 2025</p>
+              <h3 class="proj-card-title"><a href="projects/adversarial-ml.html">Adversarial Robustness in DNNs</a></h3>
+              <p class="proj-card-desc">PGD adversarial training on MNIST, validating Madry et al. (2018) — achieving ~90% accuracy against PGD/FGSM attacks. Identified weaknesses under C&amp;W attacks. Re-engineered TensorFlow 1.x → 2.x for CleverHans and ART.</p>
+              <ul class="tags" aria-label="Stack"><li>Python</li><li>TensorFlow</li><li>CleverHans</li><li>ART</li><li>PGD</li></ul>
+              <p class="proj-card-more" aria-hidden="true">Case study →</p>
+            </article>
+          </li>
+          <li>
+            <article class="proj-card">
+              <p class="proj-card-cat">Emulation · 2024</p>
+              <h3 class="proj-card-title"><a href="projects/chip-8-emulator.html">CHIP-8 Emulator</a></h3>
+              <p class="proj-card-desc">A fully functional CHIP-8 emulator from scratch — all 35 opcodes, 64×32 pixel XOR-based sprite rendering, SDL2 graphics and input, proper timing with delay/sound timers, and 16-key hexadecimal keypad.</p>
+              <ul class="tags" aria-label="Stack"><li>C</li><li>SDL2</li><li>CPU Emulation</li><li>Memory Management</li></ul>
+              <p class="proj-card-more" aria-hidden="true">Case study →</p>
+            </article>
+          </li>
+          <li>
+            <article class="proj-card">
+              <p class="proj-card-cat">Security Tool · 2026</p>
+              <h3 class="proj-card-title"><a href="projects/vulnerability-scanner.html">Vulnerability Scanner</a></h3>
+              <p class="proj-card-desc">A CLI tool to quickly scan binaries and applications for common vulnerability classes — weak permissions, outdated libraries, CVE matches, and ROP gadget detection. Designed for CTF and real-world assessments.</p>
+              <ul class="tags" aria-label="Stack"><li>Security Analysis</li><li>Binary Exploitation</li><li>CVE Detection</li><li>CLI</li></ul>
+              <p class="proj-card-more" aria-hidden="true">Case study →</p>
+            </article>
+          </li>
+        </ul>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Project detail modal -->
-  <div class="proj-modal" id="projModal" role="dialog" aria-modal="true" aria-labelledby="pmTitle">
-    <div class="pm-backdrop" data-close></div>
-    <div class="pm-panel">
-      <button class="pm-close" data-close aria-label="Close">✕</button>
-      <span class="pm-cat" id="pmCat"></span>
-      <h2 class="pm-title" id="pmTitle"></h2>
-      <div class="pm-body" id="pmBody"></div>
-      <div class="pm-tags" id="pmTags"></div>
-      <div class="pm-actions" id="pmActions"></div>
-    </div>
-  </div>
-
-  <!-- Footer -->
+    <section class="section" aria-labelledby="more-title">
+      <div class="container">
+        <header class="section-head">
+          <h2 class="section-title" id="more-title">More projects</h2>
+        </header>
+        <ul class="card-grid">
+          <li>
+            <article class="proj-card">
+              <p class="proj-card-cat">Productivity · 2026</p>
+              <h3 class="proj-card-title"><a href="projects/chronos.html">Chronos</a></h3>
+              <p class="proj-card-desc">A scheduling and time-coordination app I built for OSIRIS Lab dev meetings — find the slot that works across everyone's availability, without the spreadsheet chaos. TypeScript, end to end.</p>
+              <ul class="tags" aria-label="Stack"><li>TypeScript</li><li>Scheduling</li><li>OSIRIS Lab</li></ul>
+              <p class="proj-card-more" aria-hidden="true">Case study →</p>
+            </article>
+          </li>
+          <li>
+            <article class="proj-card">
+              <p class="proj-card-cat">Project Management · 2026</p>
+              <h3 class="proj-card-title"><a href="projects/animus.html">Animus</a></h3>
+              <p class="proj-card-desc">A project management solution I built for OSIRIS Lab — coordinating 9 concurrent research projects, their leads, milestones, and student teams from a single control plane.</p>
+              <ul class="tags" aria-label="Stack"><li>Project Management</li><li>OSIRIS Lab</li><li>Research Ops</li></ul>
+              <p class="proj-card-more" aria-hidden="true">Case study →</p>
+            </article>
+          </li>
+          <li>
+            <article class="proj-card">
+              <p class="proj-card-cat">OS Security · 2025</p>
+              <h3 class="proj-card-title"><a href="projects/lind-sandbox.html">Lind Sandbox — Rust Research</a></h3>
+              <p class="proj-card-desc">OS-level security research using Rust, contributing to the Lind sandbox project — a restricted POSIX environment to safely execute untrusted code via WebAssembly. Part of NYU Tandon systems security research.</p>
+              <ul class="tags" aria-label="Stack"><li>Rust</li><li>POSIX</li><li>WebAssembly</li><li>Sandbox</li></ul>
+              <p class="proj-card-more" aria-hidden="true">Case study →</p>
+            </article>
+          </li>
+          <li>
+            <article class="proj-card">
+            <p class="proj-card-badge">CSAW ’25 · challenge author</p>
+              <p class="proj-card-cat">CTF Infrastructure · 2025</p>
+              <h3 class="proj-card-title"><a href="projects/csaw-ctf-2025.html">CSAW CTF 2025 — Author &amp; Infra</a></h3>
+              <p class="proj-card-desc">Authored a challenge for CSAW CTF 2025 and co-ran the qualifiers — challenge hosting, platform maintenance, and moderation at scale across dozens of global regions for one of the world's largest student-run security competitions.</p>
+              <ul class="tags" aria-label="Stack"><li>CTF</li><li>Challenge Design</li><li>Infrastructure</li><li>OSIRIS Lab</li></ul>
+              <p class="proj-card-more" aria-hidden="true">Case study →</p>
+            </article>
+          </li>
+          <li>
+            <article class="proj-card">
+              <p class="proj-card-cat">Wargames · 2024</p>
+              <h3 class="proj-card-title"><a href="projects/overthewire.html">OverTheWire Write-ups</a></h3>
+              <p class="proj-card-desc">Documented solutions and methodology for OverTheWire Bandit and Natas wargame challenges — covering Linux privilege escalation, web exploitation, and crypto fundamentals.</p>
+              <ul class="tags" aria-label="Stack"><li>CTF</li><li>Bash</li><li>Web</li><li>Write-up</li></ul>
+              <p class="proj-card-more" aria-hidden="true">Case study →</p>
+            </article>
+          </li>
+        </ul>
+      </div>
+    </section>
   </main>
 
   <!-- chrome:footer:start -->
@@ -302,6 +229,5 @@
   <!-- chrome:footer:end -->
 
   <script src="site.js"></script>
-  <script src="projects.js"></script>
 </body>
 </html>
