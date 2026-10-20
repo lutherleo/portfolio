@@ -27,7 +27,16 @@
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <link rel="stylesheet" href="style.css" />
   <link rel="preload" href="assets/fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js" defer></script>
+  <script type="importmap">
+    {
+      "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.185.1/build/three.module.min.js" },
+      "integrity": {
+        "https://cdn.jsdelivr.net/npm/three@0.185.1/build/three.module.min.js": "sha384-QHQk1LzjJlJYNdthXjKCmffpDRZL3EqJ7LfqBzyKyvGgjAYM2ZVuYtFGg42NcAJ/",
+        "https://cdn.jsdelivr.net/npm/three@0.185.1/build/three.core.min.js": "sha384-rx+KIp/9ptjArhnFAcpVoOc/ynktDsRtRJKIbC7YVKylEvFu8sgmzk9RmQ+CIV48"
+      }
+    }
+  </script>
+  <script type="module" src="hero3d.js"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -91,8 +100,27 @@
         </div>
         <p class="hero-status"><span class="avail-dot" aria-hidden="true"></span>Open to security roles</p>
       </div>
-      <div class="hero-right" aria-hidden="true">
-        <canvas id="heroCanvas"></canvas>
+      <div class="hero-right">
+        <svg class="hero-poster" viewBox="0 0 400 400" aria-hidden="true" focusable="false">
+          <g fill="none" stroke="currentColor" stroke-width="1">
+            <circle cx="200" cy="200" r="178" opacity="0.22" />
+            <ellipse cx="200" cy="200" rx="176" ry="54" opacity="0.32" />
+            <ellipse cx="200" cy="200" rx="176" ry="54" transform="rotate(58 200 200)" opacity="0.26" />
+            <ellipse cx="200" cy="200" rx="176" ry="54" transform="rotate(-58 200 200)" opacity="0.26" />
+            <polygon points="200,88 297,144 297,256 200,312 103,256 103,144" opacity="0.85" />
+            <path d="M200 88V312M103 144L297 256M297 144L103 256M200 88L103 256M200 88L297 256M103 144H297M103 256H297M200 312L103 144M200 312L297 144" opacity="0.5" />
+          </g>
+          <g fill="currentColor">
+            <circle cx="376" cy="200" r="4" />
+            <circle cx="70" cy="118" r="3" />
+            <circle cx="286" cy="344" r="3.5" />
+          </g>
+        </svg>
+        <canvas class="hero-canvas" id="heroCanvas" aria-hidden="true"></canvas>
+        <button class="hero-pause" type="button" aria-label="Pause animation" aria-pressed="false" hidden>
+          <svg class="icon-pause" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false"><path d="M4 3h3v10H4zM9 3h3v10H9z" fill="currentColor" /></svg>
+          <svg class="icon-play" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false"><path d="M5 3l8 5-8 5z" fill="currentColor" /></svg>
+        </button>
       </div>
     </div>
   </section>
