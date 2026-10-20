@@ -1790,147 +1790,131 @@ html.reveal-on .reveal.visible { animation: reveal-in var(--dur-4) var(--ease-ou
 /* ─── RESPONSIVE ──────────────────────────────────── */
 @media (max-width:1024px) {
   .blog-grid   { grid-template-columns:1fr; }
-  .hobbies-grid { grid-template-columns:repeat(2,1fr); }
-  .interviews-grid { grid-template-columns:1fr; }
-}
-@media (max-width:600px) {
-  .interviews-grid { grid-template-columns:1fr; }
-  .hobbies-grid { grid-template-columns:1fr; }
 }
 
-/* ─── HOBBIES ────────────────────────────────────── */
-.hobbies { background: var(--bg-2); }
-
-.hobbies-title {
-  font-family: var(--font-sans);
-  font-size: clamp(2rem,5vw,3.5rem);
-  font-weight: 600;
-  color: var(--white);
-  letter-spacing: -0.04em;
-  margin-bottom: 1rem;
-}
-
-.hobbies-title em {
-  font-style: normal;
-  color: var(--accent);
-}
-
-.hobbies-sub {
-  font-size: 0.9rem;
-  color: var(--text-dim);
-  line-height: 1.75;
-  margin-bottom: 3rem;
-  max-width: 600px;
-}
-
-.hobbies-grid {
+/* ─── INTERVIEWS + HOBBIES ───────────────────────── */
+.media-grid {
   display: grid;
-  grid-template-columns: repeat(4,1fr);
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr));
+  gap: var(--space-6) var(--space-5);
+  list-style: none;
 }
 
-.hobby-card { padding:2rem 1.75rem; }
-
-.hobby-icon {
-  width: 48px;
-  height: 48px;
-  border-radius: 12px;
-  background: var(--accent-dim);
-  border: 1px solid var(--border-accent);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--accent);
-  margin-bottom: 1.25rem;
-  flex-shrink: 0;
+.media-thumb {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface-2);
 }
 
-.hobby-card h3 {
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--white);
-  margin-bottom: 0.5rem;
-  line-height: 1.3;
+.media-thumb img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--dur-3) var(--ease-out);
 }
 
-.hobby-card p {
-  font-size: 0.845rem;
-  color: var(--text-dim);
-  line-height: 1.75;
-}
+.media-thumb:hover img { transform: scale(1.03); }
 
-/* ─── INTERVIEWS ─────────────────────────────────── */
-.interviews { background: var(--bg); }
-
-.interviews-title {
-  font-family: var(--font-sans);
-  font-size: clamp(2rem,5vw,3.5rem);
-  font-weight: 600;
-  color: var(--white);
-  letter-spacing: -0.04em;
-  margin-bottom: 1rem;
-}
-
-.interviews-title em {
-  font-style: normal;
-  color: var(--accent);
-}
-
-.interviews-sub {
-  font-size: 0.9rem;
-  color: var(--text-dim);
-  line-height: 1.75;
-  margin-bottom: 3rem;
-}
-
-.interviews-grid {
+.media-play {
+  position: absolute;
+  inset: 50% auto auto 50%;
   display: grid;
-  grid-template-columns: repeat(3,1fr);
-  gap: 1.5rem;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-full);
+  background: var(--accent);
+  color: var(--on-accent);
+  translate: -50% -50%;
+  box-shadow: var(--shadow-lift);
 }
 
-.interview-card { overflow:hidden; }
-
-.interview-label {
+.media-label {
+  margin-top: var(--space-4);
   font-family: var(--font-mono);
   font-size: var(--step--2);
-  letter-spacing: 0.14em;
+  color: var(--text-3);
+}
+
+.media-title {
+  margin-top: var(--space-1);
+  font-size: var(--step-1);
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--text);
+}
+
+.media-guest {
+  margin-top: var(--space-1);
+  font-size: var(--step--1);
+  color: var(--text-2);
+}
+
+.hobby-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr));
+  gap: var(--space-5);
+  list-style: none;
+}
+
+.hobby-card {
+  padding: var(--space-5);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+}
+
+.hobby-icon {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  margin-bottom: var(--space-4);
+  border-radius: var(--radius-md);
+  background: var(--accent-dim);
   color: var(--accent);
-  text-transform: uppercase;
-  margin-bottom: 0.75rem;
-}
-.interview-thumb-wrap {
-  display:block; position:relative; border-radius:8px; overflow:hidden;
-  text-decoration:none; aspect-ratio:16/9;
-}
-.interview-thumb-wrap img {
-  width:100%; height:100%; object-fit:cover; display:block;
-  transition:transform 0.45s var(--ease), filter 0.3s;
-  filter:brightness(0.85);
 }
 
-.interview-thumb-wrap:hover img {
-  transform: scale(1.05);
-  filter: brightness(1);
-}
-.interview-play-btn {
-  position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
-  background:rgba(0,0,0,0.28); transition:background 0.3s;
+.hobby-title {
+  font-size: var(--step-0);
+  font-weight: 600;
+  color: var(--text);
 }
 
-.interview-thumb-wrap:hover .interview-play-btn { background:rgba(0,0,0,0.12); }
-.interview-play-circle {
-  width:60px; height:60px; border-radius:50%;
-  background:var(--accent); display:flex; align-items:center; justify-content:center;
-  box-shadow:0 4px 24px color-mix(in srgb, var(--accent) 55%, transparent);
-  transition:transform 0.3s var(--ease), box-shadow 0.3s;
-}
-.interview-thumb-wrap:hover .interview-play-circle {
-  transform:scale(1.12);
-  box-shadow:0 6px 32px color-mix(in srgb, var(--accent) 70%, transparent);
+.hobby-text {
+  margin-top: var(--space-2);
+  font-size: var(--step--1);
+  color: var(--text-2);
 }
 
-.interview-play-circle svg { margin-left:4px; }
+.cross-link {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-5);
+  margin-top: var(--space-8);
+  padding-top: var(--space-7);
+  border-top: 1px solid var(--border);
+}
+
+.cross-link-title {
+  margin-top: var(--space-2);
+  font-size: var(--step-2);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+
+.cross-link-text {
+  margin-top: var(--space-1);
+  color: var(--text-2);
+}
 
 /* ─── RESUME BUTTON ─────────────────────────────── */
 .btn-resume {
@@ -2309,22 +2293,6 @@ html.reveal-on .reveal.visible { animation: reveal-in var(--dur-4) var(--ease-ou
   grid-row: 2;
 }
 @media(max-width:860px){ .games-grid { grid-template-columns:1fr; } }
-
-/* ─── INTERVIEW CARD TITLES ──────────────────────── */
-.interview-title {
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--white);
-  margin: 0.75rem 0 0.2rem;
-  line-height: 1.3;
-}
-
-.interview-guest {
-  font-family: var(--font-mono);
-  font-size: var(--step--2);
-  color: var(--text-dim);
-  letter-spacing: 0.04em;
-}
 
 /* ─── REDUCED MOTION ─────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {

@@ -68,68 +68,53 @@
   <!-- chrome:menu:end -->
 
   <main id="main" tabindex="-1">
-
-  <div class="page-hero" style="background:var(--bg);">
-    <div class="page-hero-inner">
-      <span class="page-hero-eye">CONVERSATIONS</span>
-      <h1 class="page-hero-title">People I've <em>interviewed.</em></h1>
-      <p class="page-hero-sub">A series of conversations with practitioners, researchers, and builders working at the intersection of security, systems, and the future of the field.</p>
-    </div>
-  </div>
-
-  <section class="section" style="background:var(--bg);">
-    <div class="container">
-      <div class="interviews-grid">
-
-        <!-- Interview 01 -->
-        <div class="interview-card neu-card" style="padding:1.5rem;">
-          <p class="interview-label">Interview · 01</p>
-          <a href="https://www.youtube.com/watch?v=0F-sB8MU9kQ" target="_blank" rel="noopener" class="interview-thumb-wrap">
-            <img src="https://img.youtube.com/vi/0F-sB8MU9kQ/hqdefault.jpg" alt="Subhra Priyadarshini — Chief Editor, Nature India" loading="lazy" />
-            <div class="interview-play-btn">
-              <div class="interview-play-circle">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="#0a0f0a"><polygon points="6,4 20,12 6,20"/></svg>
-              </div>
-            </div>
-          </a>
-          <h3 class="interview-title">Telling Science Stories Well</h3>
-          <p class="interview-guest">Subhra Priyadarshini — Chief Editor, Nature India</p>
-        </div>
-
-        <!-- Interview 02 -->
-        <div class="interview-card neu-card" style="padding:1.5rem;">
-          <p class="interview-label">Interview · 02</p>
-          <a href="https://www.youtube.com/watch?v=pL5Sm-xS1Rk" target="_blank" rel="noopener" class="interview-thumb-wrap">
-            <img src="https://img.youtube.com/vi/pL5Sm-xS1Rk/hqdefault.jpg" alt="Ranveer Chandra — Chief Scientist, Microsoft Azure Global" loading="lazy" />
-            <div class="interview-play-btn">
-              <div class="interview-play-circle">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="#0a0f0a"><polygon points="6,4 20,12 6,20"/></svg>
-              </div>
-            </div>
-          </a>
-          <h3 class="interview-title">The Future of AI &amp; Cloud Infrastructure</h3>
-          <p class="interview-guest">Ranveer Chandra — Chief Scientist, Microsoft Azure Global</p>
-        </div>
-
-        <!-- Interview 03 -->
-        <div class="interview-card neu-card" style="padding:1.5rem;">
-          <p class="interview-label">Interview · 03</p>
-          <a href="https://www.youtube.com/watch?v=XJz1TSmRWjY" target="_blank" rel="noopener" class="interview-thumb-wrap">
-            <img src="https://img.youtube.com/vi/XJz1TSmRWjY/hqdefault.jpg" alt="Pete Michels — Animation Director" loading="lazy" />
-            <div class="interview-play-btn">
-              <div class="interview-play-circle">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="#0a0f0a"><polygon points="6,4 20,12 6,20"/></svg>
-              </div>
-            </div>
-          </a>
-          <h3 class="interview-title">Creativity, Storytelling &amp; the Animation Industry</h3>
-          <p class="interview-guest">Pete Michels — Animation Director</p>
-        </div>
-
+    <header class="page-head">
+      <div class="container">
+        <p class="eyebrow">~/interviews</p>
+        <h1 class="page-title">Interviews</h1>
+        <p class="page-lead">A series of conversations with practitioners, researchers, and builders working at the intersection of security, systems, and the future of the field.</p>
       </div>
-    </div>
-  </section>
+    </header>
 
+    <section class="section" aria-label="Interviews">
+      <div class="container">
+        <ul class="media-grid">
+          <li>
+            <article class="media-card">
+              <a class="media-thumb" href="https://www.youtube.com/watch?v=0F-sB8MU9kQ">
+                <img src="https://img.youtube.com/vi/0F-sB8MU9kQ/hqdefault.jpg" alt="Watch “Telling Science Stories Well” with Subhra Priyadarshini on YouTube" width="480" height="360" loading="lazy" decoding="async" />
+                <span class="media-play"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M7 4.5v15l12.5-7.5z" fill="currentColor" /></svg></span>
+              </a>
+              <p class="media-label">Interview 01</p>
+              <h2 class="media-title">Telling Science Stories Well</h2>
+              <p class="media-guest">Subhra Priyadarshini · Chief Editor, Nature India</p>
+            </article>
+          </li>
+          <li>
+            <article class="media-card">
+              <a class="media-thumb" href="https://www.youtube.com/watch?v=pL5Sm-xS1Rk">
+                <img src="https://img.youtube.com/vi/pL5Sm-xS1Rk/hqdefault.jpg" alt="Watch “The Future of AI & Cloud Infrastructure” with Ranveer Chandra on YouTube" width="480" height="360" loading="lazy" decoding="async" />
+                <span class="media-play"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M7 4.5v15l12.5-7.5z" fill="currentColor" /></svg></span>
+              </a>
+              <p class="media-label">Interview 02</p>
+              <h2 class="media-title">The Future of AI &amp; Cloud Infrastructure</h2>
+              <p class="media-guest">Ranveer Chandra · Chief Scientist, Microsoft Azure Global</p>
+            </article>
+          </li>
+          <li>
+            <article class="media-card">
+              <a class="media-thumb" href="https://www.youtube.com/watch?v=XJz1TSmRWjY">
+                <img src="https://img.youtube.com/vi/XJz1TSmRWjY/hqdefault.jpg" alt="Watch “Creativity, Storytelling & the Animation Industry” with Pete Michels on YouTube" width="480" height="360" loading="lazy" decoding="async" />
+                <span class="media-play"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M7 4.5v15l12.5-7.5z" fill="currentColor" /></svg></span>
+              </a>
+              <p class="media-label">Interview 03</p>
+              <h2 class="media-title">Creativity, Storytelling &amp; the Animation Industry</h2>
+              <p class="media-guest">Pete Michels · Animation Director</p>
+            </article>
+          </li>
+        </ul>
+      </div>
+    </section>
   </main>
 
   <!-- chrome:footer:start -->
