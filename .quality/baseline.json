@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-20T13:22:52.415Z",
+  "updatedAt": "2026-10-20T13:54:27.842Z",
   "html": {
     "404.html": 0,
     "blog.html": 0,
@@ -95,191 +95,191 @@
   },
   "lighthouse": {
     "404.html": {
-      "performance": 99,
+      "performance": 100,
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1878,
+      "lcpMs": 1418,
       "cls": 0,
       "tbtMs": 0
     },
     "blog.html": {
-      "performance": 98,
+      "performance": 100,
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 2178,
+      "lcpMs": 1655,
       "cls": 0,
       "tbtMs": 0
     },
     "games.html": {
-      "performance": 98,
+      "performance": 100,
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 2330,
+      "lcpMs": 1661,
       "cls": 0,
       "tbtMs": 0
     },
     "hobbies.html": {
-      "performance": 99,
+      "performance": 100,
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1878,
+      "lcpMs": 1432,
       "cls": 0,
       "tbtMs": 0
     },
     "index.html": {
-      "performance": 97,
+      "performance": 99,
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 2408,
+      "lcpMs": 1820,
       "cls": 0,
       "tbtMs": 0
     },
     "interviews.html": {
-      "performance": 97,
+      "performance": 98,
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 2407,
+      "lcpMs": 2142,
       "cls": 0,
       "tbtMs": 0
     },
     "posts/building-the-same-secure-channel-twice.html": {
-      "performance": 98,
+      "performance": 100,
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 2182,
+      "lcpMs": 1664,
       "cls": 0,
       "tbtMs": 0
     },
     "posts/fuzzing-kernel-race-conditions.html": {
-      "performance": 99,
+      "performance": 100,
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 2031,
+      "lcpMs": 1654,
       "cls": 0,
       "tbtMs": 0
     },
     "posts/writing-a-csaw-ctf-challenge.html": {
-      "performance": 99,
+      "performance": 100,
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 2031,
+      "lcpMs": 1579,
       "cls": 0,
       "tbtMs": 0
     },
     "projects.html": {
-      "performance": 97,
+      "performance": 99,
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 2328,
+      "lcpMs": 1808,
       "cls": 0,
       "tbtMs": 0
     },
     "projects/adversarial-ml.html": {
-      "performance": 98,
+      "performance": 100,
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 2179,
+      "lcpMs": 1653,
       "cls": 0,
       "tbtMs": 0
     },
     "projects/animus.html": {
-      "performance": 98,
+      "performance": 100,
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 2045,
+      "lcpMs": 1656,
       "cls": 0,
       "tbtMs": 0
     },
     "projects/chip-8-emulator.html": {
-      "performance": 98,
+      "performance": 100,
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 2180,
+      "lcpMs": 1653,
       "cls": 0,
       "tbtMs": 0
     },
     "projects/chronos.html": {
-      "performance": 98,
+      "performance": 100,
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 2178,
+      "lcpMs": 1656,
       "cls": 0,
       "tbtMs": 0
     },
     "projects/csaw-ctf-2025.html": {
-      "performance": 98,
+      "performance": 100,
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 2178,
+      "lcpMs": 1653,
       "cls": 0,
       "tbtMs": 0
     },
     "projects/kyber-crystals.html": {
-      "performance": 98,
+      "performance": 100,
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 2178,
+      "lcpMs": 1655,
       "cls": 0,
       "tbtMs": 0
     },
     "projects/lind-sandbox.html": {
-      "performance": 99,
+      "performance": 100,
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1879,
+      "lcpMs": 1653,
       "cls": 0,
       "tbtMs": 0
     },
     "projects/overthewire.html": {
-      "performance": 99,
+      "performance": 100,
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 2028,
+      "lcpMs": 1510,
       "cls": 0,
       "tbtMs": 0
     },
     "projects/racefuzz.html": {
-      "performance": 98,
+      "performance": 100,
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 2177,
+      "lcpMs": 1655,
       "cls": 0,
       "tbtMs": 0
     },
     "projects/vulnerability-scanner.html": {
-      "performance": 99,
+      "performance": 100,
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 2027,
+      "lcpMs": 1654,
       "cls": 0,
       "tbtMs": 0
     },
     "projects/xv6-security.html": {
-      "performance": 98,
+      "performance": 100,
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 2178,
+      "lcpMs": 1653,
       "cls": 0,
       "tbtMs": 0
     }

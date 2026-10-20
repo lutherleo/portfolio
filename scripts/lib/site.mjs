@@ -1,6 +1,7 @@
 // Shared helpers for the quality scripts: where the site lives, which files
 // belong to it, a tiny static server, and how to find a local Chrome.
 import { createServer } from 'node:http';
+import { gzipSync } from 'node:zlib';
 import { existsSync } from 'node:fs';
 import { readFile, readdir, stat } from 'node:fs/promises';
 import { extname, join, relative, resolve, sep } from 'node:path';
@@ -36,6 +37,12 @@ const TYPES = {
   '.jsdos': 'application/octet-stream',
 };
 
+// Text responses are gzipped when the client asks, as GitHub Pages does in
+// production (checked: style.css and HTML come back with content-encoding:
+// gzip). Lighthouse's simulated throttling charges transferred bytes, so
+// serving them uncompressed overstated FCP/LCP for every page.
+const COMPRESSIBLE = new Set(['.html', '.css', '.js', '.mjs', '.json', '.svg', '.xml', '.txt']);
+
 /** Serve ROOT over HTTP on 127.0.0.1 (port 0 = any free port). */
 export function startServer(port = 0) {
   const server = createServer(async (req, res) => {
@@ -45,7 +52,14 @@ export function startServer(port = 0) {
       if (file !== ROOT && !file.startsWith(ROOT + sep)) throw new Error('outside root');
       if ((await stat(file)).isDirectory()) file = join(file, 'index.html');
       const body = await readFile(file);
-      res.writeHead(200, { 'content-type': TYPES[extname(file).toLowerCase()] ?? 'application/octet-stream' });
+      const ext = extname(file).toLowerCase();
+      const headers = { 'content-type': TYPES[ext] ?? 'application/octet-stream' };
+      if (COMPRESSIBLE.has(ext) && /\bgzip\b/.test(req.headers['accept-encoding'] ?? '')) {
+        res.writeHead(200, { ...headers, 'content-encoding': 'gzip', vary: 'Accept-Encoding' });
+        res.end(gzipSync(body));
+        return;
+      }
+      res.writeHead(200, headers);
       res.end(body);
     } catch {
       res.writeHead(404, { 'content-type': 'text/plain' });
