@@ -222,6 +222,9 @@
   }
 }
 
+/* Headings balance their lines (no single word left on the last one). */
+:where(h1, h2, h3) { text-wrap: balance; }
+
 html {
   scroll-behavior: smooth;
   scroll-padding-top: calc(var(--nav-h) + 1rem);
@@ -549,10 +552,10 @@ main > .section + .section { border-top: 1px solid var(--border); }
 .case-title {
   max-width: 22ch;
   margin-top: var(--space-3);
-  font-size: var(--step-4);
-  font-weight: 600;
-  line-height: var(--lh-tight);
-  letter-spacing: var(--tracking-display);
+  font-size: var(--display-section);
+  font-weight: var(--weight-display);
+  line-height: 0.98;
+  letter-spacing: -0.045em;
   text-wrap: balance;
   view-transition-name: case-title;
 }
@@ -976,10 +979,10 @@ main > .section + .section { border-top: 1px solid var(--border); }
 
 .article-title {
   margin-top: var(--space-3);
-  font-size: var(--step-4);
-  font-weight: 600;
-  line-height: var(--lh-tight);
-  letter-spacing: var(--tracking-display);
+  font-size: var(--display-section);
+  font-weight: var(--weight-display);
+  line-height: 0.98;
+  letter-spacing: -0.045em;
   color: var(--text);
   text-wrap: balance;
 }
@@ -1106,9 +1109,10 @@ main > .section + .section { border-top: 1px solid var(--border); }
 }
 
 .eyebrow {
-  font-family: var(--font-mono);
-  font-size: var(--step--1);
+  font-family: var(--font-pixel);
+  font-size: var(--step-0);
   color: var(--accent);
+  letter-spacing: var(--tracking-pixel);
 }
 
 .section-head {
@@ -1121,11 +1125,17 @@ main > .section + .section { border-top: 1px solid var(--border); }
 
 .section-head .eyebrow { grid-column: 1 / -1; }
 
+/* Phones: the link drops under the title so long ones never squeeze it. */
+@media (width <= 600px) {
+  .section-head { grid-template-columns: minmax(0, 1fr); }
+  .section-head .section-link { justify-self: start; }
+}
+
 .section-title {
-  font-size: var(--step-3);
-  font-weight: 600;
-  line-height: var(--lh-heading);
-  letter-spacing: var(--tracking-display);
+  font-size: var(--display-section);
+  font-weight: var(--weight-display);
+  line-height: 1;
+  letter-spacing: -0.045em;
   color: var(--text);
   text-wrap: balance;
 }
@@ -1291,9 +1301,10 @@ main > .section + .section { border-top: 1px solid var(--border); }
 .work-row:nth-child(even) .work-media { order: 2; }
 
 .work-meta {
-  font-family: var(--font-mono);
-  font-size: var(--step--2);
+  font-family: var(--font-pixel);
+  font-size: var(--step--1);
   color: var(--text-3);
+  letter-spacing: var(--tracking-pixel);
 }
 
 .work-title {
@@ -1382,9 +1393,10 @@ main > .section + .section { border-top: 1px solid var(--border); }
 
 .ri-num {
   padding-top: 2px;
-  font-family: var(--font-mono);
-  font-size: var(--step--1);
+  font-family: var(--font-pixel);
+  font-size: var(--step-0);
   color: var(--text-3);
+  letter-spacing: var(--tracking-pixel);
 }
 
 .ri-head {
@@ -1437,9 +1449,10 @@ main > .section + .section { border-top: 1px solid var(--border); }
 
 .post-meta {
   padding-top: 5px;
-  font-family: var(--font-mono);
-  font-size: var(--step--2);
+  font-family: var(--font-pixel);
+  font-size: var(--step--1);
   color: var(--text-3);
+  letter-spacing: var(--tracking-pixel);
 }
 
 .post-body {
@@ -1741,10 +1754,10 @@ main > .section + .section { border-top: 1px solid var(--border); }
 .contact-title {
   max-width: 18ch;
   margin-top: var(--space-3);
-  font-size: var(--step-4);
-  font-weight: 600;
-  line-height: var(--lh-tight);
-  letter-spacing: var(--tracking-display);
+  font-size: var(--display-section);
+  font-weight: var(--weight-display);
+  line-height: 0.98;
+  letter-spacing: -0.045em;
   text-wrap: balance;
 }
 
@@ -2199,7 +2212,7 @@ main > .section + .section { border-top: 1px solid var(--border); }
 
 .footer-h {
   margin-bottom: var(--space-3);
-  font-family: var(--font-mono);
+  font-family: var(--font-pixel);
   font-size: var(--step--2);
   font-weight: 500;
   letter-spacing: var(--tracking-label);
@@ -2426,11 +2439,12 @@ html.reveal-on .reveal.visible { animation: reveal-in var(--dur-4) var(--ease-ou
 
 .page-title {
   margin-top: var(--space-3);
-  font-size: var(--step-4);
-  font-weight: 600;
-  line-height: var(--lh-tight);
-  letter-spacing: var(--tracking-display);
+  font-size: var(--display-page);
+  font-weight: var(--weight-display);
+  line-height: 0.98;
+  letter-spacing: -0.045em;
   color: var(--text);
+  text-wrap: balance;
 }
 
 .page-lead {
@@ -2488,9 +2502,10 @@ html.reveal-on .reveal.visible { animation: reveal-in var(--dur-4) var(--ease-ou
 }
 
 .proj-card-cat {
-  font-family: var(--font-mono);
-  font-size: var(--step--2);
+  font-family: var(--font-pixel);
+  font-size: var(--step--1);
   color: var(--text-3);
+  letter-spacing: var(--tracking-pixel);
 }
 
 .proj-card-title {
