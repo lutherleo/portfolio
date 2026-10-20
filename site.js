@@ -65,19 +65,35 @@
   }
 
   /* ── HAMBURGER / MOBILE MENU ───────────────────── */
+  // Closed: invisible and inert. Open: everything outside the nav and the menu
+  // is inert, focus moves into the menu, Escape closes it and returns focus.
   const hamburger = document.getElementById('hamburger');
   const mobMenu   = document.getElementById('mobMenu');
   if (hamburger && mobMenu) {
-    hamburger.addEventListener('click', () => {
-      hamburger.classList.toggle('open');
-      mobMenu.classList.toggle('open');
-      document.body.style.overflow = mobMenu.classList.contains('open') ? 'hidden' : '';
+    hamburger.setAttribute('aria-controls', 'mobMenu');
+    hamburger.setAttribute('aria-expanded', 'false');
+    mobMenu.inert = true;
+    const outside = () => [...document.body.children].filter(el =>
+      el !== mobMenu && !el.contains(hamburger) && el.tagName !== 'SCRIPT');
+
+    const setMenu = (open, returnFocus = false) => {
+      hamburger.classList.toggle('open', open);
+      mobMenu.classList.toggle('open', open);
+      hamburger.setAttribute('aria-expanded', String(open));
+      hamburger.setAttribute('aria-label', open ? 'Close menu' : 'Menu');
+      mobMenu.inert = !open;
+      outside().forEach(el => { el.inert = open; });
+      document.body.style.overflow = open ? 'hidden' : '';
+      if (open) mobMenu.querySelector('a')?.focus();
+      else if (returnFocus) hamburger.focus();
+    };
+
+    hamburger.addEventListener('click', () => setMenu(!mobMenu.classList.contains('open')));
+    mobMenu.addEventListener('click', e => { if (e.target.closest('a')) setMenu(false); });
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && mobMenu.classList.contains('open')) setMenu(false, true);
     });
-    mobMenu.querySelectorAll('.mob-item').forEach(a => a.addEventListener('click', () => {
-      hamburger.classList.remove('open');
-      mobMenu.classList.remove('open');
-      document.body.style.overflow = '';
-    }));
+    window.matchMedia('(min-width: 901px)').addEventListener('change', e => { if (e.matches) setMenu(false); });
   }
 
   /* ── SCROLL REVEAL ─────────────────────────────── */
