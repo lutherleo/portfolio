@@ -91,9 +91,17 @@ function judge(name) {
     return { status, now: `perf avg ${avg(r.results)}`, was: base ? `perf avg ${avg(base)}` : '-', notes };
   }
   if (name === 'links') {
+    // Files only the site owner can supply (config.links.waitingOnOwner) warn
+    // instead of failing, so linking to them doesn't block other work; --final
+    // still fails on them.
     const was = new Set(base ?? []);
-    const notes = mode === 'final' ? r.broken : r.broken.filter(b => !was.has(b)).map(b => `new: ${b}`);
-    return { status: notes.length ? 'FAIL' : 'PASS', now: r.broken.length, was: base ? base.length : '-', notes };
+    const owner = config.links?.waitingOnOwner ?? [];
+    const waiting = b => owner.some(f => b.includes(`-> ${f} (`));
+    if (mode === 'final') return { status: r.broken.length ? 'FAIL' : 'PASS', now: r.broken.length, was: '-', notes: r.broken };
+    const failing = r.broken.filter(b => !was.has(b) && !waiting(b)).map(b => `new: ${b}`);
+    const warnings = r.broken.filter(waiting).map(b => `warning: waiting on owner: ${b}`);
+    const status = failing.length ? 'FAIL' : warnings.length ? 'WARN' : 'PASS';
+    return { status, now: r.broken.length, was: base ? base.length : '-', notes: [...failing, ...warnings] };
   }
   // html, css, a11y: per-file counts may not rise (or must be 0 for --final).
   const notes = [];

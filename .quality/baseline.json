@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-20T01:15:48.243Z",
+  "updatedAt": "2026-10-20T01:22:36.863Z",
   "html": {
     "blog.html": 3,
     "games.html": 28,
@@ -12,10 +12,18 @@
     "projects.html": 20
   },
   "css": {
-    "style.css": 407
+    "style.css": 398
   },
   "links": [
-    "index.html -> resume.pdf (404)"
+    "blog.html -> resume.pdf (404)",
+    "games.html -> resume.pdf (404)",
+    "hobbies.html -> resume.pdf (404)",
+    "index.html -> resume.pdf (404)",
+    "interviews.html -> resume.pdf (404)",
+    "posts/building-the-same-secure-channel-twice.html -> resume.pdf (404)",
+    "posts/fuzzing-kernel-race-conditions.html -> resume.pdf (404)",
+    "posts/writing-a-csaw-ctf-challenge.html -> resume.pdf (404)",
+    "projects.html -> resume.pdf (404)"
   ],
   "a11y": {
     "blog.html@dark": 0,
@@ -39,11 +47,11 @@
   },
   "lighthouse": {
     "blog.html": {
-      "performance": 99,
+      "performance": 100,
       "accessibility": 96,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1804,
+      "lcpMs": 1656,
       "cls": 0,
       "tbtMs": 0
     },
@@ -52,7 +60,7 @@
       "accessibility": 98,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1956,
+      "lcpMs": 2105,
       "cls": 0,
       "tbtMs": 0
     },
@@ -61,25 +69,25 @@
       "accessibility": 95,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1804,
+      "lcpMs": 1803,
       "cls": 0,
       "tbtMs": 0
     },
     "index.html": {
-      "performance": 97,
+      "performance": 91,
       "accessibility": 96,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 2408,
+      "lcpMs": 3365,
       "cls": 0,
-      "tbtMs": 53
+      "tbtMs": 0
     },
     "interviews.html": {
       "performance": 99,
       "accessibility": 96,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1806,
+      "lcpMs": 1803,
       "cls": 0,
       "tbtMs": 0
     },
@@ -97,16 +105,16 @@
       "accessibility": 98,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1807,
+      "lcpMs": 1804,
       "cls": 0,
       "tbtMs": 0
     },
     "posts/writing-a-csaw-ctf-challenge.html": {
-      "performance": 100,
+      "performance": 99,
       "accessibility": 98,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1511,
+      "lcpMs": 1804,
       "cls": 0,
       "tbtMs": 0
     },
@@ -115,7 +123,7 @@
       "accessibility": 88,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1954,
+      "lcpMs": 1952,
       "cls": 0,
       "tbtMs": 0
     }

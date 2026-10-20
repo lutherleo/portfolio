@@ -1,7 +1,16 @@
 {
   "a11y": {
-    "tags": ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"],
-    "colorSchemes": ["dark", "light"]
+    "tags": [
+      "wcag2a",
+      "wcag2aa",
+      "wcag21a",
+      "wcag21aa",
+      "wcag22aa"
+    ],
+    "colorSchemes": [
+      "dark",
+      "light"
+    ]
   },
   "lighthouse": {
     "runs": 3,
@@ -14,5 +23,10 @@
       "lcpMs": 2500,
       "cls": 0.1
     }
+  },
+  "links": {
+    "waitingOnOwner": [
+      "resume.pdf"
+    ]
   }
 }

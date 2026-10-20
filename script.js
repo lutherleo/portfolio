@@ -9,7 +9,8 @@ const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matc
 /* ── THREE.JS HERO SCENE ─────────────────────────── */
 function initHeroScene() {
   const canvas = document.getElementById('heroCanvas');
-  if (!canvas || typeof THREE === 'undefined' || reducedMotion) return;
+  // Skip when the 3D panel is hidden (narrow screens) or motion is reduced.
+  if (!canvas || !canvas.offsetParent || typeof THREE === 'undefined' || reducedMotion) return;
 
   const parent = canvas.parentElement;
   const W = parent.clientWidth  || 420;
