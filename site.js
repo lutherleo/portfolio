@@ -53,6 +53,32 @@
     })();
   }
 
+  /* ── THEME TOGGLE ──────────────────────────────── */
+  // The inline <head> script sets data-theme before first paint; this keeps
+  // the button in sync, saves an explicit choice, follows the system setting
+  // until the visitor picks one, and tells canvases to recolour (themechange).
+  const root = document.documentElement;
+  const themeBtn = document.getElementById('themeToggle');
+  const systemLight = window.matchMedia('(prefers-color-scheme: light)');
+  const savedTheme = () => {
+    try { return localStorage.getItem('theme'); } catch { return null; }
+  };
+  function applyTheme(theme, save) {
+    root.dataset.theme = theme;
+    if (themeBtn) themeBtn.setAttribute('aria-pressed', String(theme === 'dark'));
+    if (save) {
+      try { localStorage.setItem('theme', theme); } catch { /* storage blocked: theme lasts for this page only */ }
+    }
+    window.dispatchEvent(new CustomEvent('themechange', { detail: { theme } }));
+  }
+  applyTheme(root.dataset.theme === 'light' ? 'light' : 'dark', false);
+  if (themeBtn) {
+    themeBtn.addEventListener('click', () => applyTheme(root.dataset.theme === 'dark' ? 'light' : 'dark', true));
+  }
+  systemLight.addEventListener('change', e => {
+    if (!savedTheme()) applyTheme(e.matches ? 'light' : 'dark', false);
+  });
+
   /* ── NAV SCROLLED STATE ────────────────────────── */
   const nav = document.getElementById('nav');
   if (nav && !nav.hasAttribute('data-solid')) {

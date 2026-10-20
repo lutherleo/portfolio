@@ -7,7 +7,7 @@ import { ROOT } from './lib/site.mjs';
 
 const css = await readFile(join(ROOT, 'style.css'), 'utf8');
 const THEMES = {
-  dark: /:root \{\n  color-scheme: dark;([\s\S]*?)\n\n  \/\* Type/,
+  dark: /color-scheme: dark;([\s\S]*?)\n\}/,
   light: /:root\[data-theme="light"\] \{([\s\S]*?)\n\}/,
 };
 const BACKGROUNDS = ['--bg', '--surface', '--surface-2'];

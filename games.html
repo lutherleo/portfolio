@@ -3,6 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="dark light" />
+  <script>
+    /* Apply the saved or system theme before first paint (see site.js). */
+    (() => {
+      let theme = null;
+      try { theme = localStorage.getItem('theme'); } catch { /* storage blocked */ }
+      if (theme !== 'light' && theme !== 'dark') theme = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      document.documentElement.dataset.theme = theme;
+    })();
+  </script>
   <title>Games — Love Kush Pranu</title>
   <meta name="description" content="Browser games by Love Kush Pranu — Packet Snake, Hex Breach, Firewall Breakout, Port Invaders, Logic Bomb Sweeper and Memory Leak." />
   <link rel="canonical" href="https://lutherleo.github.io/portfolio/games.html" />
@@ -33,7 +43,7 @@
       <li><a href="games.html" class="active">GAMES</a></li>
       <li><a href="blog.html">BLOG</a></li>
       <li class="nav-more">
-        <button class="nav-more-btn" aria-haspopup="true" aria-expanded="false">MORE</button>
+        <button class="nav-more-btn" type="button" aria-haspopup="true" aria-expanded="false">MORE</button>
         <ul class="nav-drop">
           <li><a href="interviews.html">INTERVIEWS</a></li>
           <li><a href="hobbies.html">HOBBIES</a></li>
@@ -41,9 +51,17 @@
       </li>
       <li><a href="index.html#contact">CONTACT</a></li>
     </ul>
-    <button class="hamburger" id="hamburger" aria-label="Menu">
-      <span></span><span></span>
-    </button>
+    <div class="nav-actions">
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Dark mode" aria-pressed="true">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
+          <circle cx="12" cy="12" r="8.25" fill="none" stroke="currentColor" stroke-width="1.5" />
+          <path d="M12 3.75a8.25 8.25 0 0 0 0 16.5z" fill="currentColor" />
+        </svg>
+      </button>
+      <button class="hamburger" id="hamburger" type="button" aria-label="Menu">
+        <span></span><span></span>
+      </button>
+    </div>
   </nav>
   <!-- chrome:nav:end -->
 
@@ -222,7 +240,7 @@
         <!-- ── GAME 7: DOOM ─────────────────────────── -->
         <div class="game-card neu-card">
           <div class="game-card-header">
-            <span class="game-card-title" style="color:#f87171;">DOOM</span>
+            <span class="game-card-title game-card-title--danger">DOOM</span>
             <span class="game-card-badge">1993 · SHAREWARE</span>
           </div>
           <p class="game-desc">The real thing — id Software's 1993 shareware episode, running in your browser via js-dos. Rip and tear. Loads ~3MB on start.</p>
@@ -236,7 +254,7 @@
           </div>
           <div class="game-ui">
             <span id="doomStatus">READY</span>
-            <button class="game-btn" id="doomBtn" style="background:#f87171;">BOOT DOOM</button>
+            <button class="game-btn game-btn--danger" id="doomBtn">BOOT DOOM</button>
           </div>
         </div>
 

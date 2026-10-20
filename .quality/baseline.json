@@ -1,18 +1,18 @@
 {
-  "updatedAt": "2026-10-20T00:50:15.008Z",
+  "updatedAt": "2026-10-20T01:07:38.497Z",
   "html": {
-    "blog.html": 18,
-    "games.html": 47,
-    "hobbies.html": 22,
-    "index.html": 36,
-    "interviews.html": 23,
-    "posts/building-the-same-secure-channel-twice.html": 17,
-    "posts/fuzzing-kernel-race-conditions.html": 16,
-    "posts/writing-a-csaw-ctf-challenge.html": 16,
-    "projects.html": 35
+    "blog.html": 3,
+    "games.html": 28,
+    "hobbies.html": 7,
+    "index.html": 5,
+    "interviews.html": 5,
+    "posts/building-the-same-secure-channel-twice.html": 4,
+    "posts/fuzzing-kernel-race-conditions.html": 3,
+    "posts/writing-a-csaw-ctf-challenge.html": 3,
+    "projects.html": 20
   },
   "css": {
-    "style.css": 500
+    "style.css": 421
   },
   "links": [
     "index.html -> resume.pdf (404)"
@@ -21,7 +21,7 @@
     "blog.html@dark": 0,
     "games.html@dark": 0,
     "hobbies.html@dark": 0,
-    "index.html@dark": 2,
+    "index.html@dark": 0,
     "interviews.html@dark": 0,
     "posts/building-the-same-secure-channel-twice.html@dark": 0,
     "posts/fuzzing-kernel-race-conditions.html@dark": 0,
@@ -30,7 +30,7 @@
     "blog.html@light": 0,
     "games.html@light": 0,
     "hobbies.html@light": 0,
-    "index.html@light": 2,
+    "index.html@light": 0,
     "interviews.html@light": 0,
     "posts/building-the-same-secure-channel-twice.html@light": 0,
     "posts/fuzzing-kernel-race-conditions.html@light": 0,
@@ -40,10 +40,10 @@
   "lighthouse": {
     "blog.html": {
       "performance": 99,
-      "accessibility": 95,
+      "accessibility": 96,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 2118,
+      "lcpMs": 1960,
       "cls": 0,
       "tbtMs": 0
     },
@@ -61,43 +61,43 @@
       "accessibility": 95,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1808,
+      "lcpMs": 1803,
       "cls": 0,
       "tbtMs": 0
     },
     "index.html": {
-      "performance": 96,
+      "performance": 91,
       "accessibility": 96,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 2554,
+      "lcpMs": 3367,
       "cls": 0,
-      "tbtMs": 80
+      "tbtMs": 34
     },
     "interviews.html": {
       "performance": 98,
-      "accessibility": 95,
+      "accessibility": 96,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 2340,
+      "lcpMs": 2336,
       "cls": 0,
       "tbtMs": 0
     },
     "posts/building-the-same-secure-channel-twice.html": {
-      "performance": 99,
+      "performance": 100,
       "accessibility": 98,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1804,
+      "lcpMs": 1654,
       "cls": 0,
       "tbtMs": 0
     },
     "posts/fuzzing-kernel-race-conditions.html": {
-      "performance": 99,
+      "performance": 100,
       "accessibility": 98,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1810,
+      "lcpMs": 1655,
       "cls": 0,
       "tbtMs": 0
     },
@@ -106,7 +106,7 @@
       "accessibility": 98,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1803,
+      "lcpMs": 1804,
       "cls": 0,
       "tbtMs": 0
     },
@@ -115,7 +115,7 @@
       "accessibility": 88,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 2105,
+      "lcpMs": 2107,
       "cls": 0,
       "tbtMs": 0
     }
