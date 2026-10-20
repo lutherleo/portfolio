@@ -6,8 +6,60 @@
 ══════════════════════════════════════════════════ */
 'use strict';
 
-const GREEN = '#22c55e', GREEN2 = '#4ade80', RED = '#f87171',
-      AMBER = '#fbbf24', ORANGE = '#fb923c', DIM = '#0d130d', DARK = '#0a0f0a';
+/* ── Shared helpers ─────────────────────────────── */
+
+/* Colours come from the CSS tokens on the game frame (.game-canvas-wrap keeps
+   the dark palette in both themes) and refresh when the theme changes. */
+let GREEN, GREEN2, RED, AMBER, ORANGE, DIM, DARK, TEXT;
+function readPalette() {
+  const css = getComputedStyle(document.querySelector('.game-canvas-wrap') || document.documentElement);
+  const token = name => css.getPropertyValue(name).trim();
+  GREEN = token('--accent'); GREEN2 = token('--accent-hover');
+  RED = token('--danger'); AMBER = token('--warn'); ORANGE = token('--warn');
+  DIM = token('--surface'); DARK = token('--bg'); TEXT = token('--text');
+}
+readPalette();
+window.addEventListener('themechange', readPalette);
+
+/* '#5ad48e' + 0.4 → 'rgba(90, 212, 142, 0.4)' */
+function withAlpha(hex, a) {
+  const h = hex.replace('#', '');
+  const full = h.length === 3 ? [...h].map(c => c + c).join('') : h;
+  const n = parseInt(full, 16);
+  return `rgba(${n >> 16 & 255}, ${n >> 8 & 255}, ${n & 255}, ${a})`;
+}
+
+/* High scores survive blocked storage (private modes, strict settings). */
+const store = {
+  get(key) { try { return store.get(key); } catch { return null; } },
+  set(key, value) { try { store.set(key, value); } catch { /* storage blocked */ } },
+};
+
+/* Sharp canvases on high-density screens: the backing store is scaled by the
+   device pixel ratio, while canvas.width/height keep reporting the original
+   size, so every game keeps drawing and hit-testing in its own coordinates. */
+function hiDPI(canvas) {
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  const w = canvas.width, h = canvas.height;
+  const proto = HTMLCanvasElement.prototype;
+  Object.getOwnPropertyDescriptor(proto, 'width').set.call(canvas, Math.round(w * dpr));
+  Object.getOwnPropertyDescriptor(proto, 'height').set.call(canvas, Math.round(h * dpr));
+  Object.defineProperty(canvas, 'width', { get: () => w, configurable: true });
+  Object.defineProperty(canvas, 'height', { get: () => h, configurable: true });
+  const ctx = canvas.getContext('2d');
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  return ctx;
+}
+
+/* Keys drive only the game the player last clicked, tapped or focused. */
+let activeCanvas = null;
+const pickGame = e => {
+  const card = e.target.closest && e.target.closest('.game-card');
+  if (card) activeCanvas = card.querySelector('canvas');
+};
+document.addEventListener('pointerdown', pickGame, true);
+document.addEventListener('focusin', pickGame);
+const isActive = canvas => activeCanvas === canvas;
 
 /* True while the player is typing in any text field (e.g. Hex Breach input) */
 function typingInField() {
@@ -24,13 +76,13 @@ function idleScreen(ctx, W, H, title, hint) {
   ctx.textAlign = 'center';
   ctx.fillText(title, W / 2, H / 2 - 10);
   ctx.shadowBlur = 0;
-  ctx.fillStyle = 'rgba(34,197,94,0.5)';
+  ctx.fillStyle = withAlpha(GREEN, 0.5);
   ctx.font = '11px "Geist Mono", ui-monospace, monospace';
   ctx.fillText(hint, W / 2, H / 2 + 16);
 }
 
 function pauseOverlay(ctx, W, H) {
-  ctx.fillStyle = 'rgba(10,15,10,0.78)';
+  ctx.fillStyle = withAlpha(DARK, 0.78);
   ctx.fillRect(0, 0, W, H);
   ctx.fillStyle = GREEN;
   ctx.shadowBlur = 20; ctx.shadowColor = GREEN;
@@ -38,7 +90,7 @@ function pauseOverlay(ctx, W, H) {
   ctx.textAlign = 'center';
   ctx.fillText('PAUSED', W / 2, H / 2);
   ctx.shadowBlur = 0;
-  ctx.fillStyle = 'rgba(34,197,94,0.4)';
+  ctx.fillStyle = withAlpha(GREEN, 0.4);
   ctx.font = '11px "Geist Mono", ui-monospace, monospace';
   ctx.fillText('PRESS ⏸ OR P TO RESUME', W / 2, H / 2 + 22);
 }
@@ -49,7 +101,7 @@ function pauseOverlay(ctx, W, H) {
 (function() {
   const canvas = document.getElementById('snakeCanvas');
   if (!canvas) return;
-  const ctx    = canvas.getContext('2d');
+  const ctx    = hiDPI(canvas);
   const COLS=20, ROWS=20, CELL=20;
   const scoreEl   = document.getElementById('snakeScore');
   const hiEl      = document.getElementById('snakeHi');
@@ -57,10 +109,10 @@ function pauseOverlay(ctx, W, H) {
   const pauseBtn  = document.getElementById('snakePauseBtn');
 
   const FOODS = ['0xDE','0xAD','0xBE','0xEF','0xFF','0x00','SYN','ACK','RST','PKT','UDP','TCP','DNS','ARP','HEX','OVF'];
-  const GRID_C = 'rgba(34,197,94,0.05)';
+  const GRID_C = withAlpha(GREEN, 0.05);
 
   let snake, dir, nextDir, food, foodLabel, score, hi, speed, loop, state, paused;
-  hi = parseInt(localStorage.getItem('snakeHS') || 0);
+  hi = parseInt(store.get('snakeHS') || 0);
   hiEl.textContent = hi;
 
   function init() {
@@ -97,7 +149,7 @@ function pauseOverlay(ctx, W, H) {
     if (head.x===food.x&&head.y===food.y) {
       score++;
       scoreEl.textContent = score;
-      if (score > hi) { hi = score; hiEl.textContent = hi; localStorage.setItem('snakeHS',hi); }
+      if (score > hi) { hi = score; hiEl.textContent = hi; store.set('snakeHS',hi); }
       spawnFood();
       if (score % 5 === 0) { clearInterval(loop); speed = Math.max(60, speed-10); loop = setInterval(tick, speed); }
     } else {
@@ -115,7 +167,7 @@ function pauseOverlay(ctx, W, H) {
     for(let r=0;r<ROWS;r++){ctx.beginPath();ctx.moveTo(0,r*CELL);ctx.lineTo(canvas.width,r*CELL);ctx.stroke();}
     snake.forEach((s,i)=>{
       const alpha = 1 - i/snake.length*0.6;
-      ctx.fillStyle = i===0 ? GREEN : `rgba(34,197,94,${alpha})`;
+      ctx.fillStyle = i===0 ? GREEN : withAlpha(GREEN, alpha);
       ctx.shadowBlur = i===0 ? 12 : 0;
       ctx.shadowColor = GREEN;
       ctx.fillRect(s.x*CELL+1,s.y*CELL+1,CELL-2,CELL-2);
@@ -141,7 +193,7 @@ function pauseOverlay(ctx, W, H) {
       clearInterval(loop);
       state = 'paused';
       pauseBtn.textContent = '▶';
-      ctx.fillStyle = 'rgba(10,15,10,0.75)';
+      ctx.fillStyle = withAlpha(DARK, 0.75);
       ctx.fillRect(0,0,canvas.width,canvas.height);
       ctx.fillStyle = GREEN;
       ctx.shadowBlur = 20; ctx.shadowColor = GREEN;
@@ -149,7 +201,7 @@ function pauseOverlay(ctx, W, H) {
       ctx.textAlign = 'center';
       ctx.fillText('PAUSED', canvas.width/2, canvas.height/2);
       ctx.shadowBlur = 0;
-      ctx.fillStyle = 'rgba(34,197,94,0.4)';
+      ctx.fillStyle = withAlpha(GREEN, 0.4);
       ctx.font = '11px "Geist Mono", ui-monospace, monospace';
       ctx.fillText('PRESS ⏸ OR P TO RESUME', canvas.width/2, canvas.height/2+22);
     } else {
@@ -168,13 +220,14 @@ function pauseOverlay(ctx, W, H) {
     btn.textContent = 'RESTART';
     idleScreen(ctx, canvas.width, canvas.height, 'GAME OVER', 'PRESS START');
     if (score > 0) {
-      ctx.fillStyle='rgba(34,197,94,0.35)';
+      ctx.fillStyle=withAlpha(GREEN, 0.35);
       ctx.font='10px "Geist Mono", ui-monospace, monospace';
       ctx.fillText(`SCORE: ${score}`, canvas.width/2, canvas.height/2+36);
     }
   }
 
   document.addEventListener('keydown', e => {
+    if (!isActive(canvas)) return;
     if (typingInField()) return;
     if (['ArrowUp','ArrowDown','ArrowLeft','ArrowRight','w','a','s','d'].includes(e.key) && state==='playing') e.preventDefault();
     if (e.key === 'p' || e.key === 'P') { togglePause(); return; }
@@ -214,7 +267,7 @@ function pauseOverlay(ctx, W, H) {
 (function() {
   const canvas = document.getElementById('hexCanvas');
   if (!canvas) return;
-  const ctx    = canvas.getContext('2d');
+  const ctx    = hiDPI(canvas);
   const scoreEl= document.getElementById('hexScore');
   const livesEls= [document.getElementById('life1'),document.getElementById('life2'),document.getElementById('life3')];
   const btn    = document.getElementById('hexBtn');
@@ -268,6 +321,7 @@ function pauseOverlay(ctx, W, H) {
   }
   pauseBtn.addEventListener('click', togglePause);
   document.addEventListener('keydown', e => {
+    if (!isActive(canvas)) return;
     if (typingInField()) return;
     if ((e.key === 'p' || e.key === 'P') && state !== 'dead' && state !== undefined) togglePause();
   });
@@ -298,12 +352,12 @@ function pauseOverlay(ctx, W, H) {
       ctx.fillStyle='rgba(0,0,0,0.15)';
       ctx.fillRect(0,y,W,2);
     }
-    ctx.fillStyle='rgba(248,113,113,0.06)';
+    ctx.fillStyle=withAlpha(RED, 0.06);
     ctx.fillRect(0,H-24,W,24);
-    ctx.strokeStyle='rgba(248,113,113,0.3)';
+    ctx.strokeStyle=withAlpha(RED, 0.3);
     ctx.lineWidth=1;
     ctx.beginPath();ctx.moveTo(0,H-24);ctx.lineTo(W,H-24);ctx.stroke();
-    ctx.fillStyle='rgba(248,113,113,0.4)';
+    ctx.fillStyle=withAlpha(RED, 0.4);
     ctx.font='8px "Geist Mono", ui-monospace, monospace';
     ctx.textAlign='left';
     ctx.fillText('KERNEL SPACE — DO NOT LET PAYLOADS REACH HERE',8,H-8);
@@ -311,7 +365,7 @@ function pauseOverlay(ctx, W, H) {
     falling.forEach(f=>{
       const t = f.hit ? f.flashTime/300 : 1;
       if(f.hit){
-        ctx.fillStyle=`rgba(34,197,94,${t*0.9})`;
+        ctx.fillStyle=withAlpha(GREEN, t*0.9);
         ctx.shadowBlur=20*t; ctx.shadowColor=GREEN;
       } else {
         const danger = Math.min(1,(f.y/(H-24)));
@@ -327,7 +381,7 @@ function pauseOverlay(ctx, W, H) {
 
     const typed = input.value.toUpperCase();
     if(typed && state==='playing'){
-      ctx.fillStyle='rgba(34,197,94,0.25)';
+      ctx.fillStyle=withAlpha(GREEN, 0.25);
       ctx.font='13px "Geist Mono", ui-monospace, monospace';
       ctx.textAlign='center';
       ctx.fillText('> '+typed, W/2, H-36);
@@ -365,10 +419,10 @@ function pauseOverlay(ctx, W, H) {
     ctx.textAlign='center';
     ctx.fillText('KERNEL BREACHED',W/2,H/2-20);
     ctx.shadowBlur=0;
-    ctx.fillStyle='rgba(248,113,113,0.5)';
+    ctx.fillStyle=withAlpha(RED, 0.5);
     ctx.font='12px "Geist Mono", ui-monospace, monospace';
     ctx.fillText(`PAYLOADS NEUTRALIZED: ${score}`, W/2, H/2+10);
-    ctx.fillStyle='rgba(34,197,94,0.4)';
+    ctx.fillStyle=withAlpha(GREEN, 0.4);
     ctx.fillText('PRESS RESTART',W/2,H/2+35);
   }
 
@@ -383,7 +437,7 @@ function pauseOverlay(ctx, W, H) {
 (function() {
   const canvas = document.getElementById('breakCanvas');
   if (!canvas) return;
-  const ctx = canvas.getContext('2d');
+  const ctx = hiDPI(canvas);
   const W = canvas.width, H = canvas.height;
   const scoreEl = document.getElementById('breakScore');
   const hiEl    = document.getElementById('breakHi');
@@ -394,11 +448,12 @@ function pauseOverlay(ctx, W, H) {
   const ROW_LABELS = ['DROP', 'DENY', 'RST', 'FILTER', 'ALLOW'];
 
   let paddle, ball, bricks, score, hi, lives, level, state, raf;
-  hi = parseInt(localStorage.getItem('breakHS') || 0);
+  hi = parseInt(store.get('breakHS') || 0);
   hiEl.textContent = hi;
 
   const keys = {};
   document.addEventListener('keydown', e => {
+    if (!isActive(canvas)) return;
     if (typingInField()) return;
     if (state === 'playing' && (e.key === 'ArrowLeft' || e.key === 'ArrowRight')) e.preventDefault();
     keys[e.key] = true;
@@ -443,6 +498,7 @@ function pauseOverlay(ctx, W, H) {
   }
   pauseBtn.addEventListener('click', togglePause);
   document.addEventListener('keydown', e => {
+    if (!isActive(canvas)) return;
     if (typingInField()) return;
     if (e.key === 'p' || e.key === 'P') togglePause();
   });
@@ -483,7 +539,7 @@ function pauseOverlay(ctx, W, H) {
         b.alive = false;
         score += 10;
         scoreEl.textContent = score;
-        if (score > hi) { hi = score; hiEl.textContent = hi; localStorage.setItem('breakHS', hi); }
+        if (score > hi) { hi = score; hiEl.textContent = hi; store.set('breakHS', hi); }
         const fromSide = ball.x < b.x || ball.x > b.x + B_W - 4;
         if (fromSide) ball.dx *= -1; else ball.dy *= -1;
         break;
@@ -507,7 +563,7 @@ function pauseOverlay(ctx, W, H) {
     ctx.fillStyle = DIM;
     ctx.fillRect(0, 0, W, H);
 
-    ctx.fillStyle = 'rgba(34,197,94,0.35)';
+    ctx.fillStyle = withAlpha(GREEN, 0.35);
     ctx.font = '9px "Geist Mono", ui-monospace, monospace';
     ctx.textAlign = 'left';
     ctx.fillText(`FIREWALL v${level}.0`, 10, 16);
@@ -517,9 +573,9 @@ function pauseOverlay(ctx, W, H) {
     bricks.forEach(b => {
       if (!b.alive) return;
       const alpha = 0.85 - b.r * 0.13;
-      ctx.fillStyle = `rgba(34,197,94,${alpha})`;
+      ctx.fillStyle = withAlpha(GREEN, alpha);
       ctx.fillRect(b.x, b.y, B_W - 4, B_H);
-      ctx.fillStyle = 'rgba(10,15,10,0.8)';
+      ctx.fillStyle = withAlpha(DARK, 0.8);
       ctx.font = '6px "Geist Mono", ui-monospace, monospace';
       ctx.textAlign = 'center';
       ctx.fillText(ROW_LABELS[b.r], b.x + (B_W - 4) / 2, b.y + B_H / 2 + 2);
@@ -549,7 +605,7 @@ function pauseOverlay(ctx, W, H) {
     pauseBtn.disabled = true;
     pauseBtn.textContent = '⏸';
     idleScreen(ctx, W, H, 'FIREWALL DOWN', 'PRESS START');
-    ctx.fillStyle = 'rgba(34,197,94,0.35)';
+    ctx.fillStyle = withAlpha(GREEN, 0.35);
     ctx.font = '10px "Geist Mono", ui-monospace, monospace';
     ctx.fillText(`SCORE: ${score}`, W / 2, H / 2 + 36);
   }
@@ -564,7 +620,7 @@ function pauseOverlay(ctx, W, H) {
 (function() {
   const canvas = document.getElementById('invCanvas');
   if (!canvas) return;
-  const ctx = canvas.getContext('2d');
+  const ctx = hiDPI(canvas);
   const W = canvas.width, H = canvas.height;
   const scoreEl = document.getElementById('invScore');
   const hiEl    = document.getElementById('invHi');
@@ -575,11 +631,12 @@ function pauseOverlay(ctx, W, H) {
   const COLS = 6, ROWS = 3;
 
   let ship, invaders, shots, bombs, dirX, score, hi, lives, wave, state, raf, lastShot;
-  hi = parseInt(localStorage.getItem('invHS') || 0);
+  hi = parseInt(store.get('invHS') || 0);
   hiEl.textContent = hi;
 
   const keys = {};
   document.addEventListener('keydown', e => {
+    if (!isActive(canvas)) return;
     if (typingInField()) return;
     if (state === 'playing' && ['ArrowLeft', 'ArrowRight', ' '].includes(e.key)) e.preventDefault();
     keys[e.key] = true;
@@ -631,6 +688,7 @@ function pauseOverlay(ctx, W, H) {
   }
   pauseBtn.addEventListener('click', togglePause);
   document.addEventListener('keydown', e => {
+    if (!isActive(canvas)) return;
     if (typingInField()) return;
     if (e.key === 'p' || e.key === 'P') togglePause();
   });
@@ -676,7 +734,7 @@ function pauseOverlay(ctx, W, H) {
         s.y = -99;
         score += 10;
         scoreEl.textContent = score;
-        if (score > hi) { hi = score; hiEl.textContent = hi; localStorage.setItem('invHS', hi); }
+        if (score > hi) { hi = score; hiEl.textContent = hi; store.set('invHS', hi); }
       }
     });
 
@@ -701,7 +759,7 @@ function pauseOverlay(ctx, W, H) {
       ctx.fillRect(0, y, W, 2);
     }
 
-    ctx.fillStyle = 'rgba(34,197,94,0.35)';
+    ctx.fillStyle = withAlpha(GREEN, 0.35);
     ctx.font = '9px "Geist Mono", ui-monospace, monospace';
     ctx.textAlign = 'left';
     ctx.fillText(`WAVE ${wave}`, 10, 16);
@@ -755,10 +813,10 @@ function pauseOverlay(ctx, W, H) {
     ctx.textAlign = 'center';
     ctx.fillText('PERIMETER BREACHED', W / 2, H / 2 - 20);
     ctx.shadowBlur = 0;
-    ctx.fillStyle = 'rgba(248,113,113,0.5)';
+    ctx.fillStyle = withAlpha(RED, 0.5);
     ctx.font = '12px "Geist Mono", ui-monospace, monospace';
     ctx.fillText(`THREATS NEUTRALIZED: ${score / 10}`, W / 2, H / 2 + 10);
-    ctx.fillStyle = 'rgba(34,197,94,0.4)';
+    ctx.fillStyle = withAlpha(GREEN, 0.4);
     ctx.fillText('PRESS RESTART', W / 2, H / 2 + 35);
   }
 
@@ -772,7 +830,7 @@ function pauseOverlay(ctx, W, H) {
 (function() {
   const canvas = document.getElementById('sweepCanvas');
   if (!canvas) return;
-  const ctx = canvas.getContext('2d');
+  const ctx = hiDPI(canvas);
   const W = canvas.width, H = canvas.height;
   const bombsEl = document.getElementById('sweepBombs');
   const bestEl  = document.getElementById('sweepBest');
@@ -783,7 +841,7 @@ function pauseOverlay(ctx, W, H) {
   const NUM_COLORS = ['', GREEN2, AMBER, ORANGE, RED, RED, RED, RED, RED];
 
   let grid, state, revealed, flags, firstClick, startT, timer, best;
-  best = parseInt(localStorage.getItem('sweepBest') || 0);
+  best = parseInt(store.get('sweepBest') || 0);
   bestEl.textContent = best ? best + 's' : '—';
 
   function newGrid() {
@@ -873,7 +931,7 @@ function pauseOverlay(ctx, W, H) {
       const cell = grid[r][c];
       const x = c * CELL, y = r * CELL;
       if (cell.rev) {
-        ctx.fillStyle = cell.bomb ? 'rgba(248,113,113,0.25)' : 'rgba(0,0,0,0.35)';
+        ctx.fillStyle = cell.bomb ? withAlpha(RED, 0.25) : 'rgba(0,0,0,0.35)';
         ctx.fillRect(x + 1, y + 1, CELL - 2, CELL - 2);
         if (cell.bomb) {
           ctx.fillStyle = RED;
@@ -887,9 +945,9 @@ function pauseOverlay(ctx, W, H) {
           ctx.fillText(cell.n, x + CELL / 2, y + CELL * 0.66);
         }
       } else {
-        ctx.fillStyle = 'rgba(34,197,94,0.07)';
+        ctx.fillStyle = withAlpha(GREEN, 0.07);
         ctx.fillRect(x + 1, y + 1, CELL - 2, CELL - 2);
-        ctx.strokeStyle = 'rgba(34,197,94,0.12)';
+        ctx.strokeStyle = withAlpha(GREEN, 0.12);
         ctx.lineWidth = 1;
         ctx.strokeRect(x + 1.5, y + 1.5, CELL - 3, CELL - 3);
         if (cell.flag) {
@@ -902,7 +960,7 @@ function pauseOverlay(ctx, W, H) {
     }
     if (state === 'playing' && !firstClick) {
       const t = Math.floor((Date.now() - startT) / 1000);
-      ctx.fillStyle = 'rgba(34,197,94,0.55)';
+      ctx.fillStyle = withAlpha(GREEN, 0.55);
       ctx.font = '10px "Geist Mono", ui-monospace, monospace';
       ctx.textAlign = 'right';
       ctx.fillText(t + 's', W - 6, 13);
@@ -925,6 +983,7 @@ function pauseOverlay(ctx, W, H) {
   }
   pauseBtn.addEventListener('click', togglePause);
   document.addEventListener('keydown', e => {
+    if (!isActive(canvas)) return;
     if (typingInField()) return;
     if (e.key === 'p' || e.key === 'P') togglePause();
   });
@@ -941,10 +1000,10 @@ function pauseOverlay(ctx, W, H) {
     const t = Math.floor((Date.now() - startT) / 1000);
     if (won && (best === 0 || t < best)) {
       best = t;
-      localStorage.setItem('sweepBest', best);
+      store.set('sweepBest', best);
       bestEl.textContent = best + 's';
     }
-    ctx.fillStyle = 'rgba(10,15,10,0.78)';
+    ctx.fillStyle = withAlpha(DARK, 0.78);
     ctx.fillRect(0, H / 2 - 42, W, 84);
     ctx.fillStyle = won ? GREEN : RED;
     ctx.shadowBlur = 20; ctx.shadowColor = ctx.fillStyle;
@@ -952,7 +1011,7 @@ function pauseOverlay(ctx, W, H) {
     ctx.textAlign = 'center';
     ctx.fillText(won ? 'MEMORY CLEARED' : 'LOGIC BOMB DETONATED', W / 2, H / 2 - 6);
     ctx.shadowBlur = 0;
-    ctx.fillStyle = 'rgba(200,216,200,0.6)';
+    ctx.fillStyle = withAlpha(TEXT, 0.6);
     ctx.font = '11px "Geist Mono", ui-monospace, monospace';
     ctx.fillText(won ? `CLEARED IN ${t}s` : 'PRESS RESTART', W / 2, H / 2 + 20);
   }
@@ -978,7 +1037,7 @@ function pauseOverlay(ctx, W, H) {
 (function() {
   const canvas = document.getElementById('memCanvas');
   if (!canvas) return;
-  const ctx = canvas.getContext('2d');
+  const ctx = hiDPI(canvas);
   const W = canvas.width, H = canvas.height;
   const roundEl = document.getElementById('memRound');
   const bestEl  = document.getElementById('memBest');
@@ -999,7 +1058,7 @@ function pauseOverlay(ctx, W, H) {
   }));
 
   let seq, idx, state, best, lit;   // lit: index of currently flashing pad
-  best = parseInt(localStorage.getItem('memBest') || 0);
+  best = parseInt(store.get('memBest') || 0);
   bestEl.textContent = best || '—';
 
   let audio = null;
@@ -1021,26 +1080,26 @@ function pauseOverlay(ctx, W, H) {
     ctx.fillRect(0, 0, W, H);
     rects.forEach((p, i) => {
       const on = lit === i;
-      ctx.fillStyle = on ? GREEN : 'rgba(34,197,94,0.1)';
+      ctx.fillStyle = on ? GREEN : withAlpha(GREEN, 0.1);
       ctx.shadowBlur = on ? 26 : 0;
       ctx.shadowColor = GREEN;
       ctx.fillRect(p.x, p.y, PW, PH);
       ctx.shadowBlur = 0;
-      ctx.strokeStyle = on ? GREEN2 : 'rgba(34,197,94,0.25)';
+      ctx.strokeStyle = on ? GREEN2 : withAlpha(GREEN, 0.25);
       ctx.lineWidth = 1.5;
       ctx.strokeRect(p.x, p.y, PW, PH);
-      ctx.fillStyle = on ? DARK : 'rgba(34,197,94,0.65)';
+      ctx.fillStyle = on ? DARK : withAlpha(GREEN, 0.65);
       ctx.font = 'bold 16px "Geist Mono", ui-monospace, monospace';
       ctx.textAlign = 'center';
       ctx.fillText(p.label, p.x + PW / 2, p.y + PH / 2 + 6);
     });
     if (state === 'showing') {
-      ctx.fillStyle = 'rgba(200,216,200,0.5)';
+      ctx.fillStyle = withAlpha(TEXT, 0.5);
       ctx.font = '10px "Geist Mono", ui-monospace, monospace';
       ctx.textAlign = 'center';
       ctx.fillText('WATCH THE HEAP…', W / 2, H - 4);
     } else if (state === 'input') {
-      ctx.fillStyle = 'rgba(34,197,94,0.55)';
+      ctx.fillStyle = withAlpha(GREEN, 0.55);
       ctx.font = '10px "Geist Mono", ui-monospace, monospace';
       ctx.textAlign = 'center';
       ctx.fillText('YOUR TURN — REPEAT THE SEQUENCE', W / 2, H - 4);
@@ -1086,7 +1145,7 @@ function pauseOverlay(ctx, W, H) {
     if (idx === seq.length) {
       if (seq.length > best) {
         best = seq.length;
-        localStorage.setItem('memBest', best);
+        store.set('memBest', best);
         bestEl.textContent = best;
       }
       state = 'wait';
@@ -1108,6 +1167,7 @@ function pauseOverlay(ctx, W, H) {
   }
   pauseBtn.addEventListener('click', togglePause);
   document.addEventListener('keydown', e => {
+    if (!isActive(canvas)) return;
     if (typingInField()) return;
     if (e.key === 'p' || e.key === 'P') togglePause();
   });
@@ -1118,7 +1178,7 @@ function pauseOverlay(ctx, W, H) {
     pauseBtn.disabled = true;
     pauseBtn.textContent = '⏸';
     beep(110, 500);
-    ctx.fillStyle = 'rgba(10,15,10,0.82)';
+    ctx.fillStyle = withAlpha(DARK, 0.82);
     ctx.fillRect(0, 0, W, H);
     ctx.fillStyle = RED;
     ctx.shadowBlur = 20; ctx.shadowColor = RED;
@@ -1126,10 +1186,10 @@ function pauseOverlay(ctx, W, H) {
     ctx.textAlign = 'center';
     ctx.fillText('SEGFAULT', W / 2, H / 2 - 14);
     ctx.shadowBlur = 0;
-    ctx.fillStyle = 'rgba(248,113,113,0.55)';
+    ctx.fillStyle = withAlpha(RED, 0.55);
     ctx.font = '11px "Geist Mono", ui-monospace, monospace';
     ctx.fillText(`HEAP CORRUPTED AT ROUND ${seq.length}`, W / 2, H / 2 + 12);
-    ctx.fillStyle = 'rgba(34,197,94,0.4)';
+    ctx.fillStyle = withAlpha(GREEN, 0.4);
     ctx.fillText('PRESS RESTART', W / 2, H / 2 + 34);
   }
 
@@ -1157,8 +1217,10 @@ function pauseOverlay(ctx, W, H) {
   const btn    = document.getElementById('doomBtn');
   const status = document.getElementById('doomStatus');
 
-  const JSDOS_JS  = 'https://v8.js-dos.com/latest/js-dos.js';
-  const JSDOS_CSS = 'https://v8.js-dos.com/latest/js-dos.css';
+  // js-dos pinned to one version (with SRI); its emulators load from the same release.
+  const JSDOS     = 'https://cdn.jsdelivr.net/npm/js-dos@8.5.3/dist/';
+  const JSDOS_JS  = { src: JSDOS + 'js-dos.js', integrity: 'sha384-tpCX90eRzpJLpH4PcI+3QbJ04KXaHYTPTZWQ5klhoRPDf5n/ZCsrjLAqphsCl/zq' };
+  const JSDOS_CSS = { href: JSDOS + 'js-dos.css', integrity: 'sha384-tYrgAxbRPufJUrIUwrHMumsQ0yWXdNaYMGKazEkzSgtkpSAps5dIS71lqDFtoVNF' };
   // self-hosted shareware bundle (cdn.dos.zone blocks cross-origin fetches)
   const BUNDLE    = 'doom.jsdos';
 
@@ -1182,12 +1244,12 @@ function pauseOverlay(ctx, W, H) {
     status.textContent = 'FETCHING WAD…';
     try {
       await Promise.all([
-        loadAsset('script', { src: JSDOS_JS }),
-        loadAsset('link', { rel: 'stylesheet', href: JSDOS_CSS })
+        loadAsset('script', { ...JSDOS_JS, crossOrigin: 'anonymous' }),
+        loadAsset('link', { rel: 'stylesheet', ...JSDOS_CSS, crossOrigin: 'anonymous' })
       ]);
       if (typeof Dos !== 'function') throw new Error('js-dos failed to load');
       idle.remove();
-      Dos(mount, { url: BUNDLE });
+      Dos(mount, { url: BUNDLE, pathPrefix: JSDOS + 'emulators/' });
       status.textContent = 'RIP AND TEAR';
       btn.textContent = 'RUNNING';
     } catch (err) {
@@ -1196,5 +1258,22 @@ function pauseOverlay(ctx, W, H) {
       btn.textContent = 'RETRY';
       status.textContent = 'LOAD FAILED — CHECK CONNECTION';
     }
+  });
+})();
+
+/* ════════════════════════════════════════════════════
+   AUTO-PAUSE — a running game pauses when it scrolls out of
+   view or the tab is hidden (uses each game's own pause button)
+════════════════════════════════════════════════════ */
+(function() {
+  document.querySelectorAll('.game-card').forEach(card => {
+    const canvas = card.querySelector('canvas');
+    const pauseBtn = card.querySelector('.game-btn-icon');
+    if (!canvas || !pauseBtn) return;
+    const pauseIfRunning = () => {
+      if (!pauseBtn.disabled && pauseBtn.textContent.trim() === '⏸') pauseBtn.click();
+    };
+    new IntersectionObserver(([entry]) => { if (!entry.isIntersecting) pauseIfRunning(); }).observe(canvas);
+    document.addEventListener('visibilitychange', () => { if (document.hidden) pauseIfRunning(); });
   });
 })();

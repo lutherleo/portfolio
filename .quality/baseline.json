@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-20T03:02:41.983Z",
+  "updatedAt": "2026-10-20T03:14:00.125Z",
   "html": {
     "blog.html": 0,
     "games.html": 0,
@@ -91,29 +91,29 @@
   },
   "lighthouse": {
     "blog.html": {
-      "performance": 100,
+      "performance": 99,
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1653,
+      "lcpMs": 1805,
       "cls": 0,
       "tbtMs": 0
     },
     "games.html": {
-      "performance": 98,
+      "performance": 97,
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 2104,
+      "lcpMs": 2256,
       "cls": 0,
-      "tbtMs": 0
+      "tbtMs": 64
     },
     "hobbies.html": {
       "performance": 99,
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1803,
+      "lcpMs": 1802,
       "cls": 0,
       "tbtMs": 0
     },
@@ -122,7 +122,7 @@
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1806,
+      "lcpMs": 1955,
       "cls": 0,
       "tbtMs": 0
     },
@@ -136,11 +136,11 @@
       "tbtMs": 0
     },
     "posts/building-the-same-secure-channel-twice.html": {
-      "performance": 99,
+      "performance": 100,
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1803,
+      "lcpMs": 1654,
       "cls": 0,
       "tbtMs": 0
     },
@@ -149,7 +149,7 @@
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1804,
+      "lcpMs": 1803,
       "cls": 0,
       "tbtMs": 0
     },
@@ -158,25 +158,25 @@
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1804,
+      "lcpMs": 1803,
       "cls": 0,
       "tbtMs": 0
     },
     "projects.html": {
-      "performance": 99,
+      "performance": 100,
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1805,
+      "lcpMs": 1654,
       "cls": 0,
       "tbtMs": 0
     },
     "projects/adversarial-ml.html": {
-      "performance": 99,
+      "performance": 100,
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1802,
+      "lcpMs": 1654,
       "cls": 0,
       "tbtMs": 0
     },
@@ -185,7 +185,7 @@
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1805,
+      "lcpMs": 1803,
       "cls": 0,
       "tbtMs": 0
     },
@@ -194,16 +194,16 @@
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1806,
+      "lcpMs": 1803,
       "cls": 0,
       "tbtMs": 0
     },
     "projects/chronos.html": {
-      "performance": 100,
+      "performance": 99,
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1653,
+      "lcpMs": 1803,
       "cls": 0,
       "tbtMs": 0
     },
@@ -212,7 +212,7 @@
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1670,
+      "lcpMs": 1655,
       "cls": 0,
       "tbtMs": 0
     },
@@ -230,16 +230,16 @@
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1811,
+      "lcpMs": 1803,
       "cls": 0,
       "tbtMs": 0
     },
     "projects/overthewire.html": {
-      "performance": 100,
+      "performance": 99,
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1654,
+      "lcpMs": 1803,
       "cls": 0,
       "tbtMs": 0
     },
@@ -262,11 +262,11 @@
       "tbtMs": 0
     },
     "projects/xv6-security.html": {
-      "performance": 99,
+      "performance": 100,
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1803,
+      "lcpMs": 1653,
       "cls": 0,
       "tbtMs": 0
     }
