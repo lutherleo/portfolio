@@ -54,6 +54,7 @@
 .game-canvas-wrap,
 .article pre {
   color-scheme: dark;
+
   --bg:            #0b0e0c;
   --surface:       #121714;
   --surface-2:     #19201c;
@@ -148,6 +149,7 @@
 
 :root[data-theme="light"] {
   color-scheme: light;
+
   --bg:            #f6f7f3;
   --surface:       #fff;
   --surface-2:     #edf0ea;
@@ -188,6 +190,7 @@ html {
   scroll-behavior: smooth;
   scroll-padding-top: calc(var(--nav-h) + 1rem);
 }
+
 body {
   background: var(--bg);
   color: var(--text);
@@ -211,14 +214,14 @@ body {
 }
 
 /* Links inside running text: colour alone never marks a link. */
-:where(p, li, dd, blockquote) a:not([class]) {
+:where(p, dd, blockquote, .article li, .highlights li) a:where(:not([class])) {
   color: var(--accent);
   text-decoration: underline;
   text-decoration-thickness: 1px;
   text-underline-offset: 0.2em;
 }
 
-:where(p, li, dd, blockquote) a:not([class]):hover { color: var(--accent-hover); }
+:where(p, dd, blockquote, .article li, .highlights li) a:where(:not([class])):hover { color: var(--accent-hover); }
 
 /* Keyboard focus */
 :focus-visible {
@@ -226,8 +229,6 @@ body {
   outline-offset: 3px;
   border-radius: 2px;
 }
-
-.nav-links a:focus-visible, .mob-item:focus-visible { outline-offset: 5px; }
 
 /* ─── SKIP LINK ──────────────────────────────────── */
 .skip-link {
@@ -256,6 +257,7 @@ main:focus { outline: none; }
   display: flex;
   align-items: center;
   gap: var(--space-6);
+
   /* content lines up with .container at every width */
   padding: 0 max(var(--gutter), calc((100% - var(--container)) / 2));
   transition: background-color var(--dur-3) var(--ease-standard), box-shadow var(--dur-3) var(--ease-standard);
@@ -309,13 +311,8 @@ main:focus { outline: none; }
   transition: transform var(--dur-2) var(--ease-out);
 }
 
-.nav-links a:hover,
-.nav-links a.active,
-.nav-links a[aria-current="page"] { color: var(--text); }
-
-.nav-links a:hover::after,
-.nav-links a.active::after,
-.nav-links a[aria-current="page"]::after { transform: scaleX(1); }
+.nav-links a:where(:hover, .active, [aria-current="page"]) { color: var(--text); }
+.nav-links a:where(:hover, .active, [aria-current="page"])::after { transform: scaleX(1); }
 
 /* Résumé, theme toggle and hamburger sit together at the end of the nav */
 .nav-actions {
@@ -389,7 +386,7 @@ main:focus { outline: none; }
 .hamburger.open span:nth-child(2) { transform: translateY(-3.75px) rotate(-45deg); }
 
 /* Below 1024px the links collapse into the mobile menu */
-@media (max-width: 1023px) {
+@media (width <= 1023px) {
   .nav-links { display: none; }
   .nav-actions { margin-left: auto; }
   .hamburger { display: flex; }
@@ -504,7 +501,7 @@ main > .section + .section { border-top: 1px solid var(--border); }
   text-wrap: pretty;
 }
 
-.case-hero .tags { margin-top: var(--space-6); }
+.case-hero :where(.tags) { margin-top: var(--space-6); }
 
 .case-body {
   display: grid;
@@ -659,7 +656,7 @@ main > .section + .section { border-top: 1px solid var(--border); }
   background: var(--bg);
 }
 
-.game-canvas-wrap--doom { aspect-ratio: 4 / 3; }
+.game-canvas-wrap-doom { aspect-ratio: 4 / 3; }
 
 .game-canvas-wrap canvas {
   display: block;
@@ -749,6 +746,11 @@ main > .section + .section { border-top: 1px solid var(--border); }
   transition: background-color var(--dur-2) var(--ease-standard), border-color var(--dur-2) var(--ease-standard), transform var(--dur-1) var(--ease-standard);
 }
 
+.game-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 .game-btn:hover:not(:disabled) {
   border-color: var(--accent-hover);
   background: var(--accent-hover);
@@ -756,10 +758,6 @@ main > .section + .section { border-top: 1px solid var(--border); }
 
 .game-btn:active:not(:disabled) { transform: translateY(1px); }
 
-.game-btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
 
 .game-btn-icon {
   min-width: 36px;
@@ -774,12 +772,12 @@ main > .section + .section { border-top: 1px solid var(--border); }
   background: var(--accent-dim);
 }
 
-.game-btn--danger {
+.game-btn-danger {
   border-color: var(--danger);
   background: var(--danger);
 }
 
-.game-btn--danger:hover:not(:disabled) {
+.game-btn-danger:hover:not(:disabled) {
   border-color: var(--danger);
   background: color-mix(in srgb, var(--danger) 85%, var(--text));
 }
@@ -928,7 +926,7 @@ main > .section + .section { border-top: 1px solid var(--border); }
   color: var(--text-3);
 }
 
-.article-meta a:not([class]) { color: var(--text-2); }
+.article-meta a:where(:not([class])) { color: var(--text-2); }
 .article { padding-bottom: var(--space-7); }
 .article > * + * { margin-top: var(--space-5); }
 
@@ -1317,8 +1315,6 @@ main > .section + .section { border-top: 1px solid var(--border); }
   color: var(--accent);
 }
 
-.ri-summary:hover .ri-title { color: var(--accent); }
-
 .ri-num {
   padding-top: 2px;
   font-family: var(--font-mono);
@@ -1340,6 +1336,8 @@ main > .section + .section { border-top: 1px solid var(--border); }
   transition: color var(--dur-2) var(--ease-standard);
 }
 
+.ri-summary:hover .ri-title { color: var(--accent); }
+
 .ri-meta {
   font-family: var(--font-mono);
   font-size: var(--step--2);
@@ -1353,7 +1351,7 @@ main > .section + .section { border-top: 1px solid var(--border); }
   color: var(--text-2);
 }
 
-@media (max-width: 860px) {
+@media (width <= 860px) {
   .research-list { grid-template-columns: minmax(0, 1fr); }
 }
 
@@ -1386,6 +1384,7 @@ main > .section + .section { border-top: 1px solid var(--border); }
 }
 
 .post-body .tags { margin-top: var(--space-1); }
+
 .post-title {
   font-size: var(--step-1);
   font-weight: 600;
@@ -1405,7 +1404,7 @@ main > .section + .section { border-top: 1px solid var(--border); }
   inset: 0;
 }
 
-.post-row:hover .post-title a { color: var(--accent); }
+.post-row:hover :where(.post-title a) { color: var(--accent); }
 
 .post-desc {
   max-width: var(--measure);
@@ -1413,7 +1412,7 @@ main > .section + .section { border-top: 1px solid var(--border); }
   color: var(--text-2);
 }
 
-@media (max-width: 640px) {
+@media (width <= 640px) {
   .post-row {
     grid-template-columns: minmax(0, 1fr);
     gap: var(--space-2);
@@ -1548,7 +1547,7 @@ main > .section + .section { border-top: 1px solid var(--border); }
   margin-top: var(--space-7);
 }
 
-@media (max-width: 860px) {
+@media (width <= 860px) {
   .about-grid {
     grid-template-columns: minmax(0, 1fr);
     gap: var(--space-6);
@@ -1612,7 +1611,7 @@ main > .section + .section { border-top: 1px solid var(--border); }
   color: var(--text-2);
 }
 
-@media (max-width: 640px) {
+@media (width <= 640px) {
   .tl-item {
     grid-template-columns: minmax(0, 1fr);
     gap: var(--space-2);
@@ -1658,7 +1657,7 @@ main > .section + .section { border-top: 1px solid var(--border); }
 
 .email-big:hover { color: var(--accent); }
 
-#copyEmail.copied {
+.copy-email.copied {
   border-color: var(--accent);
   color: var(--accent);
 }
@@ -1693,7 +1692,7 @@ main > .section + .section { border-top: 1px solid var(--border); }
   text-underline-offset: 0.25em;
 }
 
-.contact-list a:hover { color: var(--accent); }
+.contact-list a:where(:hover) { color: var(--accent); }
 
 /* ─── HERO ───────────────────────────────────────── */
 .hero {
@@ -1986,9 +1985,10 @@ main > .section + .section { border-top: 1px solid var(--border); }
   transition: color var(--dur-2) var(--ease-standard);
 }
 
-.footer-col a:hover { color: var(--accent); }
+.footer-col a:where(:hover) { color: var(--accent); }
 
 /* ─── REVEAL ─────────────────────────────────────── */
+
 /* Content is visible by default. site.js adds html.reveal-sda (scroll-driven)
    or html.reveal-on (fallback) only when JS runs
    and reduced motion isn't requested; the fade then uses an animation on the
@@ -2011,17 +2011,24 @@ html.reveal-on .reveal.visible { animation: reveal-in var(--dur-4) var(--ease-ou
 
 /* Where supported (Chrome 115+, Safari 26+, Firefox 161+) the reveal is a
    scroll-driven animation: progress follows the scroll position, so content
-   jumped past is already fully shown. Other browsers use the site.js fallback. */
+   jumped past is already in place. It only moves content (no fade), so text
+   resting at the viewport edge is never left semi-transparent. Other browsers
+   use the timed site.js fallback. */
+@keyframes reveal-rise {
+  from { translate: 0 24px; }
+  to { translate: none; }
+}
+
 @supports (animation-timeline: view()) {
   html.reveal-sda .reveal {
-    animation: reveal-in linear both;
+    animation: reveal-rise linear both;
     animation-timeline: view();
     animation-range: entry 0% entry 60%;
   }
 }
 
 /* ─── RESPONSIVE ──────────────────────────────────── */
-@media (max-width:1024px) {
+@media (width <= 1024px) {
   .blog-grid   { grid-template-columns:1fr; }
 }
 
@@ -2257,6 +2264,7 @@ html.reveal-on .reveal.visible { animation: reveal-in var(--dur-4) var(--ease-ou
 /* ─── REDUCED MOTION ─────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
+
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;

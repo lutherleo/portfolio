@@ -1,10 +1,10 @@
 {
-  "updatedAt": "2026-10-20T03:40:11.008Z",
+  "updatedAt": "2026-10-20T04:08:21.167Z",
   "html": {
     "blog.html": 0,
     "games.html": 0,
     "hobbies.html": 0,
-    "index.html": 2,
+    "index.html": 0,
     "interviews.html": 0,
     "posts/building-the-same-secure-channel-twice.html": 0,
     "posts/fuzzing-kernel-race-conditions.html": 0,
@@ -23,7 +23,7 @@
     "projects/xv6-security.html": 0
   },
   "css": {
-    "style.css": 31
+    "style.css": 0
   },
   "links": [
     "blog.html -> resume.pdf (404)",
@@ -91,29 +91,29 @@
   },
   "lighthouse": {
     "blog.html": {
-      "performance": 100,
-      "accessibility": 96,
+      "performance": 99,
+      "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1654,
+      "lcpMs": 1682,
       "cls": 0,
       "tbtMs": 0
     },
     "games.html": {
       "performance": 97,
-      "accessibility": 96,
+      "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 2255,
+      "lcpMs": 2254,
       "cls": 0,
-      "tbtMs": 44
+      "tbtMs": 52
     },
     "hobbies.html": {
-      "performance": 99,
-      "accessibility": 95,
+      "performance": 100,
+      "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1805,
+      "lcpMs": 1653,
       "cls": 0,
       "tbtMs": 0
     },
@@ -122,25 +122,25 @@
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1957,
+      "lcpMs": 1956,
       "cls": 0,
       "tbtMs": 0
     },
     "interviews.html": {
       "performance": 99,
-      "accessibility": 96,
+      "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 2109,
+      "lcpMs": 2104,
       "cls": 0,
       "tbtMs": 0
     },
     "posts/building-the-same-secure-channel-twice.html": {
-      "performance": 100,
+      "performance": 99,
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1655,
+      "lcpMs": 1802,
       "cls": 0,
       "tbtMs": 0
     },
@@ -158,7 +158,7 @@
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1803,
+      "lcpMs": 1804,
       "cls": 0,
       "tbtMs": 0
     },
@@ -167,7 +167,7 @@
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1959,
+      "lcpMs": 1802,
       "cls": 0,
       "tbtMs": 0
     },
@@ -176,7 +176,7 @@
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1803,
+      "lcpMs": 1681,
       "cls": 0,
       "tbtMs": 0
     },
@@ -185,16 +185,16 @@
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1802,
+      "lcpMs": 1803,
       "cls": 0,
       "tbtMs": 0
     },
     "projects/chip-8-emulator.html": {
-      "performance": 99,
+      "performance": 100,
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1802,
+      "lcpMs": 1652,
       "cls": 0,
       "tbtMs": 0
     },
@@ -203,16 +203,16 @@
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1802,
+      "lcpMs": 1667,
       "cls": 0,
       "tbtMs": 0
     },
     "projects/csaw-ctf-2025.html": {
-      "performance": 100,
+      "performance": 99,
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1653,
+      "lcpMs": 1804,
       "cls": 0,
       "tbtMs": 0
     },
@@ -221,7 +221,7 @@
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1803,
+      "lcpMs": 1802,
       "cls": 0,
       "tbtMs": 0
     },
@@ -230,7 +230,7 @@
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1804,
+      "lcpMs": 1803,
       "cls": 0,
       "tbtMs": 0
     },
@@ -239,11 +239,20 @@
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1804,
+      "lcpMs": 1803,
       "cls": 0,
       "tbtMs": 0
     },
     "projects/racefuzz.html": {
+      "performance": 99,
+      "accessibility": 100,
+      "best-practices": 100,
+      "seo": 100,
+      "lcpMs": 1803,
+      "cls": 0,
+      "tbtMs": 0
+    },
+    "projects/vulnerability-scanner.html": {
       "performance": 100,
       "accessibility": 100,
       "best-practices": 100,
@@ -252,21 +261,12 @@
       "cls": 0,
       "tbtMs": 0
     },
-    "projects/vulnerability-scanner.html": {
-      "performance": 99,
-      "accessibility": 100,
-      "best-practices": 100,
-      "seo": 100,
-      "lcpMs": 1804,
-      "cls": 0,
-      "tbtMs": 0
-    },
     "projects/xv6-security.html": {
       "performance": 99,
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1802,
+      "lcpMs": 1803,
       "cls": 0,
       "tbtMs": 0
     }
