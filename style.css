@@ -306,7 +306,7 @@ main:focus { outline: none; }
   background: var(--accent);
   transform: scaleX(0);
   transform-origin: left;
-  transition: transform var(--dur-3) var(--ease-out);
+  transition: transform var(--dur-2) var(--ease-out);
 }
 
 .nav-links a:hover,
@@ -1989,7 +1989,8 @@ main > .section + .section { border-top: 1px solid var(--border); }
 .footer-col a:hover { color: var(--accent); }
 
 /* ─── REVEAL ─────────────────────────────────────── */
-/* Content is visible by default. site.js adds html.reveal-on only when JS runs
+/* Content is visible by default. site.js adds html.reveal-sda (scroll-driven)
+   or html.reveal-on (fallback) only when JS runs
    and reduced motion isn't requested; the fade then uses an animation on the
    individual `translate` property, so it never fights hover transforms or the
    components' own transitions. */
@@ -2005,6 +2006,17 @@ html.reveal-on .reveal.visible { animation: reveal-in var(--dur-4) var(--ease-ou
   to {
     opacity: 1;
     translate: none;
+  }
+}
+
+/* Where supported (Chrome 115+, Safari 26+, Firefox 161+) the reveal is a
+   scroll-driven animation: progress follows the scroll position, so content
+   jumped past is already fully shown. Other browsers use the site.js fallback. */
+@supports (animation-timeline: view()) {
+  html.reveal-sda .reveal {
+    animation: reveal-in linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 60%;
   }
 }
 
@@ -2036,7 +2048,7 @@ html.reveal-on .reveal.visible { animation: reveal-in var(--dur-4) var(--ease-ou
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform var(--dur-3) var(--ease-out);
+  transition: transform var(--dur-2) var(--ease-out);
 }
 
 .media-thumb:hover img { transform: scale(1.03); }

@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-20T03:24:00.997Z",
+  "updatedAt": "2026-10-20T03:40:11.008Z",
   "html": {
     "blog.html": 0,
     "games.html": 0,
@@ -91,29 +91,29 @@
   },
   "lighthouse": {
     "blog.html": {
-      "performance": 99,
-      "accessibility": 100,
+      "performance": 100,
+      "accessibility": 96,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1683,
+      "lcpMs": 1654,
       "cls": 0,
       "tbtMs": 0
     },
     "games.html": {
-      "performance": 98,
-      "accessibility": 100,
+      "performance": 97,
+      "accessibility": 96,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 2118,
+      "lcpMs": 2255,
       "cls": 0,
-      "tbtMs": 64
+      "tbtMs": 44
     },
     "hobbies.html": {
       "performance": 99,
-      "accessibility": 100,
+      "accessibility": 95,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1803,
+      "lcpMs": 1805,
       "cls": 0,
       "tbtMs": 0
     },
@@ -122,25 +122,25 @@
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1969,
+      "lcpMs": 1957,
       "cls": 0,
       "tbtMs": 0
     },
     "interviews.html": {
       "performance": 99,
-      "accessibility": 100,
+      "accessibility": 96,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 2103,
+      "lcpMs": 2109,
       "cls": 0,
       "tbtMs": 0
     },
     "posts/building-the-same-secure-channel-twice.html": {
-      "performance": 99,
+      "performance": 100,
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1806,
+      "lcpMs": 1655,
       "cls": 0,
       "tbtMs": 0
     },
@@ -149,7 +149,7 @@
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1806,
+      "lcpMs": 1803,
       "cls": 0,
       "tbtMs": 0
     },
@@ -158,7 +158,7 @@
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1812,
+      "lcpMs": 1803,
       "cls": 0,
       "tbtMs": 0
     },
@@ -167,7 +167,7 @@
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1952,
+      "lcpMs": 1959,
       "cls": 0,
       "tbtMs": 0
     },
@@ -176,7 +176,7 @@
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1804,
+      "lcpMs": 1803,
       "cls": 0,
       "tbtMs": 0
     },
@@ -185,7 +185,7 @@
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1666,
+      "lcpMs": 1802,
       "cls": 0,
       "tbtMs": 0
     },
@@ -194,7 +194,7 @@
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1679,
+      "lcpMs": 1802,
       "cls": 0,
       "tbtMs": 0
     },
@@ -203,7 +203,7 @@
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1832,
+      "lcpMs": 1802,
       "cls": 0,
       "tbtMs": 0
     },
@@ -221,7 +221,7 @@
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1802,
+      "lcpMs": 1803,
       "cls": 0,
       "tbtMs": 0
     },
@@ -230,7 +230,7 @@
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1662,
+      "lcpMs": 1804,
       "cls": 0,
       "tbtMs": 0
     },
@@ -239,7 +239,7 @@
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1807,
+      "lcpMs": 1804,
       "cls": 0,
       "tbtMs": 0
     },
@@ -257,7 +257,7 @@
       "accessibility": 100,
       "best-practices": 100,
       "seo": 100,
-      "lcpMs": 1803,
+      "lcpMs": 1804,
       "cls": 0,
       "tbtMs": 0
     },

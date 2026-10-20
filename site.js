@@ -24,7 +24,11 @@
     if (save) {
       try { localStorage.setItem('theme', theme); } catch { /* storage blocked: theme lasts for this page only */ }
     }
-    window.dispatchEvent(new CustomEvent('themechange', { detail: { theme } }));
+    // Canvases recolour after the new theme has painted, keeping the click's
+    // own frame (and INP) light.
+    requestAnimationFrame(() => setTimeout(() => {
+      window.dispatchEvent(new CustomEvent('themechange', { detail: { theme } }));
+    }));
   }
   applyTheme(root.dataset.theme === 'light' ? 'light' : 'dark', false);
   if (themeBtn) {
@@ -75,10 +79,13 @@
   }
 
   /* ── SCROLL REVEAL ─────────────────────────────── */
-  // Content is visible without JS. With JS (and no reduced-motion preference)
-  // html.reveal-on hides pending .reveal elements until they reach the
-  // viewport. A scroll check rather than IntersectionObserver also catches
-  // elements that were jumped past (anchor links, fast scrolls).
+  // Content is visible without JS. Otherwise, unless reduced motion is on:
+  //  - 'css': scroll-driven animations (html.reveal-sda) do the work in CSS
+  //  - 'js':  html.reveal-on hides pending .reveal elements until they reach
+  //           the viewport; a rAF scroll check (not IntersectionObserver) also
+  //           catches elements that were jumped past by anchors or fast scrolls
+  const revealMode = reducedMotion ? 'none'
+    : (window.CSS && CSS.supports('animation-timeline: view()')) ? 'css' : 'js';
   const pending = new Set();
   let revealQueued = false;
   function revealInView() {
@@ -102,12 +109,13 @@
       if (el.classList.contains('reveal')) return;
       el.classList.add('reveal');
       el.style.setProperty('--d', (i % 5) * 70 + 'ms');
-      if (reducedMotion) el.classList.add('visible');
-      else pending.add(el);
+      if (revealMode === 'js') pending.add(el);
+      else el.classList.add('visible');
     });
     queueReveal();
   }
-  if (!reducedMotion) {
+  if (revealMode === 'css') document.documentElement.classList.add('reveal-sda');
+  if (revealMode === 'js') {
     document.documentElement.classList.add('reveal-on');
     window.addEventListener('scroll', queueReveal, { passive: true });
     window.addEventListener('resize', queueReveal, { passive: true });
