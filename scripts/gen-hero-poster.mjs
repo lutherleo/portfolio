@@ -1,12 +1,15 @@
 // Generates assets/hero-poster.png: the hero lattice's first frame, ordered-
 // dithered to 1 bit. It is used as a CSS mask filled with the accent colour,
 // so one file serves both themes, and it is what touch, reduced-motion and
-// not-yet-loaded visitors see. The camera matches hero3d.js (40° vertical
+// not-yet-loaded visitors see. The same bytes are inlined as a data URI in
+// style.css's .hero-poster rule (on phones the poster is the LCP element,
+// and a separate request costs ~150 ms of simulated LCP); this script keeps
+// that copy in sync. The file itself feeds the social card. The camera matches hero3d.js (40° vertical
 // FOV, distance 7, fog 5 → 9.2) and its rotation at START_T, so the live
 // canvas fades in over it without a jump.
 //
 //   node scripts/gen-hero-poster.mjs
-import { writeFile } from 'node:fs/promises';
+import { readFile, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { ROOT } from './lib/site.mjs';
 import { png1 } from './lib/png1.mjs';
@@ -51,3 +54,10 @@ for (const p of [origin, tip]) { const s = screen(p); for (const [dx, dy] of [[0
 const png = png1(N, N, (x, y) => buf[y * N + x] * gain > (BAYER[(y & 3) * 4 + (x & 3)] + 0.5) / 16);
 await writeFile(join(ROOT, 'assets/hero-poster.png'), png);
 console.log(`wrote assets/hero-poster.png (${N}×${N}, ${png.length} bytes)`);
+
+const cssPath = join(ROOT, 'style.css');
+const css = await readFile(cssPath, 'utf8');
+const rule = /(\.hero-poster \{[^}]*?mask: url\(")[^"]*("\))/;
+if (!rule.test(css)) throw new Error('style.css: .hero-poster mask url not found');
+await writeFile(cssPath, css.replace(rule, `$1data:image/png;base64,${png.toString('base64')}$2`));
+console.log('inlined the poster into style.css');

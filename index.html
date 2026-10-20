@@ -75,6 +75,8 @@
   </script>
   <link rel="stylesheet" href="style.css" />
   <link rel="preload" href="assets/fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="assets/fonts/geist-mono-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="assets/fonts/geist-pixel-square.woff2" as="font" type="font/woff2" crossorigin />
   <script type="importmap">
     {
       "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.185.1/build/three.module.min.js" },
@@ -86,6 +88,7 @@
   </script>
   <script type="module" src="decrypt.js"></script>
   <script type="module" src="hero3d.js"></script>
+  <script type="module" src="hero2d.js"></script>
   <script type="module" src="scenes3d.js"></script>
 </head>
 <body>
@@ -590,7 +593,7 @@
   </footer>
   <!-- chrome:footer:end -->
 
-  <script src="site.js"></script>
-  <script src="script.js"></script>
+  <script src="site.js" defer></script>
+  <script src="script.js" defer></script>
 </body>
 </html>
