@@ -20,6 +20,10 @@
   <meta property="og:title" content="What Writing a CSAW CTF Challenge Taught Me About Breaking Things" />
   <meta property="og:description" content="Difficulty curves, unintended solutions, and running infra for thousands of players — lessons from authoring a CSAW CTF challenge." />
   <meta property="og:url" content="https://lutherleo.github.io/portfolio/posts/writing-a-csaw-ctf-challenge.html" />
+  <meta property="og:image" content="https://lutherleo.github.io/portfolio/photo.jpeg" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="What Writing a CSAW CTF Challenge Taught Me About Breaking Things" />
+  <meta name="twitter:description" content="Difficulty curves, unintended solutions, and running infra for thousands of players — lessons from authoring a CSAW CTF challenge." />
   <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
   <link rel="stylesheet" href="../style.css" />
   <link rel="preload" href="../assets/fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin />
@@ -67,14 +71,17 @@
 
   <main id="main" tabindex="-1">
 
-  <section class="section" style="background:var(--bg-2);padding-top:calc(var(--nav-h) + 4rem);">
-    <div class="article-wrap article">
-      <a href="../blog.html" class="article-back">← ALL POSTS</a>
-      <span class="article-eye">CTF · CSAW 2025</span>
-      <h1 class="article-title">What writing a CTF challenge taught me about <em>breaking things.</em></h1>
-      <div class="article-meta">
-        <span>Love Kush Pranu</span> · <span>Jul 2026</span> · <span>~5 min read</span>
-      </div>
+    <article class="post">
+      <header class="post-head">
+        <div class="article-wrap">
+          <a class="case-back" href="../blog.html"><span aria-hidden="true">←</span> All writing</a>
+          <p class="eyebrow">CTF · CSAW 2025</p>
+          <h1 class="article-title">What writing a CTF challenge taught me about breaking things</h1>
+          <p class="article-meta">Love Kush Pranu · <time datetime="2026-07">Jul 2026</time> · 5 min read</p>
+        </div>
+      </header>
+
+      <div class="article-wrap article">
 
       <p>I've played a lot of CTF. Solving challenges is how I got into security, and it's still my favorite way to stay sharp. But last year, with OSIRIS Lab, I did something different: I <strong>authored</strong> a challenge for CSAW CTF 2025 — one of the largest student-run security competitions in the world, with thousands of players across dozens of regions. Being on the other side of the flag changed how I think about the whole game.</p>
 
@@ -115,14 +122,16 @@
         <li>I think about the infrastructure around a vulnerability, not just the vulnerability, because in the real world the infra is part of the attack surface.</li>
       </ul>
 
-      <p>Solving CTF made me a better attacker. Authoring one made me a better engineer. If you run a lab or a competition and want someone who's been on both sides of the flag, <a href="../index.html#contact" style="color:var(--accent);">let's talk</a>.</p>
-
-      <div class="article-footer">
-        <a href="../blog.html" class="article-back" style="margin-bottom:0;">← ALL POSTS</a>
-        <a href="../index.html#contact" class="btn-resume">Get In Touch</a>
+      <p>Solving CTF made me a better attacker. Authoring one made me a better engineer. If you run a lab or a competition and want someone who's been on both sides of the flag, <a href="../index.html#contact">let's talk</a>.</p>
       </div>
-    </div>
-  </section>
+
+      <footer class="article-wrap post-end">
+        <p class="post-end-note">Questions or corrections? Email <a href="mailto:lp2989@nyu.edu">lp2989@nyu.edu</a>.</p>
+        <nav class="post-pager" aria-label="More writing">
+          <a class="case-pager-link case-pager-prev" href="fuzzing-kernel-race-conditions.html"><span class="case-pager-dir">Previous</span><span class="case-pager-title">Hunting race conditions in the kernel network stack</span></a>
+        </nav>
+      </footer>
+    </article>
 
   </main>
 

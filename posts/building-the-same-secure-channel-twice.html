@@ -20,6 +20,10 @@
   <meta property="og:title" content="Building the Same Secure Channel Twice: Notes from a Post-Quantum Project" />
   <meta property="og:description" content="Kyber + Dilithium vs HQC + SPHINCS+ behind one interface — lessons in crypto-agility from attacking my own protocol." />
   <meta property="og:url" content="https://lutherleo.github.io/portfolio/posts/building-the-same-secure-channel-twice.html" />
+  <meta property="og:image" content="https://lutherleo.github.io/portfolio/photo.jpeg" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Building the Same Secure Channel Twice: Notes from a Post-Quantum Project" />
+  <meta name="twitter:description" content="Kyber + Dilithium vs HQC + SPHINCS+ behind one interface — lessons in crypto-agility from attacking my own protocol." />
   <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
   <link rel="stylesheet" href="../style.css" />
   <link rel="preload" href="../assets/fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin />
@@ -67,15 +71,17 @@
 
   <main id="main" tabindex="-1">
 
-  <section class="section" style="background:var(--bg-2);padding-top:calc(var(--nav-h) + 4rem);">
-    <div class="article-wrap article">
-      <a href="../blog.html" class="article-back">← ALL POSTS</a>
-      <span class="article-eye">POST-QUANTUM CRYPTOGRAPHY</span>
-      <h1 class="article-title">Building the same secure channel <em>twice.</em></h1>
-      <div class="article-meta">
-        <span>Love Kush Pranu</span> · <span>Jul 2026</span> · <span>~7 min read</span> ·
-        <a href="https://github.com/lutherleo/Quantum-safe-Kyber-Crystals" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none;">source on GitHub ↗</a>
-      </div>
+    <article class="post">
+      <header class="post-head">
+        <div class="article-wrap">
+          <a class="case-back" href="../blog.html"><span aria-hidden="true">←</span> All writing</a>
+          <p class="eyebrow">Post-quantum cryptography</p>
+          <h1 class="article-title">Building the same secure channel twice</h1>
+          <p class="article-meta">Love Kush Pranu · <time datetime="2026-07">Jul 2026</time> · 7 min read · <a href="https://github.com/lutherleo/Quantum-safe-Kyber-Crystals">source on GitHub</a></p>
+        </div>
+      </header>
+
+      <div class="article-wrap article">
 
       <p>For an applied cryptography project at NYU (CS6903), I built an end-to-end encrypted channel between two endpoints — the classic Alice ↔ Bob setup — with one twist: I implemented it <strong>twice</strong>, with two completely different families of post-quantum primitives, and then attacked and benchmarked both under the same test harness.</p>
 
@@ -126,14 +132,16 @@
         <li>Hybrid/diversified deployments are cheaper than they look — the symmetric layer amortizes almost everything.</li>
       </ul>
 
-      <p>The full implementation, attack suite, and benchmark harness are on GitHub — it runs anywhere Docker does: <a href="https://github.com/lutherleo/Quantum-safe-Kyber-Crystals" target="_blank" rel="noopener" style="color:var(--accent);">lutherleo/Quantum-safe-Kyber-Crystals</a>.</p>
-
-      <div class="article-footer">
-        <a href="../blog.html" class="article-back" style="margin-bottom:0;">← ALL POSTS</a>
-        <a href="../index.html#contact" class="btn-resume">Get In Touch</a>
+      <p>The full implementation, attack suite, and benchmark harness are on GitHub — it runs anywhere Docker does: <a href="https://github.com/lutherleo/Quantum-safe-Kyber-Crystals" target="_blank" rel="noopener">lutherleo/Quantum-safe-Kyber-Crystals</a>.</p>
       </div>
-    </div>
-  </section>
+
+      <footer class="article-wrap post-end">
+        <p class="post-end-note">Questions or corrections? Email <a href="mailto:lp2989@nyu.edu">lp2989@nyu.edu</a>.</p>
+        <nav class="post-pager" aria-label="More writing">
+          <a class="case-pager-link case-pager-next" href="fuzzing-kernel-race-conditions.html"><span class="case-pager-dir">Next</span><span class="case-pager-title">Hunting race conditions in the kernel network stack</span></a>
+        </nav>
+      </footer>
+    </article>
 
   </main>
 

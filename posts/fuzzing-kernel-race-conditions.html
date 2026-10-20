@@ -20,6 +20,10 @@
   <meta property="og:title" content="Hunting Race Conditions in the Kernel Network Stack" />
   <meta property="og:description" content="Coverage-guided fuzzers are great at crashes and terrible at races. Notes from RaceFuzz on making concurrency bugs reproducible." />
   <meta property="og:url" content="https://lutherleo.github.io/portfolio/posts/fuzzing-kernel-race-conditions.html" />
+  <meta property="og:image" content="https://lutherleo.github.io/portfolio/photo.jpeg" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Hunting Race Conditions in the Kernel Network Stack" />
+  <meta name="twitter:description" content="Coverage-guided fuzzers are great at crashes and terrible at races. Notes from RaceFuzz on making concurrency bugs reproducible." />
   <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
   <link rel="stylesheet" href="../style.css" />
   <link rel="preload" href="../assets/fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin />
@@ -67,14 +71,17 @@
 
   <main id="main" tabindex="-1">
 
-  <section class="section" style="background:var(--bg-2);padding-top:calc(var(--nav-h) + 4rem);">
-    <div class="article-wrap article">
-      <a href="../blog.html" class="article-back">← ALL POSTS</a>
-      <span class="article-eye">KERNEL FUZZING · OSIRIS LAB</span>
-      <h1 class="article-title">Hunting race conditions in the <em>kernel network stack.</em></h1>
-      <div class="article-meta">
-        <span>Love Kush Pranu</span> · <span>Jul 2026</span> · <span>~6 min read</span>
-      </div>
+    <article class="post">
+      <header class="post-head">
+        <div class="article-wrap">
+          <a class="case-back" href="../blog.html"><span aria-hidden="true">←</span> All writing</a>
+          <p class="eyebrow">Kernel fuzzing · OSIRIS Lab</p>
+          <h1 class="article-title">Hunting race conditions in the kernel network stack</h1>
+          <p class="article-meta">Love Kush Pranu · <time datetime="2026-07">Jul 2026</time> · 6 min read</p>
+        </div>
+      </header>
+
+      <div class="article-wrap article">
 
       <p>Most fuzzing tutorials show you the same win: throw malformed bytes at a parser, watch it segfault, ship the crash. Coverage-guided fuzzers like AFL and syzkaller are genuinely spectacular at that. But there's an entire class of bug they're structurally bad at finding — the kind that only appears when two things happen in the wrong order. That's the problem <strong>RaceFuzz</strong>, the OSIRIS Lab project I lead, exists to attack: race conditions in the Linux kernel's network stack.</p>
 
@@ -111,14 +118,17 @@
         <li>It has a rich, well-documented state machine, which is exactly what semantic corpus generation needs to exploit.</li>
       </ul>
 
-      <p>If you're into kernel security, systems fuzzing, or just enjoy arguing about memory ordering, this is the kind of problem I find endlessly fun — it sits right at the seam between systems programming and security research. Happy to talk about it: <a href="../index.html#contact" style="color:var(--accent);">get in touch</a>.</p>
-
-      <div class="article-footer">
-        <a href="../blog.html" class="article-back" style="margin-bottom:0;">← ALL POSTS</a>
-        <a href="../index.html#contact" class="btn-resume">Get In Touch</a>
+      <p>If you're into kernel security, systems fuzzing, or just enjoy arguing about memory ordering, this is the kind of problem I find endlessly fun — it sits right at the seam between systems programming and security research. Happy to talk about it: <a href="../index.html#contact">get in touch</a>.</p>
       </div>
-    </div>
-  </section>
+
+      <footer class="article-wrap post-end">
+        <p class="post-end-note">Questions or corrections? Email <a href="mailto:lp2989@nyu.edu">lp2989@nyu.edu</a>.</p>
+        <nav class="post-pager" aria-label="More writing">
+          <a class="case-pager-link case-pager-prev" href="building-the-same-secure-channel-twice.html"><span class="case-pager-dir">Previous</span><span class="case-pager-title">Building the same secure channel twice</span></a>
+          <a class="case-pager-link case-pager-next" href="writing-a-csaw-ctf-challenge.html"><span class="case-pager-dir">Next</span><span class="case-pager-title">What writing a CTF challenge taught me about breaking things</span></a>
+        </nav>
+      </footer>
+    </article>
 
   </main>
 

@@ -68,67 +68,64 @@
   <!-- chrome:menu:end -->
 
   <main id="main" tabindex="-1">
-
-  <!-- Page Hero -->
-  <div class="page-hero" style="background:var(--bg-2);">
-    <div class="page-hero-inner">
-      <span class="page-hero-eye">WRITING</span>
-      <h1 class="page-hero-title">Things I <em>write.</em></h1>
-      <p class="page-hero-sub">Security research notes, essays, and ideas — pulled live from my Medium. New posts show up here automatically.</p>
-    </div>
-  </div>
-
-  <!-- ── FEATURED WRITING (hosted here) ────────────── -->
-  <section class="blog section" style="background:var(--bg-2);">
-    <div class="container">
-      <p class="sec-label"><span class="sec-num">01</span> FEATURED WRITING</p>
-      <div class="blog-grid">
-
-        <article class="blog-card neu-card">
-          <div class="bc-top">
-            <span class="bc-tag">POST-QUANTUM</span>
-            <span class="bc-date">Jul 1, 2026</span>
-          </div>
-          <h3 class="bc-title">Building the Same Secure Channel Twice: Notes from a Post-Quantum Project</h3>
-          <p class="bc-excerpt">Why I implemented one encrypted channel with two completely different post-quantum families — Kyber + Dilithium on one side, HQC + SPHINCS+ on the other — and what attacking my own protocol taught me about crypto-agility.</p>
-          <a class="bc-link" href="posts/building-the-same-secure-channel-twice.html">READ POST →</a>
-        </article>
-
-        <article class="blog-card neu-card">
-          <div class="bc-top">
-            <span class="bc-tag">KERNEL</span>
-            <span class="bc-date">Jul 1, 2026</span>
-          </div>
-          <h3 class="bc-title">Hunting Race Conditions in the Kernel Network Stack</h3>
-          <p class="bc-excerpt">Race conditions are the bugs coverage-guided fuzzers are worst at finding. Notes from RaceFuzz, the OSIRIS Lab project I lead: why the network stack is a concurrency minefield and what "semantic" fuzzing actually means.</p>
-          <a class="bc-link" href="posts/fuzzing-kernel-race-conditions.html">READ POST →</a>
-        </article>
-
-        <article class="blog-card neu-card">
-          <div class="bc-top">
-            <span class="bc-tag">CTF</span>
-            <span class="bc-date">Jul 1, 2026</span>
-          </div>
-          <h3 class="bc-title">What Writing a CSAW CTF Challenge Taught Me About Breaking Things</h3>
-          <p class="bc-excerpt">Solving challenges makes you a better attacker. Writing one makes you a better engineer. Lessons from authoring a challenge for one of the world's largest student-run CTFs — difficulty curves, unintended solutions, and infra at scale.</p>
-          <a class="bc-link" href="posts/writing-a-csaw-ctf-challenge.html">READ POST →</a>
-        </article>
-
+    <header class="page-head">
+      <div class="container">
+        <p class="eyebrow">~/writing</p>
+        <h1 class="page-title">Writing</h1>
+        <p class="page-lead">Security research notes and essays. The posts below live on this site; longer pieces are on Medium.</p>
       </div>
-    </div>
-  </section>
+    </header>
 
-  <!-- ── FROM MEDIUM ───────────────────────────────── -->
-  <section class="blog section" style="background:var(--bg);padding-top:5rem;">
-    <div class="container">
-      <p class="sec-label"><span class="sec-num">02</span> FROM MEDIUM</p>
-      <p class="blog-status" id="blogStatus">$ fetching medium.com/@lovekush.pranu <span class="blink">▌</span></p>
-      <div class="blog-grid" id="blogGrid"></div>
-      <p class="blog-note">Longer essays live on <a href="https://medium.com/@lovekush.pranu" target="_blank" rel="noopener">medium.com/@lovekush.pranu</a> — new posts show up here automatically.</p>
-    </div>
-  </section>
+    <section class="section" aria-labelledby="posts-title">
+      <div class="container">
+        <header class="section-head">
+          <h2 class="section-title" id="posts-title">Posts</h2>
+        </header>
+        <div class="tag-filter" role="group" aria-label="Filter posts by topic" hidden>
+          <button class="chip" type="button" aria-pressed="true" data-tag="all">All</button>
+          <button class="chip" type="button" aria-pressed="false" data-tag="post-quantum">Post-quantum</button>
+          <button class="chip" type="button" aria-pressed="false" data-tag="kernel">Kernel</button>
+          <button class="chip" type="button" aria-pressed="false" data-tag="ctf">CTF</button>
+        </div>
+        <ol class="post-list" id="postList">
+          <li class="post-row" data-tags="post-quantum">
+            <p class="post-meta">Jul 2026 · 7 min read</p>
+            <div class="post-body">
+              <h3 class="post-title"><a href="posts/building-the-same-secure-channel-twice.html">Building the same secure channel twice</a></h3>
+              <p class="post-desc">Why I implemented one encrypted channel with two different post-quantum families, and what attacking my own protocol taught me about crypto-agility.</p>
+              <ul class="tags" aria-label="Topics"><li>Post-quantum</li><li>Cryptography</li></ul>
+            </div>
+          </li>
+          <li class="post-row" data-tags="kernel">
+            <p class="post-meta">Jul 2026 · 6 min read</p>
+            <div class="post-body">
+              <h3 class="post-title"><a href="posts/fuzzing-kernel-race-conditions.html">Hunting race conditions in the kernel network stack</a></h3>
+              <p class="post-desc">Race conditions are the bugs coverage-guided fuzzers are worst at finding. Notes from RaceFuzz on why the network stack is a concurrency minefield and what semantic fuzzing means.</p>
+              <ul class="tags" aria-label="Topics"><li>Kernel</li><li>Fuzzing</li></ul>
+            </div>
+          </li>
+          <li class="post-row" data-tags="ctf">
+            <p class="post-meta">Jul 2026 · 5 min read</p>
+            <div class="post-body">
+              <h3 class="post-title"><a href="posts/writing-a-csaw-ctf-challenge.html">What writing a CTF challenge taught me about breaking things</a></h3>
+              <p class="post-desc">Solving challenges makes you a better attacker. Writing one makes you a better engineer: difficulty curves, unintended solutions, and infrastructure at scale.</p>
+              <ul class="tags" aria-label="Topics"><li>CTF</li><li>Infrastructure</li></ul>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
 
-  <!-- Footer -->
+    <section class="section" aria-labelledby="medium-title">
+      <div class="container">
+        <header class="section-head">
+          <h2 class="section-title" id="medium-title">From Medium</h2>
+          <a class="section-link" href="https://medium.com/@lovekush.pranu" rel="me">medium.com/@lovekush.pranu <span aria-hidden="true">↗</span></a>
+        </header>
+        <p class="feed-status" id="blogStatus" role="status">Loading the latest posts from Medium…</p>
+        <ol class="post-list" id="blogGrid"></ol>
+      </div>
+    </section>
   </main>
 
   <!-- chrome:footer:start -->
@@ -164,111 +161,112 @@
 
   <script src="site.js"></script>
   <script>
+  /* Topic filter for the hosted posts (the list works without it). */
+  (() => {
+    const filter = document.querySelector('.tag-filter');
+    if (!filter) return;
+    const rows = [...document.querySelectorAll('#postList .post-row')];
+    filter.hidden = false;
+    filter.addEventListener('click', e => {
+      const btn = e.target.closest('button[data-tag]');
+      if (!btn) return;
+      filter.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', String(b === btn)));
+      rows.forEach(r => { r.hidden = btn.dataset.tag !== 'all' && !r.dataset.tags.split(' ').includes(btn.dataset.tag); });
+    });
+  })();
+
+  /* Latest Medium posts via rss2json. Feed content is untrusted: HTML is
+     parsed in an inert DOMParser document and only its text is used, links
+     must be https on medium.com, and every node is built with textContent. */
   (() => {
     'use strict';
     const MEDIUM_USER = '@lovekush.pranu';
     const FEED_API = 'https://api.rss2json.com/v1/api.json?rss_url=' +
       encodeURIComponent(`https://medium.com/feed/${MEDIUM_USER}`);
-    const grid   = document.getElementById('blogGrid');
+    const CACHE_KEY = 'lkp-medium-feed';
+    const list = document.getElementById('blogGrid');
     const status = document.getElementById('blogStatus');
 
-    const strip = html => {
-      const d = document.createElement('div');
-      d.innerHTML = html || '';
-      return (d.textContent || '')
+    const toText = html => {
+      const doc = new DOMParser().parseFromString(html || '', 'text/html');
+      doc.querySelectorAll('script, style, noscript').forEach(n => n.remove());
+      return (doc.body.textContent || '')
         .replace(/Photo by .{0,60}? on Unsplash/g, ' ')
-        .replace(/\s+/g, ' ').trim();
+        .replace(/\s+/g, ' ')
+        .trim();
+    };
+    const mediumUrl = raw => {
+      try {
+        const u = new URL(raw);
+        return u.protocol === 'https:' && (u.hostname === 'medium.com' || u.hostname.endsWith('.medium.com')) ? u.href : null;
+      } catch { return null; }
     };
     const fmtDate = iso => {
-      if (!iso) return 'MEDIUM';
-      const d = new Date(iso.replace(' ', 'T'));
-      return isNaN(d) ? 'MEDIUM'
-        : d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+      const d = new Date(String(iso || '').replace(' ', 'T'));
+      return isNaN(d) ? 'Medium' : d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    };
+    const el = (tag, className, text) => {
+      const n = document.createElement(tag);
+      if (className) n.className = className;
+      if (text != null) n.textContent = text;
+      return n;
+    };
+    const mediumLink = () => {
+      const a = el('a', null, 'Medium');
+      a.href = `https://medium.com/${MEDIUM_USER}`;
+      return a;
     };
 
-    function card(post) {
-      const art = document.createElement('article');
-      art.className = 'blog-card neu-card';
-
-      if (post.thumbnail && /^https:/.test(post.thumbnail)) {
-        const img = document.createElement('img');
-        img.className = 'bc-thumb';
-        img.src = post.thumbnail;
-        img.alt = post.title;
-        img.loading = 'lazy';
-        art.appendChild(img);
-      }
-
-      const top = document.createElement('div');
-      top.className = 'bc-top';
-      const tag = document.createElement('span');
-      tag.className = 'bc-tag'; tag.textContent = 'MEDIUM';
-      const date = document.createElement('span');
-      date.className = 'bc-date'; date.textContent = fmtDate(post.pubDate);
-      top.append(tag, date);
-
-      const h = document.createElement('h3');
-      h.className = 'bc-title'; h.textContent = post.title;
-
-      const p = document.createElement('p');
-      p.className = 'bc-excerpt';
-      const text = strip(post.description);
-      p.textContent = text.length > 180 ? text.slice(0, 177).trimEnd() + '…' : text;
-
-      const a = document.createElement('a');
-      a.className = 'bc-link';
-      a.href = post.link; a.target = '_blank'; a.rel = 'noopener';
-      a.textContent = 'READ ON MEDIUM →';
-
-      art.append(top, h, p, a);
-      return art;
+    function row(post) {
+      const href = mediumUrl(post.link);
+      if (!href) return null;
+      const li = el('li', 'post-row');
+      const body = el('div', 'post-body');
+      const h = el('h3', 'post-title');
+      const a = el('a', null, toText(post.title));
+      a.href = href;
+      a.rel = 'noopener';
+      h.append(a);
+      const text = toText(post.description);
+      body.append(h, el('p', 'post-desc', text.length > 180 ? text.slice(0, 177).trimEnd() + '…' : text));
+      li.append(el('p', 'post-meta', `${fmtDate(post.pubDate)} · Medium`), body);
+      return li;
     }
 
-    function ctaCard() {
-      const div = document.createElement('div');
-      div.className = 'blog-card neu-card blog-card-cta';
-      div.innerHTML = `
-        <div class="bc-cta-inner">
-          <div class="bc-cta-icon">✍️</div>
-          <h3>More on Medium</h3>
-          <p>Follow along for security write-ups, research notes, and the occasional essay.</p>
-          <a href="https://medium.com/${MEDIUM_USER}" target="_blank" rel="noopener" class="btn-resume">Visit Medium ↗</a>
-        </div>`;
-      return div;
+    function render(posts) {
+      const rows = posts.map(row).filter(Boolean);
+      list.replaceChildren(...rows);
+      status.textContent = '';
+      if (rows.length) status.textContent = `${rows.length} recent post${rows.length === 1 ? '' : 's'} from Medium.`;
+      else status.append('No Medium posts to show right now. Read them on ', mediumLink(), '.');
+      if (window.LKP) LKP.reveal('#blogGrid .post-row');
     }
 
-    function render(posts, live) {
-      grid.textContent = '';
-      posts.forEach(p => grid.appendChild(card(p)));
-      grid.appendChild(ctaCard());
-      status.textContent = live
-        ? `$ ${posts.length} post${posts.length === 1 ? '' : 's'} loaded from medium.com/${MEDIUM_USER} ✓`
-        : `$ no Medium posts yet — the feed is wired up and new ones will appear here`;
-      if (window.LKP) LKP.reveal('.blog-card');
+    function fail() {
+      status.textContent = '';
+      status.append('The Medium feed couldn’t be loaded. Read the latest posts on ', mediumLink(), '.');
     }
+
+    const readCache = () => {
+      try { return JSON.parse(sessionStorage.getItem(CACHE_KEY) || 'null'); } catch { return null; }
+    };
+    const writeCache = posts => {
+      try { sessionStorage.setItem(CACHE_KEY, JSON.stringify(posts)); } catch { /* storage blocked */ }
+    };
 
     async function load() {
-      const cached = sessionStorage.getItem('lkp-medium-feed');
-      if (cached) {
-        try {
-          const posts = JSON.parse(cached);
-          render(posts, posts.length > 0);
-          return;
-        } catch {}
-      }
+      const cached = readCache();
+      if (Array.isArray(cached)) return render(cached);
       try {
         const res = await fetch(FEED_API);
-        if (!res.ok) throw new Error(res.status);
+        if (!res.ok) throw new Error(String(res.status));
         const data = await res.json();
         if (data.status !== 'ok' || !Array.isArray(data.items)) throw new Error('bad feed');
-        const posts = data.items.slice(0, 10).map(i => ({
-          title: i.title, link: i.link, pubDate: i.pubDate,
-          thumbnail: i.thumbnail, description: i.description
-        }));
-        sessionStorage.setItem('lkp-medium-feed', JSON.stringify(posts));
-        render(posts, posts.length > 0);
+        const posts = data.items.slice(0, 10).map(({ title, link, pubDate, description }) => ({ title, link, pubDate, description }));
+        writeCache(posts);
+        render(posts);
       } catch {
-        render([], false);
+        fail();
       }
     }
     load();
