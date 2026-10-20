@@ -20,12 +20,12 @@ function idleScreen(ctx, W, H, title, hint) {
   ctx.fillRect(0, 0, W, H);
   ctx.fillStyle = GREEN;
   ctx.shadowBlur = 20; ctx.shadowColor = GREEN;
-  ctx.font = 'bold 18px "JetBrains Mono"';
+  ctx.font = 'bold 18px "Geist Mono"';
   ctx.textAlign = 'center';
   ctx.fillText(title, W / 2, H / 2 - 10);
   ctx.shadowBlur = 0;
   ctx.fillStyle = 'rgba(34,197,94,0.5)';
-  ctx.font = '11px "JetBrains Mono"';
+  ctx.font = '11px "Geist Mono"';
   ctx.fillText(hint, W / 2, H / 2 + 16);
 }
 
@@ -34,12 +34,12 @@ function pauseOverlay(ctx, W, H) {
   ctx.fillRect(0, 0, W, H);
   ctx.fillStyle = GREEN;
   ctx.shadowBlur = 20; ctx.shadowColor = GREEN;
-  ctx.font = 'bold 18px "JetBrains Mono"';
+  ctx.font = 'bold 18px "Geist Mono"';
   ctx.textAlign = 'center';
   ctx.fillText('PAUSED', W / 2, H / 2);
   ctx.shadowBlur = 0;
   ctx.fillStyle = 'rgba(34,197,94,0.4)';
-  ctx.font = '11px "JetBrains Mono"';
+  ctx.font = '11px "Geist Mono"';
   ctx.fillText('PRESS ⏸ OR P TO RESUME', W / 2, H / 2 + 22);
 }
 
@@ -129,7 +129,7 @@ function pauseOverlay(ctx, W, H) {
     ctx.strokeRect(food.x*CELL+2,food.y*CELL+2,CELL-4,CELL-4);
     ctx.shadowBlur = 0;
     ctx.fillStyle = GREEN;
-    ctx.font = '5px "JetBrains Mono"';
+    ctx.font = '5px "Geist Mono"';
     ctx.textAlign = 'center';
     ctx.fillText(foodLabel, food.x*CELL+CELL/2, food.y*CELL+CELL/2+2);
   }
@@ -145,12 +145,12 @@ function pauseOverlay(ctx, W, H) {
       ctx.fillRect(0,0,canvas.width,canvas.height);
       ctx.fillStyle = GREEN;
       ctx.shadowBlur = 20; ctx.shadowColor = GREEN;
-      ctx.font = 'bold 18px "JetBrains Mono"';
+      ctx.font = 'bold 18px "Geist Mono"';
       ctx.textAlign = 'center';
       ctx.fillText('PAUSED', canvas.width/2, canvas.height/2);
       ctx.shadowBlur = 0;
       ctx.fillStyle = 'rgba(34,197,94,0.4)';
-      ctx.font = '11px "JetBrains Mono"';
+      ctx.font = '11px "Geist Mono"';
       ctx.fillText('PRESS ⏸ OR P TO RESUME', canvas.width/2, canvas.height/2+22);
     } else {
       state = 'playing';
@@ -169,7 +169,7 @@ function pauseOverlay(ctx, W, H) {
     idleScreen(ctx, canvas.width, canvas.height, 'GAME OVER', 'PRESS START');
     if (score > 0) {
       ctx.fillStyle='rgba(34,197,94,0.35)';
-      ctx.font='10px "JetBrains Mono"';
+      ctx.font='10px "Geist Mono"';
       ctx.fillText(`SCORE: ${score}`, canvas.width/2, canvas.height/2+36);
     }
   }
@@ -304,7 +304,7 @@ function pauseOverlay(ctx, W, H) {
     ctx.lineWidth=1;
     ctx.beginPath();ctx.moveTo(0,H-24);ctx.lineTo(W,H-24);ctx.stroke();
     ctx.fillStyle='rgba(248,113,113,0.4)';
-    ctx.font='8px "JetBrains Mono"';
+    ctx.font='8px "Geist Mono"';
     ctx.textAlign='left';
     ctx.fillText('KERNEL SPACE — DO NOT LET PAYLOADS REACH HERE',8,H-8);
 
@@ -319,7 +319,7 @@ function pauseOverlay(ctx, W, H) {
         ctx.fillStyle=`rgb(${r},${g},${b})`;
         ctx.shadowBlur=8; ctx.shadowColor=`rgb(${r},${g},${b})`;
       }
-      ctx.font=`bold 13px "JetBrains Mono"`;
+      ctx.font=`bold 13px "Geist Mono"`;
       ctx.textAlign='left';
       ctx.fillText(f.word, f.x, f.y);
       ctx.shadowBlur=0;
@@ -328,7 +328,7 @@ function pauseOverlay(ctx, W, H) {
     const typed = input.value.toUpperCase();
     if(typed && state==='playing'){
       ctx.fillStyle='rgba(34,197,94,0.25)';
-      ctx.font='13px "JetBrains Mono"';
+      ctx.font='13px "Geist Mono"';
       ctx.textAlign='center';
       ctx.fillText('> '+typed, W/2, H-36);
     }
@@ -361,12 +361,12 @@ function pauseOverlay(ctx, W, H) {
     pauseBtn.textContent = '⏸';
     ctx.fillStyle=DARK; ctx.fillRect(0,0,W,H);
     ctx.fillStyle=RED; ctx.shadowBlur=20; ctx.shadowColor=RED;
-    ctx.font='bold 20px "JetBrains Mono"';
+    ctx.font='bold 20px "Geist Mono"';
     ctx.textAlign='center';
     ctx.fillText('KERNEL BREACHED',W/2,H/2-20);
     ctx.shadowBlur=0;
     ctx.fillStyle='rgba(248,113,113,0.5)';
-    ctx.font='12px "JetBrains Mono"';
+    ctx.font='12px "Geist Mono"';
     ctx.fillText(`PAYLOADS NEUTRALIZED: ${score}`, W/2, H/2+10);
     ctx.fillStyle='rgba(34,197,94,0.4)';
     ctx.fillText('PRESS RESTART',W/2,H/2+35);
@@ -508,7 +508,7 @@ function pauseOverlay(ctx, W, H) {
     ctx.fillRect(0, 0, W, H);
 
     ctx.fillStyle = 'rgba(34,197,94,0.35)';
-    ctx.font = '9px "JetBrains Mono"';
+    ctx.font = '9px "Geist Mono"';
     ctx.textAlign = 'left';
     ctx.fillText(`FIREWALL v${level}.0`, 10, 16);
     ctx.textAlign = 'right';
@@ -520,7 +520,7 @@ function pauseOverlay(ctx, W, H) {
       ctx.fillStyle = `rgba(34,197,94,${alpha})`;
       ctx.fillRect(b.x, b.y, B_W - 4, B_H);
       ctx.fillStyle = 'rgba(10,15,10,0.8)';
-      ctx.font = '6px "JetBrains Mono"';
+      ctx.font = '6px "Geist Mono"';
       ctx.textAlign = 'center';
       ctx.fillText(ROW_LABELS[b.r], b.x + (B_W - 4) / 2, b.y + B_H / 2 + 2);
     });
@@ -550,7 +550,7 @@ function pauseOverlay(ctx, W, H) {
     pauseBtn.textContent = '⏸';
     idleScreen(ctx, W, H, 'FIREWALL DOWN', 'PRESS START');
     ctx.fillStyle = 'rgba(34,197,94,0.35)';
-    ctx.font = '10px "JetBrains Mono"';
+    ctx.font = '10px "Geist Mono"';
     ctx.fillText(`SCORE: ${score}`, W / 2, H / 2 + 36);
   }
 
@@ -702,7 +702,7 @@ function pauseOverlay(ctx, W, H) {
     }
 
     ctx.fillStyle = 'rgba(34,197,94,0.35)';
-    ctx.font = '9px "JetBrains Mono"';
+    ctx.font = '9px "Geist Mono"';
     ctx.textAlign = 'left';
     ctx.fillText(`WAVE ${wave}`, 10, 16);
     ctx.textAlign = 'right';
@@ -713,7 +713,7 @@ function pauseOverlay(ctx, W, H) {
       const danger = Math.min(1, (i.y - 40) / (H - 90));
       ctx.fillStyle = danger > 0.6 ? RED : danger > 0.3 ? AMBER : GREEN;
       ctx.shadowBlur = 6; ctx.shadowColor = ctx.fillStyle;
-      ctx.font = 'bold 11px "JetBrains Mono"';
+      ctx.font = 'bold 11px "Geist Mono"';
       ctx.textAlign = 'center';
       ctx.fillText(i.name, i.x, i.y);
       ctx.shadowBlur = 0;
@@ -751,12 +751,12 @@ function pauseOverlay(ctx, W, H) {
     pauseBtn.textContent = '⏸';
     ctx.fillStyle = DARK; ctx.fillRect(0, 0, W, H);
     ctx.fillStyle = RED; ctx.shadowBlur = 20; ctx.shadowColor = RED;
-    ctx.font = 'bold 20px "JetBrains Mono"';
+    ctx.font = 'bold 20px "Geist Mono"';
     ctx.textAlign = 'center';
     ctx.fillText('PERIMETER BREACHED', W / 2, H / 2 - 20);
     ctx.shadowBlur = 0;
     ctx.fillStyle = 'rgba(248,113,113,0.5)';
-    ctx.font = '12px "JetBrains Mono"';
+    ctx.font = '12px "Geist Mono"';
     ctx.fillText(`THREATS NEUTRALIZED: ${score / 10}`, W / 2, H / 2 + 10);
     ctx.fillStyle = 'rgba(34,197,94,0.4)';
     ctx.fillText('PRESS RESTART', W / 2, H / 2 + 35);
@@ -877,12 +877,12 @@ function pauseOverlay(ctx, W, H) {
         ctx.fillRect(x + 1, y + 1, CELL - 2, CELL - 2);
         if (cell.bomb) {
           ctx.fillStyle = RED;
-          ctx.font = `bold ${CELL * 0.45}px "JetBrains Mono"`;
+          ctx.font = `bold ${CELL * 0.45}px "Geist Mono"`;
           ctx.textAlign = 'center';
           ctx.fillText('✸', x + CELL / 2, y + CELL * 0.68);
         } else if (cell.n) {
           ctx.fillStyle = NUM_COLORS[cell.n];
-          ctx.font = `bold ${CELL * 0.42}px "JetBrains Mono"`;
+          ctx.font = `bold ${CELL * 0.42}px "Geist Mono"`;
           ctx.textAlign = 'center';
           ctx.fillText(cell.n, x + CELL / 2, y + CELL * 0.66);
         }
@@ -894,7 +894,7 @@ function pauseOverlay(ctx, W, H) {
         ctx.strokeRect(x + 1.5, y + 1.5, CELL - 3, CELL - 3);
         if (cell.flag) {
           ctx.fillStyle = GREEN;
-          ctx.font = `bold ${CELL * 0.42}px "JetBrains Mono"`;
+          ctx.font = `bold ${CELL * 0.42}px "Geist Mono"`;
           ctx.textAlign = 'center';
           ctx.fillText('⚑', x + CELL / 2, y + CELL * 0.66);
         }
@@ -903,7 +903,7 @@ function pauseOverlay(ctx, W, H) {
     if (state === 'playing' && !firstClick) {
       const t = Math.floor((Date.now() - startT) / 1000);
       ctx.fillStyle = 'rgba(34,197,94,0.55)';
-      ctx.font = '10px "JetBrains Mono"';
+      ctx.font = '10px "Geist Mono"';
       ctx.textAlign = 'right';
       ctx.fillText(t + 's', W - 6, 13);
     }
@@ -948,12 +948,12 @@ function pauseOverlay(ctx, W, H) {
     ctx.fillRect(0, H / 2 - 42, W, 84);
     ctx.fillStyle = won ? GREEN : RED;
     ctx.shadowBlur = 20; ctx.shadowColor = ctx.fillStyle;
-    ctx.font = 'bold 19px "JetBrains Mono"';
+    ctx.font = 'bold 19px "Geist Mono"';
     ctx.textAlign = 'center';
     ctx.fillText(won ? 'MEMORY CLEARED' : 'LOGIC BOMB DETONATED', W / 2, H / 2 - 6);
     ctx.shadowBlur = 0;
     ctx.fillStyle = 'rgba(200,216,200,0.6)';
-    ctx.font = '11px "JetBrains Mono"';
+    ctx.font = '11px "Geist Mono"';
     ctx.fillText(won ? `CLEARED IN ${t}s` : 'PRESS RESTART', W / 2, H / 2 + 20);
   }
 
@@ -1030,18 +1030,18 @@ function pauseOverlay(ctx, W, H) {
       ctx.lineWidth = 1.5;
       ctx.strokeRect(p.x, p.y, PW, PH);
       ctx.fillStyle = on ? DARK : 'rgba(34,197,94,0.65)';
-      ctx.font = 'bold 16px "JetBrains Mono"';
+      ctx.font = 'bold 16px "Geist Mono"';
       ctx.textAlign = 'center';
       ctx.fillText(p.label, p.x + PW / 2, p.y + PH / 2 + 6);
     });
     if (state === 'showing') {
       ctx.fillStyle = 'rgba(200,216,200,0.5)';
-      ctx.font = '10px "JetBrains Mono"';
+      ctx.font = '10px "Geist Mono"';
       ctx.textAlign = 'center';
       ctx.fillText('WATCH THE HEAP…', W / 2, H - 4);
     } else if (state === 'input') {
       ctx.fillStyle = 'rgba(34,197,94,0.55)';
-      ctx.font = '10px "JetBrains Mono"';
+      ctx.font = '10px "Geist Mono"';
       ctx.textAlign = 'center';
       ctx.fillText('YOUR TURN — REPEAT THE SEQUENCE', W / 2, H - 4);
     }
@@ -1122,12 +1122,12 @@ function pauseOverlay(ctx, W, H) {
     ctx.fillRect(0, 0, W, H);
     ctx.fillStyle = RED;
     ctx.shadowBlur = 20; ctx.shadowColor = RED;
-    ctx.font = 'bold 20px "JetBrains Mono"';
+    ctx.font = 'bold 20px "Geist Mono"';
     ctx.textAlign = 'center';
     ctx.fillText('SEGFAULT', W / 2, H / 2 - 14);
     ctx.shadowBlur = 0;
     ctx.fillStyle = 'rgba(248,113,113,0.55)';
-    ctx.font = '11px "JetBrains Mono"';
+    ctx.font = '11px "Geist Mono"';
     ctx.fillText(`HEAP CORRUPTED AT ROUND ${seq.length}`, W / 2, H / 2 + 12);
     ctx.fillStyle = 'rgba(34,197,94,0.4)';
     ctx.fillText('PRESS RESTART', W / 2, H / 2 + 34);
