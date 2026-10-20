@@ -28,5 +28,23 @@
     "waitingOnOwner": [
       "resume.pdf"
     ]
+  },
+  "browsers": {
+    "engines": [
+      "webkit",
+      "firefox"
+    ],
+    "pages": [
+      "index.html",
+      "projects.html",
+      "projects/kyber-crystals.html",
+      "blog.html",
+      "games.html"
+    ],
+    "ignore": [
+      "api\\.rss2json\\.com",
+      "not allowed by Access-Control-Allow-Origin"
+    ],
+    "colorScheme": "dark"
   }
 }

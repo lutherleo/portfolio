@@ -3,7 +3,7 @@
 // so existing problems are logged but anything new or worse blocks.
 //
 //   node scripts/gate.mjs                    every check, fail on regressions
-//   node scripts/gate.mjs --only=html,css    a subset (html css chrome links a11y lighthouse)
+//   node scripts/gate.mjs --only=html,css    a subset (html css chrome links a11y browsers lighthouse)
 //   node scripts/gate.mjs --write-baseline   record the current state as the baseline
 //   node scripts/gate.mjs --ratchet          compare, then lock in improvements if nothing regressed
 //   node scripts/gate.mjs --final            release targets from .quality/config.json instead
@@ -12,8 +12,8 @@ import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { ROOT, listFiles, startServer } from './lib/site.mjs';
 
-const ALL = ['html', 'css', 'chrome', 'links', 'a11y', 'lighthouse'];
-const NEEDS_SERVER = new Set(['links', 'a11y', 'lighthouse']);
+const ALL = ['html', 'css', 'chrome', 'links', 'a11y', 'browsers', 'lighthouse'];
+const NEEDS_SERVER = new Set(['links', 'a11y', 'browsers', 'lighthouse']);
 const LH_CATEGORIES = ['performance', 'accessibility', 'best-practices', 'seo'];
 
 const args = process.argv.slice(2);
@@ -103,7 +103,7 @@ function judge(name) {
     const status = failing.length ? 'FAIL' : warnings.length ? 'WARN' : 'PASS';
     return { status, now: r.broken.length, was: base ? base.length : '-', notes: [...failing, ...warnings] };
   }
-  // html, css, a11y: per-file counts may not rise (or must be 0 for --final).
+  // html, css, a11y, browsers: per-file counts may not rise (or must be 0 for --final).
   const notes = [];
   for (const [key, n] of Object.entries(r.counts)) {
     const limit = mode === 'final' ? 0 : (base?.[key] ?? 0);

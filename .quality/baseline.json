@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-20T09:36:22.143Z",
+  "updatedAt": "2026-10-20T10:52:46.469Z",
   "html": {
     "blog.html": 0,
     "games.html": 0,
@@ -270,5 +270,27 @@
       "cls": 0,
       "tbtMs": 0
     }
+  },
+  "browsers": {
+    "index.html@webkit@1440": 0,
+    "index.html@webkit@390": 0,
+    "projects.html@webkit@1440": 0,
+    "projects.html@webkit@390": 0,
+    "projects/kyber-crystals.html@webkit@1440": 0,
+    "projects/kyber-crystals.html@webkit@390": 0,
+    "blog.html@webkit@1440": 0,
+    "blog.html@webkit@390": 0,
+    "games.html@webkit@1440": 0,
+    "games.html@webkit@390": 0,
+    "index.html@firefox@1440": 0,
+    "index.html@firefox@390": 0,
+    "projects.html@firefox@1440": 0,
+    "projects.html@firefox@390": 0,
+    "projects/kyber-crystals.html@firefox@1440": 0,
+    "projects/kyber-crystals.html@firefox@390": 0,
+    "blog.html@firefox@1440": 0,
+    "blog.html@firefox@390": 0,
+    "games.html@firefox@1440": 0,
+    "games.html@firefox@390": 0
   }
 }
