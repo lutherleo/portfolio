@@ -20,11 +20,59 @@
   <meta property="og:title" content="Love Kush Pranu — Cybersecurity Engineer" />
   <meta property="og:description" content="NYU Cybersecurity MS student, Red Team Researcher & OSIRIS Lab Research Coordinator. Post-quantum crypto, kernel fuzzing, adversarial ML." />
   <meta property="og:url" content="https://lutherleo.github.io/portfolio/" />
-  <meta property="og:image" content="https://lutherleo.github.io/portfolio/photo.jpeg" />
-  <meta name="twitter:card" content="summary" />
+  <meta property="og:image" content="https://lutherleo.github.io/portfolio/assets/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Love Kush Pranu, cybersecurity engineer: post-quantum crypto, kernel fuzzing and adversarial ML" />
+  <meta property="og:site_name" content="Love Kush Pranu" />
+  <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Love Kush Pranu — Cybersecurity Engineer" />
-  <meta name="twitter:description" content="NYU Cybersecurity MS student, Red Team Researcher & OSIRIS Lab Research Coordinator." />
+  <meta name="twitter:description" content="NYU Cybersecurity MS student, Red Team Researcher & OSIRIS Lab Research Coordinator. Post-quantum crypto, kernel fuzzing, adversarial ML." />
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Love Kush Pranu",
+    "url": "https://lutherleo.github.io/portfolio/",
+    "image": "https://lutherleo.github.io/portfolio/photo.jpeg",
+    "jobTitle": "Cybersecurity engineer",
+    "email": "mailto:lp2989@nyu.edu",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Brooklyn",
+      "addressRegion": "NY",
+      "addressCountry": "US"
+    },
+    "affiliation": {
+      "@type": "Organization",
+      "name": "OSIRIS Lab, NYU Tandon School of Engineering",
+      "url": "https://osiris.cyber.nyu.edu/"
+    },
+    "alumniOf": [
+      {
+        "@type": "CollegeOrUniversity",
+        "name": "New York University Tandon School of Engineering"
+      },
+      {
+        "@type": "CollegeOrUniversity",
+        "name": "National Institute of Technology Calicut"
+      }
+    ],
+    "knowsAbout": [
+      "Post-quantum cryptography",
+      "Kernel fuzzing",
+      "Adversarial machine learning",
+      "Penetration testing",
+      "Network security"
+    ],
+    "sameAs": [
+      "https://github.com/lutherleo",
+      "https://www.linkedin.com/in/lovekush-pranu",
+      "https://medium.com/@lovekush.pranu"
+    ]
+  }
+  </script>
   <link rel="stylesheet" href="style.css" />
   <link rel="preload" href="assets/fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin />
   <script type="importmap">
@@ -381,7 +429,11 @@
       </header>
       <div class="about-grid">
         <figure class="about-photo">
-          <img src="photo.jpeg" alt="Love Kush Pranu" width="768" height="1024" loading="lazy" decoding="async" />
+          <picture>
+            <source type="image/avif" srcset="assets/photo-480.avif 480w, assets/photo-768.avif 768w" sizes="(width <= 860px) 320px, 340px" />
+            <source type="image/webp" srcset="assets/photo-480.webp 480w, assets/photo-768.webp 768w" sizes="(width <= 860px) 320px, 340px" />
+            <img src="photo.jpeg" srcset="assets/photo-480.jpg 480w, photo.jpeg 768w" sizes="(width <= 860px) 320px, 340px" alt="Love Kush Pranu" width="768" height="1024" loading="lazy" decoding="async" />
+          </picture>
           <figcaption>GPA 3.9/4.0 · NYU Tandon MS ’26</figcaption>
         </figure>
         <div class="about-body">
