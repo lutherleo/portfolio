@@ -41,4 +41,4 @@ Pushing to `main` deploys via GitHub Pages (`.nojekyll` is required — keep it)
 
 ## TODO
 
-- [ ] Add `resume.pdf` to the repo root — the "Download CV" button on the homepage points to it.
+- [x] Add `resume.pdf` to the repo root — the "Download CV" button on the homepage points to it.

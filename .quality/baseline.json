@@ -26,29 +26,7 @@
   "css": {
     "style.css": 0
   },
-  "links": [
-    "404.html -> resume.pdf (404)",
-    "blog.html -> resume.pdf (404)",
-    "games.html -> resume.pdf (404)",
-    "hobbies.html -> resume.pdf (404)",
-    "index.html -> resume.pdf (404)",
-    "interviews.html -> resume.pdf (404)",
-    "posts/building-the-same-secure-channel-twice.html -> resume.pdf (404)",
-    "posts/fuzzing-kernel-race-conditions.html -> resume.pdf (404)",
-    "posts/writing-a-csaw-ctf-challenge.html -> resume.pdf (404)",
-    "projects.html -> resume.pdf (404)",
-    "projects/adversarial-ml.html -> resume.pdf (404)",
-    "projects/animus.html -> resume.pdf (404)",
-    "projects/chip-8-emulator.html -> resume.pdf (404)",
-    "projects/chronos.html -> resume.pdf (404)",
-    "projects/csaw-ctf-2025.html -> resume.pdf (404)",
-    "projects/kyber-crystals.html -> resume.pdf (404)",
-    "projects/lind-sandbox.html -> resume.pdf (404)",
-    "projects/overthewire.html -> resume.pdf (404)",
-    "projects/racefuzz.html -> resume.pdf (404)",
-    "projects/vulnerability-scanner.html -> resume.pdf (404)",
-    "projects/xv6-security.html -> resume.pdf (404)"
-  ],
+  "links": [],
   "a11y": {
     "404.html@dark": 0,
     "blog.html@dark": 0,

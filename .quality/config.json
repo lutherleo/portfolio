@@ -25,9 +25,7 @@
     }
   },
   "links": {
-    "waitingOnOwner": [
-      "resume.pdf"
-    ]
+    "waitingOnOwner": []
   },
   "browsers": {
     "engines": [
